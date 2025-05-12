@@ -16,5 +16,22 @@ namespace CuoiKi
         {
             InitializeComponent();
         }
+
+        private void VerificationForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+            lblResult.Text = " Đã Xác thực thành công!";
+            lblResult.ForeColor = Color.Green;
+        }
+
+        private void btnReject_Click(object sender, EventArgs e)
+        {
+            lblResult.Text = "Đã từ chối xác thực!";
+            lblResult.ForeColor = Color.Red;
+        }
     }
 }

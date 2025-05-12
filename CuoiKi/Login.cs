@@ -51,8 +51,9 @@ namespace CuoiKi
 
             if (rd.Read() == true)
             {
-                new ApplicationForm().Show();
+                //new ApplicationForm().Show();
                 //new Menu().Show();
+                new VerificationForm().Show();
                 this.Hide();
 
             }
