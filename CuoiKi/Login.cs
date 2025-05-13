@@ -53,7 +53,8 @@ namespace CuoiKi
             {
                 //new ApplicationForm().Show();
                 //new Menu().Show();
-                new VerificationForm().Show();
+                //new VerificationForm().Show();
+                new ApprovalForm().Show();
                 this.Hide();
 
             }

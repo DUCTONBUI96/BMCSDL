@@ -53,8 +53,8 @@
             this.rtbNotes.Size = new System.Drawing.Size(773, 114);
             this.rtbNotes.TabIndex = 1;
             this.rtbNotes.Text = "Nhập ghi chú... ";
-            this.rtbNotes.Visible = false;
             this.rtbNotes.WordWrap = false;
+            this.rtbNotes.TextChanged += new System.EventHandler(this.rtbNotes_TextChanged);
             // 
             // btnApprove
             // 

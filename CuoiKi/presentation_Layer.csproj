@@ -84,6 +84,12 @@
     <Compile Include="ResidentListForm.Designer.cs">
       <DependentUpon>ResidentListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SearchStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchStatusForm.Designer.cs">
+      <DependentUpon>SearchStatusForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerificationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ResidentListForm.resx">
       <DependentUpon>ResidentListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchStatusForm.resx">
+      <DependentUpon>SearchStatusForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerificationForm.resx">
       <DependentUpon>VerificationForm.cs</DependentUpon>
