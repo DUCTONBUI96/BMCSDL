@@ -15,7 +15,7 @@ namespace CuoiKi
         public SearchStatusForm()
         {
             InitializeComponent();
-            this.txtCCCD.Size=new Size(200, 30);
+            this.txtCCCD.Size=new Size(661, 50);
 
         }
 
