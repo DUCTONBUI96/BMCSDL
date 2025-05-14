@@ -58,6 +58,12 @@
     <Compile Include="ApprovalForm.Designer.cs">
       <DependentUpon>ApprovalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AuditTrailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuditTrailForm.Designer.cs">
+      <DependentUpon>AuditTrailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ApprovalForm.resx">
       <DependentUpon>ApprovalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditTrailForm.resx">
+      <DependentUpon>AuditTrailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
