@@ -15,6 +15,30 @@ namespace CuoiKi
         public ResidentListForm()
         {
             InitializeComponent();
+            txtSearch.ForeColor = Color.Gray;
+            txtSearch.GotFocus += RemovePlaceholder;
+            txtSearch.LostFocus += SetPlaceholder;
+
+        }
+        private void RemovePlaceholder(object sender, EventArgs e)
+        {
+            if (txtSearch.ForeColor == Color.Gray)
+            {
+                txtSearch.Text = "";
+                txtSearch.ForeColor = Color.Black;
+            }
+        }
+
+        private void SetPlaceholder(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                txtSearch.ForeColor = Color.Gray;
+            }
+        }
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

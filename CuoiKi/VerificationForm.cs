@@ -15,6 +15,26 @@ namespace CuoiKi
         public VerificationForm()
         {
             InitializeComponent();
+            txtSearchCCCD.ForeColor = Color.Gray;
+            txtSearchCCCD.GotFocus += RemovePlaceholder;
+            txtSearchCCCD.LostFocus += SetPlaceholder;
+        }
+        private void RemovePlaceholder(object sender, EventArgs e)
+        {
+            if (txtSearchCCCD.ForeColor == Color.Gray)
+            {
+                txtSearchCCCD.Text = "";
+                txtSearchCCCD.ForeColor = Color.Black;
+            }
+        }
+
+        private void SetPlaceholder(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearchCCCD.Text))
+            {
+                //txtSearchCCCD.Text = "Nhập ghi chú... ";
+                txtSearchCCCD.ForeColor = Color.Gray;
+            }
         }
 
         private void VerificationForm_Load(object sender, EventArgs e)
@@ -32,6 +52,11 @@ namespace CuoiKi
         {
             lblResult.Text = "Đã từ chối xác thực!";
             lblResult.ForeColor = Color.Red;
+        }
+
+        private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

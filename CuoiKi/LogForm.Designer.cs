@@ -46,6 +46,7 @@
             this.txtUserFilter.Size = new System.Drawing.Size(148, 22);
             this.txtUserFilter.TabIndex = 0;
             this.txtUserFilter.Text = "Tên người dùng...";
+            this.txtUserFilter.TextChanged += new System.EventHandler(this.txtUserFilter_TextChanged);
             // 
             // label1
             // 

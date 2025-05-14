@@ -15,6 +15,12 @@ namespace CuoiKi
         public LogForm()
         {
             InitializeComponent();
+
+        }
+
+        private void txtUserFilter_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

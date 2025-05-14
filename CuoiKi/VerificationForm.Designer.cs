@@ -53,6 +53,7 @@
             this.txtSearchCCCD.Size = new System.Drawing.Size(200, 22);
             this.txtSearchCCCD.TabIndex = 1;
             this.txtSearchCCCD.Text = "Tìm Kiếm";
+            this.txtSearchCCCD.TextChanged += new System.EventHandler(this.txtSearchCCCD_TextChanged);
             // 
             // btnApprove
             // 
