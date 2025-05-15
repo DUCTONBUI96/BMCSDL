@@ -49,7 +49,7 @@
             // 
             btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnClose.ForeColor = System.Drawing.Color.Red;
-            btnClose.Location = new System.Drawing.Point(449, 0);
+            btnClose.Location = new System.Drawing.Point(448, 0);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(50, 33);
             btnClose.TabIndex = 26;

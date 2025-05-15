@@ -78,7 +78,7 @@ namespace CuoiKi
             }
             else
             {
-                txtPassword.PasswordChar = '*';
+                txtPassword.PasswordChar = '\0';
                 
             }
         }
