@@ -18,7 +18,10 @@ namespace CuoiKi
         {
             InitializeComponent();
         }
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            txtPassword.PasswordChar = '*'; // Ẩn password mặc định
+        }
 
         // CSDL
         public SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
@@ -72,16 +75,15 @@ namespace CuoiKi
         {
             if (ckbShowpassWord.Checked)
             {
-                txtPassword.PasswordChar = '*';
-                txtPassword.PasswordChar = '\0';
-               
+                txtPassword.PasswordChar = '\0'; // Hiện mật khẩu
             }
             else
             {
-                txtPassword.PasswordChar = '\0';
-                
+                txtPassword.PasswordChar = '*';  // Ẩn mật khẩu
             }
         }
+
+
 
         private void btn_Dangki_Click(object sender, EventArgs e)
         {
