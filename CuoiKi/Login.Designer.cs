@@ -39,8 +39,9 @@
             this.btn_Dangki = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnDangnhap = new System.Windows.Forms.Button();
+            this.txtOTP = new System.Windows.Forms.TextBox();
+            this.btnSendOTP = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // 
             this.ckbShowpassWord.AutoSize = true;
             this.ckbShowpassWord.ForeColor = System.Drawing.Color.Sienna;
-            this.ckbShowpassWord.Location = new System.Drawing.Point(301, 322);
+            this.ckbShowpassWord.Location = new System.Drawing.Point(311, 382);
             this.ckbShowpassWord.Name = "ckbShowpassWord";
             this.ckbShowpassWord.Size = new System.Drawing.Size(151, 27);
             this.ckbShowpassWord.TabIndex = 20;
@@ -129,7 +130,7 @@
             this.btn_Dangki.FlatAppearance.BorderSize = 0;
             this.btn_Dangki.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Dangki.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btn_Dangki.Location = new System.Drawing.Point(97, 468);
+            this.btn_Dangki.Location = new System.Drawing.Point(97, 522);
             this.btn_Dangki.Name = "btn_Dangki";
             this.btn_Dangki.Size = new System.Drawing.Size(333, 39);
             this.btn_Dangki.TabIndex = 25;
@@ -141,7 +142,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label6.Location = new System.Drawing.Point(183, 442);
+            this.label6.Location = new System.Drawing.Point(157, 484);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(199, 23);
             this.label6.TabIndex = 24;
@@ -151,25 +152,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.Location = new System.Drawing.Point(42, 321);
+            this.label5.Location = new System.Drawing.Point(42, 301);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 23);
+            this.label5.Size = new System.Drawing.Size(91, 23);
             this.label5.TabIndex = 23;
-            this.label5.Text = "Vai trò";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "XT",
-            "XD",
-            "LT",
-            "GS"});
-            this.comboBox1.Location = new System.Drawing.Point(111, 318);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 31);
-            this.comboBox1.TabIndex = 22;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.label5.Text = "Nhập OTP";
             // 
             // btnDangnhap
             // 
@@ -178,7 +165,7 @@
             this.btnDangnhap.FlatAppearance.BorderSize = 0;
             this.btnDangnhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangnhap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
-            this.btnDangnhap.Location = new System.Drawing.Point(97, 382);
+            this.btnDangnhap.Location = new System.Drawing.Point(97, 429);
             this.btnDangnhap.Name = "btnDangnhap";
             this.btnDangnhap.Size = new System.Drawing.Size(333, 39);
             this.btnDangnhap.TabIndex = 21;
@@ -186,12 +173,35 @@
             this.btnDangnhap.UseVisualStyleBackColor = false;
             this.btnDangnhap.Click += new System.EventHandler(this.btnDangnhap_Click);
             // 
+            // txtOTP
+            // 
+            this.txtOTP.AcceptsTab = true;
+            this.txtOTP.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.txtOTP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtOTP.Location = new System.Drawing.Point(46, 336);
+            this.txtOTP.Multiline = true;
+            this.txtOTP.Name = "txtOTP";
+            this.txtOTP.Size = new System.Drawing.Size(416, 40);
+            this.txtOTP.TabIndex = 27;
+            // 
+            // btnSendOTP
+            // 
+            this.btnSendOTP.Location = new System.Drawing.Point(45, 386);
+            this.btnSendOTP.Name = "btnSendOTP";
+            this.btnSendOTP.Size = new System.Drawing.Size(75, 37);
+            this.btnSendOTP.TabIndex = 28;
+            this.btnSendOTP.Text = "gửi otp";
+            this.btnSendOTP.UseVisualStyleBackColor = true;
+            this.btnSendOTP.Click += new System.EventHandler(this.btnSendOTP_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(500, 650);
+            this.Controls.Add(this.btnSendOTP);
+            this.Controls.Add(this.txtOTP);
             this.Controls.Add(btnClose);
             this.Controls.Add(this.ckbShowpassWord);
             this.Controls.Add(this.txtPassword);
@@ -202,7 +212,6 @@
             this.Controls.Add(this.btn_Dangki);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btnDangnhap);
             this.Font = new System.Drawing.Font("Nirmala UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
@@ -228,7 +237,8 @@
         private System.Windows.Forms.Button btn_Dangki;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnDangnhap;
+        private System.Windows.Forms.TextBox txtOTP;
+        private System.Windows.Forms.Button btnSendOTP;
     }
 }

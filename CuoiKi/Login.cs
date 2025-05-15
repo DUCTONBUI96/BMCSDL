@@ -92,10 +92,9 @@ namespace CuoiKi
         {
 
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnSendOTP_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Mã OTP đã được gửi đến email của bạn. Vui lòng kiểm tra hộp thư đến của bạn.", "Gửi mã OTP", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
