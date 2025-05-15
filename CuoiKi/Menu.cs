@@ -75,14 +75,44 @@ namespace CuoiKi
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            
+            // Bước 1: Reset style cho tất cả menu items
+            foreach (ToolStripItem item in menuStrip1.Items)
+            {
+                item.BackColor = SystemColors.Control;
+                item.ForeColor = Color.Black;
+                item.Font = new Font(item.Font, FontStyle.Regular);
+            }
+
+            // Bước 2: Set style cho item được chọn
+            ToolStripItem clickedItem = e.ClickedItem;
+            clickedItem.BackColor = Color.LightBlue;
+            clickedItem.ForeColor = Color.Black;
+            clickedItem.Font = new Font(clickedItem.Font, FontStyle.Bold);
+
+            // Optional: gọi hàm load giao diện tương ứng ở đây
+        
+        }
+
+        private void HighlightMenu(ToolStripMenuItem selectedItem)
+        {
+            // Reset màu của tất cả menu
+            foreach (ToolStripMenuItem item in menuStrip1.Items)
+            {
+                item.BackColor = SystemColors.Control; // màu mặc định
+            }
+
+            // Đổi màu của item đang chọn
+            selectedItem.BackColor = Color.LightBlue; // màu khi được chọn
         }
 
         private void xToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
+     
+
     }
-    
+
 
 }
