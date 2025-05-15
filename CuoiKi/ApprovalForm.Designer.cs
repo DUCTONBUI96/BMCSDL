@@ -88,10 +88,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(797, 554);
+            this.Controls.Add(this.rtbNotes);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnReject);
             this.Controls.Add(this.btnApprove);
-            this.Controls.Add(this.rtbNotes);
             this.Controls.Add(this.dgvApplications);
             this.Name = "ApprovalForm";
             this.Text = "ApprovalForm";

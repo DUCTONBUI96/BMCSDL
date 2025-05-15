@@ -36,7 +36,7 @@ namespace CuoiKi
                 rtbNotes.ForeColor = Color.Gray;
             }
         }
-
+        
         private void rtbNotes_TextChanged(object sender, EventArgs e)
         {
 
