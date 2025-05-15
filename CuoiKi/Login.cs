@@ -72,6 +72,7 @@ namespace CuoiKi
         {
             if (ckbShowpassWord.Checked)
             {
+                txtPassword.PasswordChar = '*';
                 txtPassword.PasswordChar = '\0';
                
             }

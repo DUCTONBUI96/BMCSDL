@@ -58,5 +58,19 @@ namespace CuoiKi
         {
             lblTime.Text = System.DateTime.Now.ToString();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+      //  Image icon = Image.FromFile("image/tick.png");
+       // btnSearchStatus.Image = new Bitmap(icon, new Size(20, 20)); // Resize icon nhỏ lại
+
     }
 }

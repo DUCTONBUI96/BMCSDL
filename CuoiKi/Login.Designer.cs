@@ -61,7 +61,7 @@
             // 
             this.ckbShowpassWord.AutoSize = true;
             this.ckbShowpassWord.ForeColor = System.Drawing.Color.Sienna;
-            this.ckbShowpassWord.Location = new System.Drawing.Point(311, 382);
+            this.ckbShowpassWord.Location = new System.Drawing.Point(311, 392);
             this.ckbShowpassWord.Name = "ckbShowpassWord";
             this.ckbShowpassWord.Size = new System.Drawing.Size(151, 27);
             this.ckbShowpassWord.TabIndex = 20;
@@ -188,9 +188,9 @@
             // 
             this.btnSendOTP.Location = new System.Drawing.Point(45, 386);
             this.btnSendOTP.Name = "btnSendOTP";
-            this.btnSendOTP.Size = new System.Drawing.Size(75, 37);
+            this.btnSendOTP.Size = new System.Drawing.Size(126, 37);
             this.btnSendOTP.TabIndex = 28;
-            this.btnSendOTP.Text = "gửi otp";
+            this.btnSendOTP.Text = "Gửi otp";
             this.btnSendOTP.UseVisualStyleBackColor = true;
             this.btnSendOTP.Click += new System.EventHandler(this.btnSendOTP_Click);
             // 
