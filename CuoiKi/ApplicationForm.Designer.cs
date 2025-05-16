@@ -66,7 +66,6 @@
             this.btnUpload.TabIndex = 2;
             this.btnUpload.Text = "Chọn tệp";
             this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -157,7 +156,6 @@
             this.label10.Size = new System.Drawing.Size(343, 22);
             this.label10.TabIndex = 11;
             this.label10.Text = "Tải lên giấy tờ đính kèm (CCCD, hộ khẩu)";
-            this.label10.Click += new System.EventHandler(this.label10_Click_1);
             // 
             // btnBack
             // 
@@ -179,6 +177,7 @@
             this.btnSubmit.TabIndex = 13;
             this.btnSubmit.Text = "Gửi đăng ký";
             this.btnSubmit.UseVisualStyleBackColor = false;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // label9
             // 
@@ -192,7 +191,6 @@
             this.label9.TabIndex = 3;
             this.label9.Text = "Đăng Ký Cấp Hộ Chiếu";
             this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // txtFullName
             // 
@@ -204,7 +202,6 @@
             this.txtFullName.Name = "txtFullName";
             this.txtFullName.Size = new System.Drawing.Size(329, 32);
             this.txtFullName.TabIndex = 10;
-          
             // 
             // txtCCCDid
             // 
@@ -227,7 +224,6 @@
             this.cboGender.Name = "cboGender";
             this.cboGender.Size = new System.Drawing.Size(329, 30);
             this.cboGender.TabIndex = 14;
-            this.cboGender.SelectedIndexChanged += new System.EventHandler(this.cboGender_SelectedIndexChanged);
             // 
             // cboNationality
             // 
@@ -283,7 +279,6 @@
             this.rtbAddress.Size = new System.Drawing.Size(329, 81);
             this.rtbAddress.TabIndex = 4;
             this.rtbAddress.Text = "";
-            this.rtbAddress.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // panel1
             // 

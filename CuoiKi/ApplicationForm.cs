@@ -20,69 +20,10 @@ namespace CuoiKi
           
 
         }
-    
-
-        private void groupBox1_Enter(object sender, EventArgs e)
+ 
+        private void btnSubmit_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click_1(object sender, EventArgs e)
-        {
-
-        }
-    
-
-        private void cboGender_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-       
     }
 }
