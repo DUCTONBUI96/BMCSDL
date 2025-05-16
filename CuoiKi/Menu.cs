@@ -41,36 +41,10 @@ namespace CuoiKi
             timer.Start();
         }
         
-
-        private void Menu_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void statusUserName_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Sample WinForms Application\nVersion 1.0", "About",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem12_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -105,13 +79,17 @@ namespace CuoiKi
             selectedItem.BackColor = Color.LightBlue; // màu khi được chọn
         }
 
-        private void xToolStripMenuItem_Click(object sender, EventArgs e)
+        private void thoátToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            this.Close();
         }
 
-     
-
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Login().Show();
+            this.Hide();
+        }
     }
 
 
