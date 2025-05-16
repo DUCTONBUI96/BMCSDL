@@ -81,7 +81,6 @@ namespace CuoiKi
 
         private void thoátToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             this.Close();
         }
 
@@ -89,6 +88,17 @@ namespace CuoiKi
         {
             new Login().Show();
             this.Hide();
+        }
+
+        private void đổiMậtKhẩuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ChangePasswordForm().Show();
+            this.Hide();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
