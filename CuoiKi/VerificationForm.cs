@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,23 @@ namespace CuoiKi
 
         private void VerificationForm_Load(object sender, EventArgs e)
         {
-
+            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
+            string query = "SELECT * FROM ResidentData";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataAdapter d = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    d.Fill(dt);
+                    dgvApplications.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message);
+            }
         }
 
         private void btnApprove_Click(object sender, EventArgs e)

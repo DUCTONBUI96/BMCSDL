@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerificationForm));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvApplications = new System.Windows.Forms.DataGridView();
             this.txtSearchCCCD = new System.Windows.Forms.TextBox();
             this.btnApprove = new System.Windows.Forms.Button();
             this.btnReject = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnViewDetails = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvApplications
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 68);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 277);
-            this.dataGridView1.TabIndex = 0;
+            this.dgvApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvApplications.Location = new System.Drawing.Point(12, 68);
+            this.dgvApplications.Name = "dgvApplications";
+            this.dgvApplications.RowHeadersWidth = 51;
+            this.dgvApplications.RowTemplate.Height = 24;
+            this.dgvApplications.Size = new System.Drawing.Size(776, 277);
+            this.dgvApplications.TabIndex = 0;
             // 
             // txtSearchCCCD
             // 
@@ -142,11 +142,11 @@
             this.Controls.Add(this.btnReject);
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.txtSearchCCCD);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvApplications);
             this.Name = "VerificationForm";
             this.Text = "VerificationForm";
             this.Load += new System.EventHandler(this.VerificationForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -155,7 +155,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvApplications;
         private System.Windows.Forms.TextBox txtSearchCCCD;
         private System.Windows.Forms.Button btnApprove;
         private System.Windows.Forms.Button btnReject;
