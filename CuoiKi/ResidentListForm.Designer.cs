@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvResidents = new System.Windows.Forms.DataGridView();
             this.btnViewDetails = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResidents)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -43,15 +43,15 @@
             this.txtSearch.Text = "Tìm kiếm";
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
-            // dataGridView1
+            // dgvResidents
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 86);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 254);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvResidents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResidents.Location = new System.Drawing.Point(12, 86);
+            this.dgvResidents.Name = "dgvResidents";
+            this.dgvResidents.RowHeadersWidth = 51;
+            this.dgvResidents.RowTemplate.Height = 24;
+            this.dgvResidents.Size = new System.Drawing.Size(776, 254);
+            this.dgvResidents.TabIndex = 1;
             // 
             // btnViewDetails
             // 
@@ -68,11 +68,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnViewDetails);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvResidents);
             this.Controls.Add(this.txtSearch);
             this.Name = "ResidentListForm";
             this.Text = "ResidentListForm";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.ResidentListForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResidents)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,7 +82,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvResidents;
         private System.Windows.Forms.Button btnViewDetails;
     }
 }
