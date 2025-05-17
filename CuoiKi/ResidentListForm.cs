@@ -63,5 +63,7 @@ namespace CuoiKi
                 MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message);
             }
         }
+
+       
     }
 }
