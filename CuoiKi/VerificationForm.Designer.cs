@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerificationForm));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvApplications = new System.Windows.Forms.DataGridView();
             this.btnApprove = new System.Windows.Forms.Button();
             this.btnReject = new System.Windows.Forms.Button();
             this.lblResult = new System.Windows.Forms.Label();
             this.btnViewDetails = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.txtSearchCCCD = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,11 +140,11 @@
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.btnReject);
             this.Controls.Add(this.btnApprove);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvApplications);
             this.Name = "VerificationForm";
             this.Text = "VerificationForm";
             this.Load += new System.EventHandler(this.VerificationForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -153,7 +153,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvApplications;
         private System.Windows.Forms.Button btnApprove;
         private System.Windows.Forms.Button btnReject;
         private System.Windows.Forms.Label lblResult;

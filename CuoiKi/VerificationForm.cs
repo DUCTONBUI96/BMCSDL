@@ -50,7 +50,8 @@ namespace CuoiKi
                     SqlDataAdapter d = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     d.Fill(dt);
-                    dgvApplications.DataSource = dt;
+                    
+
                 }
             }
             catch (Exception ex)
@@ -75,5 +76,6 @@ namespace CuoiKi
         {
 
         }
+
     }
 }
