@@ -123,6 +123,7 @@
             this.txtSearchCCCD.Size = new System.Drawing.Size(170, 29);
             this.txtSearchCCCD.TabIndex = 17;
             this.txtSearchCCCD.Text = "Tìm kiếm CCCD";
+            this.txtSearchCCCD.TextChanged += new System.EventHandler(this.txtSearchCCCD_TextChanged);
             // 
             // lblStatus
             // 

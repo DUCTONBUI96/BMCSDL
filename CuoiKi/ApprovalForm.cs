@@ -81,7 +81,7 @@ namespace CuoiKi
 
 
 
-            // Kết nối đến cơ sở dữ liệu
+            // Kết nối đến cơ sở dữ liệu và lấy dữ liệu
             string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
             string query = "SELECT * FROM ResidentData";
             try
@@ -102,5 +102,11 @@ namespace CuoiKi
             }
         }
 
+        //button tìm kiếm 
+        private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
+        {
+            (dgvApplications.DataSource as DataTable).DefaultView.RowFilter = string.Format("CMND LIKE '%{0}%'", txtSearchCCCD.Text);
+            
+        }
     }
 }
