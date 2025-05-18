@@ -16,7 +16,7 @@ namespace CuoiKi
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NotificationForm());
+            Application.Run(new AuditTrailForm());
         }
     }
 }
