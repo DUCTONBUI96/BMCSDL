@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForm.Designer.cs">
+      <DependentUpon>AdminForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +132,24 @@
     <Compile Include="SearchStatusForm.Designer.cs">
       <DependentUpon>SearchStatusForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SecurityMonitorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SecurityMonitorForm.Designer.cs">
+      <DependentUpon>SecurityMonitorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_Phanquyen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_Phanquyen.Designer.cs">
+      <DependentUpon>UC_Phanquyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_quanli.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_quanli.Designer.cs">
+      <DependentUpon>UC_quanli.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerificationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +162,9 @@
     <Compile Include="WelcomeScreen.Designer.cs">
       <DependentUpon>WelcomeScreen.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AdminForm.resx">
+      <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AuditTrailForm.resx">
       <DependentUpon>AuditTrailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
@@ -174,6 +205,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchStatusForm.resx">
       <DependentUpon>SearchStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SecurityMonitorForm.resx">
+      <DependentUpon>SecurityMonitorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_Phanquyen.resx">
+      <DependentUpon>UC_Phanquyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_quanli.resx">
+      <DependentUpon>UC_quanli.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerificationForm.resx">
       <DependentUpon>VerificationForm.cs</DependentUpon>

@@ -16,5 +16,18 @@ namespace CuoiKi
         {
             InitializeComponent();
         }
+
+       
+
+        private void ChangePasswordForm_Load(object sender, EventArgs e)
+        {
+         //   txtOldPassword.UseSystemPasswordChar = true;
+            txtOldPassword.PasswordChar = '*';
+
+            txtNewPassword.PasswordChar = '*';
+            txtConfirmPassword.PasswordChar = '*';
+        }
+
+       
     }
 }
