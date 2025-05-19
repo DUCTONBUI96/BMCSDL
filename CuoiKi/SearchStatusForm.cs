@@ -28,5 +28,30 @@ namespace CuoiKi
         {
 
         }
+
+        private void SearchStatusForm_Load(object sender, EventArgs e)
+        {
+           txtCCCD.Text = "Tên người dùng";
+            txtCCCD.ForeColor = Color.Gray;
+        }
+
+        private void txtCCCD_Enter(object sender, EventArgs e)
+        {
+
+            if (txtCCCD.Text == "Tên người dùng")
+            {
+                txtCCCD.Text = "";
+                txtCCCD.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtCCCD_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtCCCD.Text))
+            {
+                txtCCCD.Text = "Tên người dùng";
+                txtCCCD.ForeColor = Color.Gray;
+            }
+        }
     }
 }

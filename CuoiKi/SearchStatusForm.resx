@@ -117,4 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnSearch.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAH0SURBVEhL3ZQ/a1RBFMU3KyoGRCtFkCRz34Jga6X4BWQ1
+        gkXAynwBa230gabY3LsxigZiZSmkTJEqH8FGkypNYNk7zz9gYZNKR868Scy7u3lJNE38wavOfXdmztwz
+        jcZ/DXW+n6Ou3neiz0j0DYl/SuJvtV5tnLa1h+LK7LezJCokfovEB/s50a8Z68NGHpr2332hjo451rXY
+        iHUlY73rXn6+eO1tOAmNuJgm8R/jYuyXL+U6anvsCXaemm/BGqvvkIcmic6UJ9KlRggjtmQoyZZQ23wX
+        Tvw86iekmLLaAOPzm+exc9hitb24PNc749j3YJnVBsCusRt4brU6tq1q8ZfMahUc6/PS0+KC1eogKdrR
+        pm5/0moViP1rFF7N109ZrY6s27+RxveB1SoQ+yexsKNjVquDxN9LJ29brQISWs52MW21Ooh1gVh/IStW
+        q4D4I6FxIg6YUNyXE/3h2K9abSiIfwrPjNUGWAonMNIk+pO6etPKw0FC2S+XVukLzLktAXHnsTmeE//h
+        oCeO4G1B/NPPvXLOi3bG/evxQlkXYAt2juaxTvTdoRbB24L4E+unNIJ/Plwo+9VoSx6aaP53iySyuV7L
+        Sf8OpsvNFrcHgngUi+xLCCNOdDHZ+h4DYEv+nV0nIdFHVj4a4hTqYwyElY4vvwGXWUvt/ShlqwAAAABJ
+        RU5ErkJggg==
+</value>
+  </data>
+  <data name="btnBack.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAC6SURBVEhLY2AYBaOA5kC+56mGUvfTNQrdz+zQ5SgGCp1P
+        1JW6nj5T6n72X7H7WSG6PEVAufeRimLXsycgw5W6nq62r//Pgq6GbKDQ/UxeqfvpfbDh3U/XUNVwpY6n
+        cjDDFbuerjWe+Z8VXQ3ZAOzyrqcPIC4HW/BRqfvZO+Lx02sqE9/woZsLB5RaoNj19CpeC0CApkEEAzSN
+        ZBigaTKFAbSMVowuTxUALiq6nm1S6npqjS43CkYBfQAA9Fi0L3a3h+gAAAAASUVORK5CYII=
+</value>
+  </data>
 </root>
