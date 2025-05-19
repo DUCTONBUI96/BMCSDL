@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,10 +41,6 @@ namespace CuoiKi
         }
      
 
-        private void cboStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void NotificationForm_Load(object sender, EventArgs e)
         {
@@ -54,10 +51,25 @@ namespace CuoiKi
 
             // Thiết lập mục mặc định
             cboStatusFilter.SelectedIndex = 0; // "Tất cả trạng thái"
+            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
+            string query = "SELECT * FROM ResidentData";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataAdapter d = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    d.Fill(dt);
+                    dgvResidentsOrApps.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message);
+            }
+
         }
-
-        
-
 
         private void chkEmail_CheckedChanged_1(object sender, EventArgs e)
         {
@@ -99,6 +111,11 @@ namespace CuoiKi
                 chkEmail.Enabled = true;
                 chkSMS.Enabled = true;
             }
+        }
+        private void btnSendNotification_Click(object sender, EventArgs e)
+        {
+            int selectedRowIndex = dgvResidentsOrApps.CurrentCell.ColumnIndex;
+            MessageBox.Show("Selected Row Index: " + selectedRowIndex.ToString());
         }
     }
 }
