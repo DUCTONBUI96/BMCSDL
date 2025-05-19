@@ -49,6 +49,7 @@
             this.dgvApplications.RowTemplate.Height = 24;
             this.dgvApplications.Size = new System.Drawing.Size(776, 277);
             this.dgvApplications.TabIndex = 0;
+       
             // 
             // btnApprove
             // 
