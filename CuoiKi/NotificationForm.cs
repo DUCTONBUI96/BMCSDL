@@ -5,9 +5,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace CuoiKi
 {
@@ -114,8 +116,33 @@ namespace CuoiKi
         }
         private void btnSendNotification_Click(object sender, EventArgs e)
         {
-            int selectedRowIndex = dgvResidentsOrApps.CurrentCell.ColumnIndex;
-            MessageBox.Show("Selected Row Index: " + selectedRowIndex.ToString());
+            string value = dgvResidentsOrApps.CurrentRow.Cells["Email"].Value?.ToString();
+            string subject = "Thông báo từ hệ thống quản lý cư dân";
+            string message = txtMessage.Text;
+            try
+            {
+                string smtpServer = "smtp.gmail.com"; // Địa chỉ máy chủ SMTP
+                int smtpPort = 587; // Cổng SMTP
+                string Email = "ductonb123@gmail.com"; // Địa chỉ email người gửi
+                string password = "cfbv wntl wuid fdds"; // Mật khẩu email người gửi
+                string recipientEmail = value; // Địa chỉ email người nhận
+
+                using (MailMessage mail = new MailMessage(Email, recipientEmail, subject, message))
+                using (SmtpClient smtp = new SmtpClient(smtpServer, smtpPort))
+                {
+                    smtp.UseDefaultCredentials = false; // Không sử dụng thông tin xác thực mặc định
+                    smtp.Credentials = new System.Net.NetworkCredential(Email, password);
+                    smtp.EnableSsl = true; // Bật SSL nếu cần
+                    smtp.Send(mail);
+                }
+
+                lblSendStatus.Text = "Email đã được gửi thành công!";
+            }
+            catch (Exception ex)
+            {
+                lblSendStatus.Text = "Lỗi khi gửi email: " + ex.Message;
+            }
         }
+
     }
 }
