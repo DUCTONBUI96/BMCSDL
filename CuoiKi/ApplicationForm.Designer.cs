@@ -166,6 +166,7 @@
             this.btnBack.TabIndex = 12;
             this.btnBack.Text = "Quay lại";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnSubmit
             // 

@@ -38,6 +38,7 @@ namespace CuoiKi
             }
         }
 
+        DataTable residentTable;
         private void VerificationForm_Load(object sender, EventArgs e)
         {
             string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
@@ -48,9 +49,9 @@ namespace CuoiKi
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     SqlDataAdapter d = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    d.Fill(dt);
-                    dgvApplications.DataSource = dt;
+                    residentTable = new DataTable();
+                    d.Fill(residentTable);
+                    dgvApplications.DataSource = residentTable;
 
                 }
             }
@@ -71,10 +72,14 @@ namespace CuoiKi
             lblResult.Text = "Đã từ chối xác thực!";
             lblResult.ForeColor = Color.Red;
         }
-
+      
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
-
+            if (residentTable == null) return;
+            string filter = txtSearchCCCD.Text.Trim(); //ham trim có tác dụng xóa khoảng trắng ở đầu và cuối chuỗi
+            DataView dv = new DataView(residentTable);
+            dv.RowFilter = $"CMND LIKE '%{filter}%'"; //tìm kiếm theo CCCD
+            dgvApplications.DataSource = dv;
         }
 
     }

@@ -123,6 +123,7 @@
             this.btnBack.Text = "Quay lại";
             this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // SearchStatusForm
             // 

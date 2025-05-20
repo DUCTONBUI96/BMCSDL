@@ -109,7 +109,6 @@
             this.cboStatusFilter.Name = "cboStatusFilter";
             this.cboStatusFilter.Size = new System.Drawing.Size(169, 30);
             this.cboStatusFilter.TabIndex = 26;
-            this.cboStatusFilter.SelectedIndexChanged += new System.EventHandler(this.cboStatusFilter_SelectedIndexChanged);
             // 
             // dgvResidentsOrApps
             // 
@@ -120,6 +119,7 @@
             this.dgvResidentsOrApps.RowTemplate.Height = 24;
             this.dgvResidentsOrApps.Size = new System.Drawing.Size(776, 171);
             this.dgvResidentsOrApps.TabIndex = 25;
+            
             // 
             // label1
             // 
@@ -145,6 +145,7 @@
             this.btnSendNotification.Text = "Gửi thông báo";
             this.btnSendNotification.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSendNotification.UseVisualStyleBackColor = false;
+            this.btnSendNotification.Click += new System.EventHandler(this.btnSendNotification_Click);
             // 
             // txtMessage
             // 

@@ -109,6 +109,10 @@ namespace CuoiKi
             return chk;
         }
 
-        
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            new WelcomeScreen().Show();
+            this.Hide();
+        }
     }
 }

@@ -53,5 +53,12 @@ namespace CuoiKi
                 txtCCCD.ForeColor = Color.Gray;
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            new WelcomeScreen().Show();
+            this.Hide();
+        }
+
     }
 }
