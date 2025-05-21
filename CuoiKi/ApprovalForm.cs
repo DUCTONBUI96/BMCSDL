@@ -212,14 +212,10 @@ namespace CuoiKi
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
 
+            if (residentTable == null) return;
             string filterCCCD = txtSearchCCCD.Text.Trim(); // Xóa khoảng trắng đầu/cuối chuỗi
             DataView dv = new DataView(residentTable);
-            List<string> filters = new List<string>();
-
-            if (residentTable == null) return;
-            string filter = txtSearchCCCD.Text.Trim(); //ham trim có tác dụng xóa khoảng trắng ở đầu và cuối chuỗi
-            DataView dv = new DataView(residentTable);
-            dv.RowFilter = $"CMND LIKE '%{filter}%'"; //tìm kiếm theo CCCD
+            dv.RowFilter = $"CMND LIKE '%{filterCCCD}%'"; //tìm kiếm theo CCCD
             dgvApplications.DataSource = dv;
 
         }
