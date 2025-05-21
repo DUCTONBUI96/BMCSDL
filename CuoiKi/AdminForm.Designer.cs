@@ -42,61 +42,62 @@
             this.tabControl.Controls.Add(this.tabPagePhanquyen);
             this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Controls.Add(this.tabPage4);
-            this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(776, 100);
+            this.tabControl.Size = new System.Drawing.Size(884, 426);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageQuanLi
             // 
-            this.tabPageQuanLi.Location = new System.Drawing.Point(4, 31);
+            this.tabPageQuanLi.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPageQuanLi.Location = new System.Drawing.Point(4, 34);
             this.tabPageQuanLi.Name = "tabPageQuanLi";
             this.tabPageQuanLi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageQuanLi.Size = new System.Drawing.Size(768, 65);
+            this.tabPageQuanLi.Size = new System.Drawing.Size(876, 388);
             this.tabPageQuanLi.TabIndex = 1;
             this.tabPageQuanLi.Text = "Quản lí người dùng";
-            this.tabPageQuanLi.UseVisualStyleBackColor = true;
             // 
             // tabPagePhanquyen
             // 
-            this.tabPagePhanquyen.Location = new System.Drawing.Point(4, 31);
+            this.tabPagePhanquyen.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPagePhanquyen.Location = new System.Drawing.Point(4, 34);
             this.tabPagePhanquyen.Name = "tabPagePhanquyen";
             this.tabPagePhanquyen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePhanquyen.Size = new System.Drawing.Size(768, 65);
+            this.tabPagePhanquyen.Size = new System.Drawing.Size(876, 388);
             this.tabPagePhanquyen.TabIndex = 2;
             this.tabPagePhanquyen.Text = "Phân quyền và vai trò";
-            this.tabPagePhanquyen.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 31);
+            this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(768, 65);
+            this.tabPage3.Size = new System.Drawing.Size(876, 388);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Cấu hình hệ thống";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 31);
+            this.tabPage4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabPage4.Location = new System.Drawing.Point(4, 34);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(768, 65);
+            this.tabPage4.Size = new System.Drawing.Size(876, 388);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "Backup và Restore";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(908, 450);
             this.Controls.Add(this.tabControl);
             this.Name = "AdminForm";
-            this.Text = "AdminForm";
+            this.Text = "Quản trị hệ thống";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.tabControl.ResumeLayout(false);
             this.ResumeLayout(false);

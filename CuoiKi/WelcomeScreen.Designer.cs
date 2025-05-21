@@ -55,7 +55,8 @@
             // lblWelcome
             // 
             this.lblWelcome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.lblWelcome.Location = new System.Drawing.Point(0, 0);
             this.lblWelcome.Margin = new System.Windows.Forms.Padding(0);
             this.lblWelcome.Name = "lblWelcome";
@@ -67,11 +68,14 @@
             // 
             // lblTime
             // 
+            this.lblTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.lblTime.Location = new System.Drawing.Point(302, 70);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(292, 25);
             this.lblTime.TabIndex = 2;
             this.lblTime.Text = "Time";
+            this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel1
             // 
@@ -96,7 +100,7 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
             this.label2.Location = new System.Drawing.Point(3, 43);
             this.label2.Name = "label2";
@@ -107,11 +111,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(64)))), ((int)(((byte)(175)))));
             this.label1.Location = new System.Drawing.Point(1, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(286, 32);
+            this.label1.Size = new System.Drawing.Size(286, 38);
             this.label1.TabIndex = 3;
             this.label1.Text = "Dành cho người dân";
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
@@ -125,9 +129,11 @@
             // 
             // btnSearchStatus
             // 
-            this.btnSearchStatus.BackColor = System.Drawing.Color.LightGray;
-            this.btnSearchStatus.FlatAppearance.BorderSize = 0;
-            this.btnSearchStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnSearchStatus.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnSearchStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchStatus.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.btnSearchStatus.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchStatus.Image")));
             this.btnSearchStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSearchStatus.Location = new System.Drawing.Point(0, 106);
@@ -142,9 +148,11 @@
             // btnSubmitForm
             // 
             this.btnSubmitForm.AutoSize = true;
-            this.btnSubmitForm.BackColor = System.Drawing.Color.LightGray;
+            this.btnSubmitForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.btnSubmitForm.FlatAppearance.BorderSize = 0;
-            this.btnSubmitForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmitForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSubmitForm.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmitForm.ForeColor = System.Drawing.Color.White;
             this.btnSubmitForm.Image = ((System.Drawing.Image)(resources.GetObject("btnSubmitForm.Image")));
             this.btnSubmitForm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSubmitForm.Location = new System.Drawing.Point(0, 193);
@@ -178,8 +186,8 @@
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.SeaGreen;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.label4.Location = new System.Drawing.Point(24, 43);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(364, 43);
@@ -189,19 +197,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.DarkGreen;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(87)))), ((int)(((byte)(36)))));
             this.label3.Location = new System.Drawing.Point(22, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(284, 32);
+            this.label3.Size = new System.Drawing.Size(284, 38);
             this.label3.TabIndex = 2;
             this.label3.Text = "Dành cho nhân viên";
             // 
             // btnLogin
             // 
-            this.btnLogin.BackColor = System.Drawing.Color.LightGray;
+            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.Image = ((System.Drawing.Image)(resources.GetObject("btnLogin.Image")));
             this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLogin.Location = new System.Drawing.Point(0, 106);
@@ -209,7 +219,7 @@
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(391, 67);
             this.btnLogin.TabIndex = 1;
-            this.btnLogin.Text = "Nếu là nhân viên";
+            this.btnLogin.Text = "Đăng nhập nhân viên";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
@@ -228,13 +238,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.lblWelcome);
             this.Name = "WelcomeScreen";
-            this.Text = "WelcomeScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Hệ thống Quản lý Cấp Hộ chiếu";
             this.Load += new System.EventHandler(this.WelcomeScreen_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
