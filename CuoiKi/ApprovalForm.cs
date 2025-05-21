@@ -10,6 +10,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CuoiKi
 {
@@ -153,7 +154,9 @@ namespace CuoiKi
         }
 
         DataTable residentTable;
-        string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
+        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
+        string query;
+        SqlCommand cmd;
         private void ApprovalForm_Load(object sender, EventArgs e)
         {
             // Thiết lập placeholder ban đầu
@@ -164,16 +167,20 @@ namespace CuoiKi
             cboStatusFilter.Items.Add("Chờ xét");
             cboStatusFilter.Items.Add("Đã duyệt");
             cboStatusFilter.Items.Add("Từ chối");
-
             // Thiết lập mục mặc định
             cboStatusFilter.SelectedIndex = 0; // "Tất cả trạng thái"
-
-            // Kết nối đến cơ sở dữ liệu và lấy dữ liệu
-            string query = "SELECT * FROM ResidentData";
+            if(cboStatusFilter.SelectedItem.ToString() == "Tất cả trạng thái")
+            {
+                query = "SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications)"; 
+            }
+            if (cboStatusFilter.SelectedItem.ToString() == "Chờ xét")
+            {
+                query = "SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications WHERE Status = 'Chờ xét')";
+            }
+            // Kết nối đến cơ sở dữ liệu và lấy dữ liệu            
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (cmd = new SqlCommand(query, con))
                 {
                     SqlDataAdapter d = new SqlDataAdapter(cmd);
                     residentTable = new DataTable();
@@ -197,10 +204,12 @@ namespace CuoiKi
                         dgvApplications.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
                     if (dgvApplications.Columns.Contains("Email"))
                         dgvApplications.Columns["Email"].HeaderText = "Email";
+
+                    // Cập nhật trạng thái
+                    lblStatus.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
                 }
 
-                // Cập nhật trạng thái
-                lblStatus.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
+
             }
             catch (Exception ex)
             {
@@ -211,13 +220,42 @@ namespace CuoiKi
 
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
-
             if (residentTable == null) return;
             string filterCCCD = txtSearchCCCD.Text.Trim(); // Xóa khoảng trắng đầu/cuối chuỗi
             DataView dv = new DataView(residentTable);
             dv.RowFilter = $"CMND LIKE '%{filterCCCD}%'"; //tìm kiếm theo CCCD
             dgvApplications.DataSource = dv;
 
+        }
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            string queryApprove = "UPDATE PassportApplications SET Status = 'Đã duyệt', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
+            using (cmd = new SqlCommand(queryApprove))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ReviewNotes", rtbNotes.Text);
+                cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
+
+                cmd.ExecuteNonQuery();//cần có để thực thi 
+            }
+        }
+
+        private void btnReject_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            string queryApprove = "UPDATE PassportApplications SET Status = 'Từ chối', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
+            using (cmd = new SqlCommand(queryApprove))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ReviewNotes", rtbNotes.Text);
+                cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
+
+                cmd.ExecuteNonQuery();//cần có để thực thi 
+            }
         }
     }
 }

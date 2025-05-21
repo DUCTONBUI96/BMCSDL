@@ -49,8 +49,8 @@
             // 
             // dgvApplications
             // 
-            this.dgvApplications.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgvApplications.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvApplications.BackgroundColor = System.Drawing.Color.White;
             this.dgvApplications.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -64,7 +64,7 @@
             // 
             // rtbNotes
             // 
-            this.rtbNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.rtbNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbNotes.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -93,6 +93,7 @@
             this.btnApprove.Text = "Phê duyệt";
             this.btnApprove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnApprove.UseVisualStyleBackColor = false;
+            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
             // btnReject
             // 
@@ -111,7 +112,7 @@
             this.btnReject.Text = "Từ chối";
             this.btnReject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReject.UseVisualStyleBackColor = false;
-
+            this.btnReject.Click += new System.EventHandler(this.btnReject_Click);
             // 
             // cboStatusFilter
             // 
@@ -178,7 +179,7 @@
             this.labelTitle.ForeColor = System.Drawing.Color.White;
             this.labelTitle.Location = new System.Drawing.Point(12, 14);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(159, 31);
+            this.labelTitle.Size = new System.Drawing.Size(181, 31);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Xét duyệt hồ sơ";
             // 
@@ -202,7 +203,7 @@
             this.labelFilter.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFilter.Location = new System.Drawing.Point(532, 15);
             this.labelFilter.Name = "labelFilter";
-            this.labelFilter.Size = new System.Drawing.Size(77, 23);
+            this.labelFilter.Size = new System.Drawing.Size(80, 23);
             this.labelFilter.TabIndex = 19;
             this.labelFilter.Text = "Lọc theo:";
             // 
