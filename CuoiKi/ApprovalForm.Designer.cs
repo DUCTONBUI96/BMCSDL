@@ -76,6 +76,7 @@
             this.btnApprove.Text = "Phê duyệt";
             this.btnApprove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnApprove.UseVisualStyleBackColor = false;
+            this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
             // btnReject
             // 
@@ -100,6 +101,7 @@
             this.cboStatusFilter.Name = "cboStatusFilter";
             this.cboStatusFilter.Size = new System.Drawing.Size(170, 30);
             this.cboStatusFilter.TabIndex = 16;
+            this.cboStatusFilter.SelectedIndexChanged += new System.EventHandler(this.cboStatusFilter_SelectedIndexChanged);
             // 
             // pictureBox2
             // 

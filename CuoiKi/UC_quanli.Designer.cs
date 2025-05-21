@@ -122,6 +122,7 @@
             this.txtSearchCCCD.Size = new System.Drawing.Size(190, 29);
             this.txtSearchCCCD.TabIndex = 33;
             this.txtSearchCCCD.Text = "Tìm kiếm người dùng";
+            this.txtSearchCCCD.TextChanged += new System.EventHandler(this.txtSearchCCCD_TextChanged);
             // 
             // dgvUsers
             // 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,6 +64,7 @@ namespace CuoiKi
             }
         }
         DataTable residentTable;
+        string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
         private void ApprovalForm_Load(object sender, EventArgs e)
         {
             // Thiết lập placeholder ban đầu
@@ -80,17 +82,13 @@ namespace CuoiKi
             //txtNote.Text = "Nhập ghi chú...";
             //txtNote.ForeColor = Color.Gray;
 
-
-
             // Kết nối đến cơ sở dữ liệu và lấy dữ liệu
-            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
             string query = "SELECT * FROM ResidentData";
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    
                     SqlDataAdapter d = new SqlDataAdapter(cmd);
                     residentTable = new DataTable();
                     d.Fill(residentTable);
@@ -108,13 +106,52 @@ namespace CuoiKi
 
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
-
-
+            string query = "SELECT ResidentID, Status FROM PassportApplications;";
+            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, con))
             if (residentTable == null) return;
-            string filter = txtSearchCCCD.Text.Trim(); //ham trim có tác dụng xóa khoảng trắng ở đầu và cuối chuỗi
+
+            string filterCCCD = txtSearchCCCD.Text.Trim(); // Xóa khoảng trắng đầu/cuối chuỗi
             DataView dv = new DataView(residentTable);
-            dv.RowFilter = $"CMND LIKE '%{filter}%'"; //tìm kiếm theo CCCD
+            List<string> filters = new List<string>();
+
+            // Lọc theo trạng thái (Status)
+            if (!string.IsNullOrWhiteSpace(cboStatusFilter.Text))
+            {
+                // Nếu giá trị có dấu nháy đơn, hãy đảm bảo thoát chúng (tránh lỗi cú pháp)
+                string status = cboStatusFilter.Text.Replace("'", "''");
+                filters.Add($"Status = '{status}'");
+            }
+
+            // Lọc theo CCCD
+            if (!string.IsNullOrWhiteSpace(filterCCCD))
+            {
+                // Nếu cột tên là CMND (theo bảng của bạn), sửa lại đúng tên
+                filters.Add($"CMND LIKE '%{filterCCCD}%'");
+            }
+
+            // Gộp các điều kiện và áp dụng vào DataView
+            dv.RowFilter = string.Join(" AND ", filters);
+
+            // Gán kết quả lọc vào DataGridView
             dgvApplications.DataSource = dv;
+
+
+        }
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+             string value = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+             int ApllicationID = Convert.ToInt32(value);
+             string notes = rtbNotes.Text;
+             string status = "Đã phê duyệt";
+
+
+
+        }
+
+        private void cboStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

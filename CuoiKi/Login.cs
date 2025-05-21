@@ -121,7 +121,7 @@ namespace CuoiKi
             {
                 //new ApplicationForm().Show();
                 //new Menu().Show();
-                new VerificationForm().Show();
+                new Menu().Show();
                 //new ApprovalForm().Show();
                 //new SearchStatusForm().Show();
                 this.Hide();
