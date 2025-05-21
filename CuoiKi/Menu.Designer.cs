@@ -54,6 +54,7 @@
             this.quảnTrịADMINToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.mainPanel = new System.Windows.Forms.Panel();
             this.statusUserName.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +85,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hệThốngToolStripMenuItem,
@@ -110,7 +112,8 @@
             this.đổiMậtKhẩuToolStripMenuItem,
             this.đăngXuấtToolStripMenuItem,
             this.thoátToolStripMenuItem});
-            this.hệThốngToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hệThốngToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hệThốngToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.hệThốngToolStripMenuItem.Name = "hệThốngToolStripMenuItem";
             this.hệThốngToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
             this.hệThốngToolStripMenuItem.Text = "Hệ thống";
@@ -140,7 +143,8 @@
             // 
             // trangChủToolStripMenuItem
             // 
-            this.trangChủToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trangChủToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trangChủToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.trangChủToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("trangChủToolStripMenuItem.Image")));
             this.trangChủToolStripMenuItem.Name = "trangChủToolStripMenuItem";
             this.trangChủToolStripMenuItem.Size = new System.Drawing.Size(126, 26);
@@ -148,7 +152,8 @@
             // 
             // xácThựcToolStripMenuItem
             // 
-            this.xácThựcToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xácThựcToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xácThựcToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.xácThựcToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("xácThựcToolStripMenuItem.Image")));
             this.xácThựcToolStripMenuItem.Name = "xácThựcToolStripMenuItem";
             this.xácThựcToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
@@ -156,7 +161,8 @@
             // 
             // danhSáchToolStripMenuItem
             // 
-            this.danhSáchToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.danhSáchToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.danhSáchToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.danhSáchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("danhSáchToolStripMenuItem.Image")));
             this.danhSáchToolStripMenuItem.Name = "danhSáchToolStripMenuItem";
             this.danhSáchToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
@@ -164,7 +170,8 @@
             // 
             // thôngBáoToolStripMenuItem
             // 
-            this.thôngBáoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thôngBáoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thôngBáoToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.thôngBáoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("thôngBáoToolStripMenuItem.Image")));
             this.thôngBáoToolStripMenuItem.Name = "thôngBáoToolStripMenuItem";
             this.thôngBáoToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
@@ -172,7 +179,8 @@
             // 
             // nhậtKýToolStripMenuItem
             // 
-            this.nhậtKýToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nhậtKýToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nhậtKýToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.nhậtKýToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("nhậtKýToolStripMenuItem.Image")));
             this.nhậtKýToolStripMenuItem.Name = "nhậtKýToolStripMenuItem";
             this.nhậtKýToolStripMenuItem.Size = new System.Drawing.Size(105, 26);
@@ -195,7 +203,8 @@
             this.toolStripMenuItem10.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hướngDẫnSửDụngPhầnMềmToolStripMenuItem,
             this.thôngTinPhầnMềmToolStripMenuItem});
-            this.toolStripMenuItem10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem10.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.toolStripMenuItem10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem10.Image")));
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(111, 26);
@@ -220,7 +229,8 @@
             this.lưuTrữLTToolStripMenuItem1,
             this.giámSátGSToolStripMenuItem1,
             this.quảnTrịADMINToolStripMenuItem1});
-            this.quảnTrịAdminToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quảnTrịAdminToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quảnTrịAdminToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.quảnTrịAdminToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("quảnTrịAdminToolStripMenuItem.Image")));
             this.quảnTrịAdminToolStripMenuItem.Name = "quảnTrịAdminToolStripMenuItem";
             this.quảnTrịAdminToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
@@ -264,16 +274,28 @@
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // mainPanel
+            // 
+            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(0, 30);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(1280, 372);
+            this.mainPanel.TabIndex = 4;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1280, 450);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.statusUserName);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Menu";
-            this.Text = "Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Hệ thống Quản lý Cấp Hộ chiếu";
             this.Load += new System.EventHandler(this.Menu_Load);
             this.statusUserName.ResumeLayout(false);
             this.statusUserName.PerformLayout();
@@ -310,5 +332,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem hướngDẫnSửDụngPhầnMềmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thôngTinPhầnMềmToolStripMenuItem;
+        private System.Windows.Forms.Panel mainPanel;
     }
 }
