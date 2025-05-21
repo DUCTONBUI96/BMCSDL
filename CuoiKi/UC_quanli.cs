@@ -16,5 +16,14 @@ namespace CuoiKi
         {
             InitializeComponent();
         }
+
+        private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearchCCCD.Text))
+            {
+                txtSearchCCCD.Text = "Tìm kiếm CCCD";
+                txtSearchCCCD.ForeColor = Color.Gray;
+            }
+        }
     }
 }

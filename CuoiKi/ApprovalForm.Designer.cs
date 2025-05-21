@@ -112,7 +112,7 @@
             this.btnReject.Text = "Từ chối";
             this.btnReject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReject.UseVisualStyleBackColor = false;
-            this.btnReject.Click += new System.EventHandler(this.btnReject_Click);
+
             // 
             // cboStatusFilter
             // 

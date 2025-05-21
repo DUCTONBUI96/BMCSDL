@@ -92,21 +92,6 @@ namespace CuoiKi
             }
         }
 
-        private void form1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //OpenChildForm(new ChildForm1());
-        }
-
-        private void form2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //OpenChildForm(new ChildForm2());
-        }
-
-        private void form3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //OpenChildForm(new ChildForm3());
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Hệ thống Quản lý Cấp Hộ chiếu\nPhiên bản 1.0", "Thông tin",

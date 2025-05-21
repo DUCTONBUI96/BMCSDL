@@ -211,50 +211,27 @@ namespace CuoiKi
             rtbAddress.Text = "";
         }
 
-        //Hàm kiểm tra định dạng email
+        // Hàm kiểm tra định dạng Email
         protected bool validEmail()
         {
-            if (string.IsNullOrWhiteSpace(txtEmail.Text))
-                return false;
-
-            bool chk = false;
-            Regex r = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-            if (r.IsMatch(txtEmail.Text))
-            {
-                chk = true;
-            }
-            return chk;
+            return !string.IsNullOrWhiteSpace(txtEmail.Text) &&
+                   Regex.IsMatch(txtEmail.Text, @"^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$");
         }
 
-        //Hàm kiểm tra định dạng số điện thoại
+        // Hàm kiểm tra định dạng Số điện thoại (10 chữ số)
         protected bool validPhone()
         {
-            if (string.IsNullOrWhiteSpace(txtPhone.Text))
-                return false;
-
-            bool chk = false;
-            Regex r = new Regex(@"^\d{10}$");
-            if (r.IsMatch(txtPhone.Text) && txtPhone.Text.Length == 10)
-            {
-                chk = true;
-            }
-            return chk;
+            return !string.IsNullOrWhiteSpace(txtPhone.Text) &&
+                   Regex.IsMatch(txtPhone.Text, @"^\d{10}$");
         }
 
-        //Hàm kiểm tra định dạng CCCD
+        // Hàm kiểm tra định dạng CCCD (12 chữ số)
         protected bool validCCCD()
         {
-            if (string.IsNullOrWhiteSpace(txtCCCDid.Text))
-                return false;
-
-            bool chk = false;
-            Regex r = new Regex(@"^\d{12}$");
-            if (r.IsMatch(txtCCCDid.Text) && txtCCCDid.Text.Length == 12)
-            {
-                chk = true;
-            }
-            return chk;
+            return !string.IsNullOrWhiteSpace(txtCCCDid.Text) &&
+                   Regex.IsMatch(txtCCCDid.Text, @"^\d{12}$");
         }
+
 
         private void btnBack_Click(object sender, EventArgs e)
         {

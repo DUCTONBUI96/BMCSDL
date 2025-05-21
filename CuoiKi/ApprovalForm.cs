@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -152,6 +153,7 @@ namespace CuoiKi
         }
 
         DataTable residentTable;
+        string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
         private void ApprovalForm_Load(object sender, EventArgs e)
         {
             // Thiết lập placeholder ban đầu
@@ -167,7 +169,6 @@ namespace CuoiKi
             cboStatusFilter.SelectedIndex = 0; // "Tất cả trạng thái"
 
             // Kết nối đến cơ sở dữ liệu và lấy dữ liệu
-            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
             string query = "SELECT * FROM ResidentData";
             try
             {
@@ -210,73 +211,17 @@ namespace CuoiKi
 
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
-            if (residentTable == null || txtSearchCCCD.Text == "Tìm kiếm CCCD") return;
 
+            string filterCCCD = txtSearchCCCD.Text.Trim(); // Xóa khoảng trắng đầu/cuối chuỗi
+            DataView dv = new DataView(residentTable);
+            List<string> filters = new List<string>();
+
+            if (residentTable == null) return;
             string filter = txtSearchCCCD.Text.Trim(); //ham trim có tác dụng xóa khoảng trắng ở đầu và cuối chuỗi
             DataView dv = new DataView(residentTable);
+            dv.RowFilter = $"CMND LIKE '%{filter}%'"; //tìm kiếm theo CCCD
+            dgvApplications.DataSource = dv;
 
-            try
-            {
-                dv.RowFilter = $"CMND LIKE '%{filter}%'"; //tìm kiếm theo CCCD
-                dgvApplications.DataSource = dv;
-                lblStatus.Text = $"Đã tìm thấy {dv.Count} hồ sơ.";
-            }
-            catch (Exception ex)
-            {
-                // Xử lý lỗi nếu có
-                lblStatus.Text = "Lỗi khi tìm kiếm: " + ex.Message;
-            }
-        }
-
-        // Thêm xử lý resize để đảm bảo giao diện hiển thị đúng
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-
-            // Cập nhật lại kích thước và vị trí các control nếu cần
-            Invalidate();
-        }
-
-        // Thêm xử lý cho nút phê duyệt và từ chối
-        private void btnApprove_Click(object sender, EventArgs e)
-        {
-            if (dgvApplications.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Vui lòng chọn hồ sơ cần phê duyệt.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // Xử lý phê duyệt hồ sơ
-            string notes = rtbNotes.Text;
-            if (rtbNotes.ForeColor == Color.Gray || string.IsNullOrWhiteSpace(notes))
-            {
-                notes = "Đã phê duyệt";
-            }
-
-            // Cập nhật trạng thái
-            lblStatus.Text = "Đã phê duyệt hồ sơ.";
-            MessageBox.Show("Hồ sơ đã được phê duyệt thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnReject_Click(object sender, EventArgs e)
-        {
-            if (dgvApplications.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Vui lòng chọn hồ sơ cần từ chối.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            string notes = rtbNotes.Text;
-            if (rtbNotes.ForeColor == Color.Gray || string.IsNullOrWhiteSpace(notes))
-            {
-                MessageBox.Show("Vui lòng nhập lý do từ chối.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                rtbNotes.Focus();
-                return;
-            }
-
-            // Cập nhật trạng thái
-            lblStatus.Text = "Đã từ chối hồ sơ.";
-            MessageBox.Show("Hồ sơ đã bị từ chối.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
