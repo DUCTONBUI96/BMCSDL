@@ -232,7 +232,7 @@ namespace CuoiKi
         {
             con.Open();
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
-            string queryApprove = "UPDATE PassportApplications SET Status = 'Đã duyệt', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
+            string queryApprove = "UPDATE PassportApplications SET Status = N'Đã duyệt', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
             using (cmd = new SqlCommand(queryApprove))
             {
                 cmd.Connection = con;
@@ -248,7 +248,7 @@ namespace CuoiKi
         {
             con.Open();
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
-            string queryApprove = "UPDATE PassportApplications SET Status = 'Từ chối', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
+            string queryApprove = "UPDATE PassportApplications SET Status = N'Từ chối', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
             using (cmd = new SqlCommand(queryApprove))
             {
                 cmd.Connection = con;
