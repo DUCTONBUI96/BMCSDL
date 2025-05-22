@@ -240,6 +240,7 @@ namespace CuoiKi
                 cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
 
                 cmd.ExecuteNonQuery();//cần có để thực thi 
+                lblStatus.Text = "Đã duyệt hồ sơ";
             }
         }
 
@@ -255,6 +256,8 @@ namespace CuoiKi
                 cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
 
                 cmd.ExecuteNonQuery();//cần có để thực thi 
+                lblStatus.Text = "Đã từ chối hồ sơ";
+
             }
         }
     }
