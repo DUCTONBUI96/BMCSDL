@@ -24,8 +24,10 @@ namespace CuoiKi
         private Color successColor = Color.FromArgb(40, 167, 69);      // Màu xanh lá (thành công)
         private Color dangerColor = Color.FromArgb(220, 53, 69);       // Màu đỏ (nguy hiểm)
 
-        private DataTable residentTable;
-
+        DataTable residentTable;
+        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
+        string query;
+        SqlCommand cmd;
         public VerificationForm()
         {
             InitializeComponent();
@@ -137,11 +139,9 @@ namespace CuoiKi
 
         private void VerificationForm_Load(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
             string query = "SELECT * FROM ResidentData";
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     SqlDataAdapter d = new SqlDataAdapter(cmd);
@@ -179,6 +179,15 @@ namespace CuoiKi
 
         private void btnApprove_Click(object sender, EventArgs e)
         {
+            con.Open();
+            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            string queryApprove = "UPDATE PassportApplications SET Status = N'Xác thực' WHERE ResidentID = @ResidentID";
+            using (cmd = new SqlCommand(queryApprove))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
+                cmd.ExecuteNonQuery();//cần có để thực thi 
+            }
             if (dgvApplications.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn hồ sơ cần xác thực", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
