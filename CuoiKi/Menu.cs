@@ -22,17 +22,8 @@ namespace CuoiKi
 
         public Menu()
         {
-            toolStripStatusLabel2 = new ToolStripStatusLabel();
             InitializeComponent();
             CustomizeDesign();
-
-            statusUserName.Text = Environment.UserName;
-            Timer timer = new Timer();
-            timer.Interval = 1000;
-            timer.Tick += (sender, e) => {
-                toolStripStatusLabel2.Text = DateTime.Now.ToString("HH:mm:ss");
-            };
-            timer.Start();
         }
 
         private void CustomizeDesign()
@@ -100,22 +91,28 @@ namespace CuoiKi
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // Bước 1: Reset style cho tất cả menu items
+            // Bước 1: Reset style cho tất cả menu items (chỉ áp dụng cho ToolStripMenuItem)
             foreach (ToolStripItem item in menuStrip1.Items)
             {
-                item.BackColor = lightBgColor;
-                item.ForeColor = textColor;
-                item.Font = new Font(item.Font, FontStyle.Regular);
+                if (item is ToolStripMenuItem)
+                {
+                    item.BackColor = lightBgColor;
+                    item.ForeColor = textColor;
+                    item.Font = new Font(item.Font, FontStyle.Regular);
+                }
             }
 
-            // Bước 2: Set style cho item được chọn
-            ToolStripItem clickedItem = e.ClickedItem;
-            clickedItem.BackColor = selectedMenuColor;
-            clickedItem.ForeColor = primaryColor;
-            clickedItem.Font = new Font(clickedItem.Font, FontStyle.Bold);
+            // Bước 2: Set style cho item được chọn (chỉ nếu nó là ToolStripMenuItem)
+            if (e.ClickedItem is ToolStripMenuItem clickedItem)
+            {
+                clickedItem.BackColor = selectedMenuColor;
+                clickedItem.ForeColor = primaryColor;
+                clickedItem.Font = new Font(clickedItem.Font, FontStyle.Bold);
+            }
 
             // Optional: gọi hàm load giao diện tương ứng ở đây
         }
+
 
         private void HighlightMenu(ToolStripMenuItem selectedItem)
         {
@@ -172,5 +169,6 @@ namespace CuoiKi
             toolStripStatusLabel1.Text = "Người dùng: " + Environment.UserName;
             toolStripStatusLabel2.Text = DateTime.Now.ToString("HH:mm:ss");
         }
+
     }
 }
