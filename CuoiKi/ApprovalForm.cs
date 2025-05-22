@@ -175,7 +175,7 @@ namespace CuoiKi
             }
             if (cboStatusFilter.SelectedItem.ToString() == "Chờ xét")
             {
-                query = "SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications WHERE Status = 'Chờ xét')";
+                query = "SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications WHERE Status = 'Chờ xét duyệt')";
             }
             // Kết nối đến cơ sở dữ liệu và lấy dữ liệu            
             try

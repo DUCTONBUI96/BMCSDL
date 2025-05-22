@@ -50,6 +50,7 @@
             // 
             // dgvApprovedApps
             // 
+            this.dgvApprovedApps.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvApprovedApps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvApprovedApps.Location = new System.Drawing.Point(12, 35);
             this.dgvApprovedApps.Name = "dgvApprovedApps";
@@ -228,6 +229,7 @@
             this.Controls.Add(this.dgvApprovedApps);
             this.Name = "PassportIssueForm";
             this.Text = "PassportIssueForm";
+            this.Load += new System.EventHandler(this.PassportIssueForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvApprovedApps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.ResumeLayout(false);
