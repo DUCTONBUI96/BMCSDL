@@ -58,6 +58,7 @@
             this.dgvApprovedApps.RowTemplate.Height = 24;
             this.dgvApprovedApps.Size = new System.Drawing.Size(497, 232);
             this.dgvApprovedApps.TabIndex = 0;
+            this.dgvApprovedApps.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvApprovedApps_CellContentClick);
             // 
             // label1
             // 
