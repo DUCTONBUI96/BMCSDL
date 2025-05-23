@@ -46,6 +46,15 @@ namespace CuoiKi
                 MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             dgvApprovedApps.CellClick += dgvApprovedApps_CellContentClick;
+
+
+
+            //time 
+            dtpExpiryDate.Format = DateTimePickerFormat.Custom;
+            dtpExpiryDate.CustomFormat = "dd/MM/yyyy";
+            dtpExpiryDate.MinDate = DateTime.Today;
+            dtpExpiryDate.MaxDate = new DateTime(2040, 12, 31);
+            dtpExpiryDate.Value = DateTime.Today;
         }
 
         //Load Status by pressing Data in DATAGRIDVIEW

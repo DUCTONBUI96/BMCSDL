@@ -114,23 +114,28 @@
             // 
             // dtpIssueDate
             // 
-            this.dtpIssueDate.CustomFormat = "dd/mm/yyyy";
+            this.dtpIssueDate.CustomFormat = "dd/MM/yyyy";
             this.dtpIssueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpIssueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpIssueDate.Location = new System.Drawing.Point(526, 283);
+            this.dtpIssueDate.MaxDate = new System.DateTime(2025, 5, 23, 0, 0, 0, 0);
+            this.dtpIssueDate.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dtpIssueDate.Name = "dtpIssueDate";
             this.dtpIssueDate.Size = new System.Drawing.Size(313, 28);
             this.dtpIssueDate.TabIndex = 6;
+            this.dtpIssueDate.Value = new System.DateTime(2025, 5, 23, 0, 0, 0, 0);
             // 
             // dtpExpiryDate
             // 
-            this.dtpExpiryDate.CustomFormat = "dd/mm/yyyy";
+            this.dtpExpiryDate.CustomFormat = "dd/MM/yyyy";
             this.dtpExpiryDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpExpiryDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpExpiryDate.Location = new System.Drawing.Point(136, 336);
+            this.dtpExpiryDate.MinDate = new System.DateTime(2025, 5, 23, 15, 0, 26, 0);
             this.dtpExpiryDate.Name = "dtpExpiryDate";
             this.dtpExpiryDate.Size = new System.Drawing.Size(236, 28);
             this.dtpExpiryDate.TabIndex = 7;
+            this.dtpExpiryDate.Value = new System.DateTime(2029, 12, 25, 23, 59, 59, 999);
             // 
             // dgvHistory
             // 
