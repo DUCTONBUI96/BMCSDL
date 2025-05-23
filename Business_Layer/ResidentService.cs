@@ -27,6 +27,7 @@ namespace Business_Layer
             return db.ExecuteQuery(query);
         }
 
+        // Thêm dân cư 
         public bool  InsertResident(ResidentDTO resident)
         {
             string query = "INSERT INTO ResidentData (FullName, Gender, DateOfBirth, CMND, Address, Nationality, PhoneNumber, Email) " +
@@ -45,8 +46,6 @@ namespace Business_Layer
         };
             return db.ExecuteNonQuery(query, parameters) > 0;
         }
-
-
 
         // gửi thông báo qua email
         public bool NotificationByEmail(string EmailResident, string message)

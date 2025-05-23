@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -19,49 +20,18 @@ namespace CuoiKi
             this.txtCCCD.Size=new Size(661, 50);
 
         }
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
-        DataTable dt = new DataTable();
-        string status = "";
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            connectToDatabase();
-            lblResult.Text = "Trạng thái hồ sơ của bạn là: " + status;
-        }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void connectToDatabase()
-        {
-            
-            // Kết nối đến cơ sở dữ liệu SQL Server
-            string query = "SELECT Status FROM PassportApplications Where ResidentID IN (SELECT ResidentID FROM ResidentData WHERE CMND = @CMND )";
-            // Tạo kết nối và thực thi truy vấn
-            try
+            ApplicationService applicationService = new ApplicationService();
+            string status = applicationService.TakeStatus(txtCCCD.Text.Trim());
+            if (status==null)
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@CMND", txtCCCD.Text);
-                    object result = cmd.ExecuteScalar();
-                    if (result != DBNull.Value)
-                    {
-                        status = result.ToString();
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không tìm thấy hồ sơ với ID cư trú này.");
-
-                    }
-                }
+                MessageBox.Show("Không tìm thấy thông tin hồ sơ của bạn" , "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Lỗi kết nối cơ sở dữ liệu: " + ex.Message);
+                lblResult.Text = "Trạng thái hồ sơ của bạn là: " + status;
             }
         }
         private void SearchStatusForm_Load(object sender, EventArgs e)

@@ -9,10 +9,11 @@ namespace Business_Layer
 {
     public class ApplicationService
     {
-        private DatabaseHelper db = new DatabaseHelper();
+        private DatabaseHelper db = new DatabaseHelper();//goi csdl
+
+        // Cập nhật trạng thái của người dân
         public void UpdateStatusAndNote(int residentID,string reviewNote, string status)
-        {
-            // Cập nhật trạng thái của người dân
+        {  
             string query = $"UPDATE PassportApplications SET Status = N'{status}', ReviewNotes = @ReviewNote WHERE ResidentID = @ResidentID";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
@@ -23,7 +24,6 @@ namespace Business_Layer
         }
         public void UpdateStatus(int residentID, string status)
         {
-            // Cập nhật trạng thái của người dân
             string query = $"UPDATE PassportApplications SET Status = N'{status}' WHERE ResidentID = @ResidentID";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
@@ -31,5 +31,18 @@ namespace Business_Layer
             };
             db.ExecuteNonQuery(query, parameters);
         }
+
+        // Lấy trạng thái của người dân
+        public string TakeStatus(string CCCD)
+        {
+            string query = "SELECT Status FROM PassportApplications Where ResidentID IN (SELECT ResidentID FROM ResidentData WHERE CMND = @CMND )";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "@CMND", CCCD }
+            };
+            object result = db.ExecuteScalar(query, parameters);
+            return result != null ? result.ToString() : null;
+        }
+
     }
 }

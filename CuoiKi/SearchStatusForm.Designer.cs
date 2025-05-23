@@ -96,7 +96,6 @@
             this.lblResult.Size = new System.Drawing.Size(460, 22);
             this.lblResult.TabIndex = 4;
             this.lblResult.Text = "Nhập số CMND/CCCD và nhấn Tra cứu để xem kết quả.\r\n";
-            this.lblResult.Click += new System.EventHandler(this.label3_Click);
             // 
             // label3
             // 
