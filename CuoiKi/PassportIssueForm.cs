@@ -47,8 +47,6 @@ namespace CuoiKi
             }
             dgvApprovedApps.CellClick += dgvApprovedApps_CellContentClick;
 
-
-
             //time 
             dtpExpiryDate.Format = DateTimePickerFormat.Custom;
             dtpExpiryDate.CustomFormat = "dd/MM/yyyy";

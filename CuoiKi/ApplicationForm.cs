@@ -112,36 +112,26 @@ namespace CuoiKi
         {
 
            ResidentValidator valid = new ResidentValidator();
-            //chuyen lenh sang string rồi dùng using gọi lại
-            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
-            string query = "INSERT INTO ResidentData (FullName, Gender, DateOfBirth, CMND, Address, Nationality, PhoneNumber, Email) " +
-                           "VALUES (@FullName, @Gender, @DateOfBirth, @CMND, @Address, @Nationality, @PhoneNumber, @Email)";
-            
-            //test connect database
-            try
+           ResidentService residentService = new ResidentService();
+           ResidentDTO residentDTO = new ResidentDTO();
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@FullName", txtFullName.Text);
-                    cmd.Parameters.AddWithValue("@Gender", cboGender.Text);
-                    cmd.Parameters.AddWithValue("@DateOfBirth", dtpDOB.Value);
-                    cmd.Parameters.AddWithValue("@CMND", txtCCCDid.Text);
-                    cmd.Parameters.AddWithValue("@Address", rtbAddress.Text);
-                    cmd.Parameters.AddWithValue("@Nationality", cboNationality.Text);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", txtPhone.Text);
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-
+                residentDTO.FullName = txtFullName.Text;
+                residentDTO.CCCD=txtCCCDid.Text;
+                residentDTO.Gender = cboGender.Text;
+                residentDTO.Nationality = cboNationality.Text;
+                residentDTO.DOB = dtpDOB.Value;
+                residentDTO.Phone = txtPhone.Text;
+                residentDTO.Email= txtEmail.Text;
+                residentDTO.Address = rtbAddress.Text;
+            }
+            if (residentService.InsertResident(residentDTO))
+            {
                 MessageBox.Show("Đăng ký thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Lỗi khi đăng ký: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi đăng ký.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -156,28 +146,6 @@ namespace CuoiKi
             txtPhone.Text = "";
             rtbAddress.Text = "";
         }
-
-        // Hàm kiểm tra định dạng Email
-        protected bool validEmail()
-        {
-            return !string.IsNullOrWhiteSpace(txtEmail.Text) &&
-                   Regex.IsMatch(txtEmail.Text, @"^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$");
-        }
-
-        // Hàm kiểm tra định dạng Số điện thoại (10 chữ số)
-        protected bool validPhone()
-        {
-            return !string.IsNullOrWhiteSpace(txtPhone.Text) &&
-                   Regex.IsMatch(txtPhone.Text, @"^\d{10}$");
-        }
-
-        // Hàm kiểm tra định dạng CCCD (12 chữ số)
-        protected bool validCCCD()
-        {
-            return !string.IsNullOrWhiteSpace(txtCCCDid.Text) &&
-                   Regex.IsMatch(txtCCCDid.Text, @"^\d{12}$");
-        }
-
 
         private void btnBack_Click(object sender, EventArgs e)
         {

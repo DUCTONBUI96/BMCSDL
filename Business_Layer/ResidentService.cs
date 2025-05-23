@@ -12,18 +12,43 @@ namespace Business_Layer
     public class ResidentService
     {
         DatabaseHelper db = new DatabaseHelper();
-        
+
+        // lấy danh sách tất cả cư dân
         public DataTable GetAllResident()
         {
             string query = "SELECT * FROM ResidentData";
             return db.ExecuteQuery(query);
-        } 
+        }
+
+        // lấy danh sách cư dân theo trạng thái
         public DataTable GetResidentByStatus(string Status)
         {
             string query = $"SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications WHERE Status = '{Status}')"; ;
             return db.ExecuteQuery(query);
         }
 
+        public bool  InsertResident(ResidentDTO resident)
+        {
+            string query = "INSERT INTO ResidentData (FullName, Gender, DateOfBirth, CMND, Address, Nationality, PhoneNumber, Email) " +
+                           "VALUES (@FullName, @Gender, @DateOfBirth, @CMND, @Address, @Nationality, @PhoneNumber, @Email)";
+
+            var parameters = new Dictionary<string, object>
+        {
+            { "@FullName", resident.FullName },
+            { "@Gender", resident.Gender },
+            { "@DateOfBirth", resident.DOB },
+            { "@CMND", resident.CCCD },
+            { "@Address", resident.Address },
+            { "@Nationality", resident.Nationality },
+            { "@PhoneNumber", resident.Phone },
+            { "@Email", resident.Email }
+        };
+            return db.ExecuteNonQuery(query, parameters) > 0;
+        }
+
+
+
+        // gửi thông báo qua email
         public bool NotificationByEmail(string EmailResident, string message)
         {
             string subject = "Thông báo từ hệ thống quản lý cư dân";

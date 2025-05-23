@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -24,9 +25,6 @@ namespace CuoiKi
         private Color successColor = Color.FromArgb(40, 167, 69);      // Màu xanh lá (thành công)
         private Color dangerColor = Color.FromArgb(220, 53, 69);       // Màu đỏ (nguy hiểm)
 
-        DataTable residentTable;
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
-        SqlCommand cmd;
         public VerificationForm()
         {
             InitializeComponent();
@@ -136,57 +134,42 @@ namespace CuoiKi
             }
         }
 
+        ResidentService residentService = new ResidentService();
+        DataTable residentTable= new DataTable();
         private void VerificationForm_Load(object sender, EventArgs e)
         {
-            string query = "SELECT * FROM ResidentData";
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    SqlDataAdapter d = new SqlDataAdapter(cmd);
-                    residentTable = new DataTable();
-                    d.Fill(residentTable);
-                    dgvApplications.DataSource = residentTable;
+            
+            residentTable = residentService.GetAllResident();
+            dgvApplications.DataSource = residentTable;
 
-                    // Tùy chỉnh tên cột hiển thị nếu cần
-                    if (dgvApplications.Columns.Contains("FullName"))
-                        dgvApplications.Columns["FullName"].HeaderText = "Họ và tên";
-                    if (dgvApplications.Columns.Contains("CMND"))
-                        dgvApplications.Columns["CMND"].HeaderText = "Số CCCD";
-                    if (dgvApplications.Columns.Contains("Gender"))
-                        dgvApplications.Columns["Gender"].HeaderText = "Giới tính";
-                    if (dgvApplications.Columns.Contains("DateOfBirth"))
-                        dgvApplications.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
-                    if (dgvApplications.Columns.Contains("Address"))
-                        dgvApplications.Columns["Address"].HeaderText = "Địa chỉ";
-                    if (dgvApplications.Columns.Contains("Nationality"))
-                        dgvApplications.Columns["Nationality"].HeaderText = "Quốc tịch";
-                    if (dgvApplications.Columns.Contains("PhoneNumber"))
-                        dgvApplications.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
-                    if (dgvApplications.Columns.Contains("Email"))
-                        dgvApplications.Columns["Email"].HeaderText = "Email";
+            // Tùy chỉnh tên cột hiển thị nếu cần
+            if (dgvApplications.Columns.Contains("FullName"))
+                dgvApplications.Columns["FullName"].HeaderText = "Họ và tên";
+            if (dgvApplications.Columns.Contains("CMND"))
+                dgvApplications.Columns["CMND"].HeaderText = "Số CCCD";
+            if (dgvApplications.Columns.Contains("Gender"))
+                dgvApplications.Columns["Gender"].HeaderText = "Giới tính";
+            if (dgvApplications.Columns.Contains("DateOfBirth"))
+                dgvApplications.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
+            if (dgvApplications.Columns.Contains("Address"))
+                dgvApplications.Columns["Address"].HeaderText = "Địa chỉ";
+            if (dgvApplications.Columns.Contains("Nationality"))
+                dgvApplications.Columns["Nationality"].HeaderText = "Quốc tịch";
+            if (dgvApplications.Columns.Contains("PhoneNumber"))
+                dgvApplications.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
+            if (dgvApplications.Columns.Contains("Email"))
+                dgvApplications.Columns["Email"].HeaderText = "Email";
 
-                    lblResult.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblResult.Text = "Lỗi khi tải dữ liệu.";
-            }
+            lblResult.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
         }
 
+
+        ApplicationService ApplicationService = new ApplicationService();
         private void btnApprove_Click(object sender, EventArgs e)
         {
-            con.Open();
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
-            string queryApprove = "UPDATE PassportApplications SET Status = N'Xác thực' WHERE ResidentID = @ResidentID";
-            using (cmd = new SqlCommand(queryApprove))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
-                cmd.ExecuteNonQuery();//cần có để thực thi 
-            }
+            int id= int.Parse(x);
+            ApplicationService.UpdateStatus(id, "Đã xác thực");
             if (dgvApplications.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn hồ sơ cần xác thực", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -204,6 +187,10 @@ namespace CuoiKi
 
         private void btnReject_Click(object sender, EventArgs e)
         {
+
+            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            int id = int.Parse(x);
+            ApplicationService.UpdateStatus(id, "Từ chối");
             if (dgvApplications.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn hồ sơ cần từ chối", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -282,7 +269,6 @@ namespace CuoiKi
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-
             // Cập nhật lại kích thước và vị trí các control nếu cần
             Invalidate();
         }

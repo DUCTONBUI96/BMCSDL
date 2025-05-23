@@ -10,13 +10,23 @@ namespace Business_Layer
     public class ApplicationService
     {
         private DatabaseHelper db = new DatabaseHelper();
-        public void UpdateStatus(int residentID,string reviewNote, string status)
+        public void UpdateStatusAndNote(int residentID,string reviewNote, string status)
         {
             // Cập nhật trạng thái của người dân
             string query = $"UPDATE PassportApplications SET Status = N'{status}', ReviewNotes = @ReviewNote WHERE ResidentID = @ResidentID";
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 { "@ReviewNote", reviewNote },
+                { "@ResidentID", residentID }
+            };
+            db.ExecuteNonQuery(query, parameters);
+        }
+        public void UpdateStatus(int residentID, string status)
+        {
+            // Cập nhật trạng thái của người dân
+            string query = $"UPDATE PassportApplications SET Status = N'{status}' WHERE ResidentID = @ResidentID";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
                 { "@ResidentID", residentID }
             };
             db.ExecuteNonQuery(query, parameters);

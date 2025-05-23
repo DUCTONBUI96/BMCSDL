@@ -222,7 +222,7 @@ namespace CuoiKi
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
             int ID = int.Parse(x);
             string note = rtbNotes.Text;
-            applicationService.UpdateStatus(ID, note, "Đã duyệt");
+            applicationService.UpdateStatusAndNote(ID, note, "Đã duyệt");
             lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
         }
 
@@ -231,7 +231,7 @@ namespace CuoiKi
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
             int ID = int.Parse(x);
             string note = rtbNotes.Text;
-            applicationService.UpdateStatus(ID, note, "Từ chối");
+            applicationService.UpdateStatusAndNote(ID, note, "Từ chối");
             lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
         }
     }
