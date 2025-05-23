@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -22,8 +23,6 @@ namespace CuoiKi
         private Color textLightColor = Color.White;                    // Màu chữ sáng
         private Color lightBgColor = Color.FromArgb(248, 249, 250);    // Màu nền nhạt
         private Color successColor = Color.FromArgb(40, 167, 69);      // Màu xanh lá (thành công)
-
-        private DataTable residentTable;
 
         public ResidentListForm()
         {
@@ -148,7 +147,7 @@ namespace CuoiKi
             lblResult.Name = "lblResult";
             this.Controls.Add(lblResult);
         }
-
+        DataTable dt = new DataTable();
         private void BtnBack_Click(object sender, EventArgs e)
         {
             new Menu().Show();
@@ -175,10 +174,10 @@ namespace CuoiKi
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (residentTable == null || txtSearch.Text == "Tìm kiếm theo tên hoặc CCCD" || txtSearch.ForeColor == Color.Gray) return;
+            if (dt == null || txtSearch.Text == "Tìm kiếm theo tên hoặc CCCD" || txtSearch.ForeColor == Color.Gray) return;
 
             string filter = txtSearch.Text.Trim();
-            DataView dv = new DataView(residentTable);
+            DataView dv = new DataView(dt);
 
             try
             {
@@ -203,59 +202,39 @@ namespace CuoiKi
                 }
             }
         }
-
+        
         private void ResidentListForm_Load(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
-            string query = "SELECT * FROM ResidentData";
-            try
+            ResidentService residentService = new ResidentService();
+            dt = residentService.GetAllResident();
+            dgvResidents.DataSource = dt;
+
+            // Tùy chỉnh tên cột hiển thị
+            if (dgvResidents.Columns.Contains("FullName"))
+                dgvResidents.Columns["FullName"].HeaderText = "Họ và tên";
+            if (dgvResidents.Columns.Contains("CMND"))
+                dgvResidents.Columns["CMND"].HeaderText = "Số CCCD";
+            if (dgvResidents.Columns.Contains("Gender"))
+                dgvResidents.Columns["Gender"].HeaderText = "Giới tính";
+            if (dgvResidents.Columns.Contains("DateOfBirth"))
+                dgvResidents.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
+            if (dgvResidents.Columns.Contains("Address"))
+                dgvResidents.Columns["Address"].HeaderText = "Địa chỉ";
+            if (dgvResidents.Columns.Contains("Nationality"))
+                dgvResidents.Columns["Nationality"].HeaderText = "Quốc tịch";
+            if (dgvResidents.Columns.Contains("PhoneNumber"))
+                dgvResidents.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
+            if (dgvResidents.Columns.Contains("Email"))
+                dgvResidents.Columns["Email"].HeaderText = "Email";
+
+            // Cập nhật label kết quả
+            Label lblResult = this.Controls.Find("lblResult", true).FirstOrDefault() as Label;
+            if (lblResult != null)
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    SqlDataAdapter d = new SqlDataAdapter(cmd);
-                    residentTable = new DataTable();
-                    d.Fill(residentTable);
-                    dgvResidents.DataSource = residentTable;
-
-                    // Tùy chỉnh tên cột hiển thị
-                    if (dgvResidents.Columns.Contains("FullName"))
-                        dgvResidents.Columns["FullName"].HeaderText = "Họ và tên";
-                    if (dgvResidents.Columns.Contains("CMND"))
-                        dgvResidents.Columns["CMND"].HeaderText = "Số CCCD";
-                    if (dgvResidents.Columns.Contains("Gender"))
-                        dgvResidents.Columns["Gender"].HeaderText = "Giới tính";
-                    if (dgvResidents.Columns.Contains("DateOfBirth"))
-                        dgvResidents.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
-                    if (dgvResidents.Columns.Contains("Address"))
-                        dgvResidents.Columns["Address"].HeaderText = "Địa chỉ";
-                    if (dgvResidents.Columns.Contains("Nationality"))
-                        dgvResidents.Columns["Nationality"].HeaderText = "Quốc tịch";
-                    if (dgvResidents.Columns.Contains("PhoneNumber"))
-                        dgvResidents.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
-                    if (dgvResidents.Columns.Contains("Email"))
-                        dgvResidents.Columns["Email"].HeaderText = "Email";
-
-                    // Cập nhật label kết quả
-                    Label lblResult = this.Controls.Find("lblResult", true).FirstOrDefault() as Label;
-                    if (lblResult != null)
-                    {
-                        lblResult.Text = $"Đã tải {residentTable.Rows.Count} cư dân.";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Cập nhật label kết quả
-                Label lblResult = this.Controls.Find("lblResult", true).FirstOrDefault() as Label;
-                if (lblResult != null)
-                {
-                    lblResult.Text = "Lỗi khi tải dữ liệu.";
-                }
+                lblResult.Text = $"Đã tải {dt.Rows.Count} cư dân.";
             }
         }
+
 
         private void btnViewDetails_Click(object sender, EventArgs e)
         {

@@ -234,5 +234,15 @@
   <ItemGroup>
     <None Include="Resources\Image1.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business_Layer\Business_Layer.csproj">
+      <Project>{c132d865-0b42-4a86-aa35-08036d33a882}</Project>
+      <Name>Business_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data_Layer\Data_Layer.csproj">
+      <Project>{de085c9a-9517-4667-a1a9-80d409205ca6}</Project>
+      <Name>Data_Layer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

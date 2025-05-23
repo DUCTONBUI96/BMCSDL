@@ -26,7 +26,6 @@ namespace CuoiKi
 
         DataTable residentTable;
         SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
-        string query;
         SqlCommand cmd;
         public VerificationForm()
         {

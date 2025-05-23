@@ -10,7 +10,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Business_Layer;
+using Data_Layer;
 namespace CuoiKi
 {
     public partial class ApplicationForm : Form
@@ -109,68 +110,13 @@ namespace CuoiKi
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            // Kiểm tra các trường thông tin
-            if (string.IsNullOrWhiteSpace(txtFullName.Text))
-            {
-                MessageBox.Show("Vui lòng nhập họ và tên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtFullName.Focus();
-                return;
-            }
 
-            if (string.IsNullOrWhiteSpace(txtCCCDid.Text))
-            {
-                MessageBox.Show("Vui lòng nhập số CCCD", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCCCDid.Focus();
-                return;
-            }
-
-            if (cboGender.SelectedIndex == -1)
-            {
-                MessageBox.Show("Vui lòng chọn giới tính", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cboGender.Focus();
-                return;
-            }
-
-            if (cboNationality.SelectedIndex == -1)
-            {
-                MessageBox.Show("Vui lòng chọn quốc tịch", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cboNationality.Focus();
-                return;
-            }
-
-            if (!validEmail())
-            {
-                MessageBox.Show("Email không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEmail.Focus();
-                return;
-            }
-
-            if (!validPhone())
-            {
-                MessageBox.Show("Số điện thoại không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPhone.Focus();
-                return;
-            }
-
-            if (!validCCCD())
-            {
-                MessageBox.Show("Số CCCD không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCCCDid.Focus();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(rtbAddress.Text))
-            {
-                MessageBox.Show("Vui lòng nhập địa chỉ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                rtbAddress.Focus();
-                return;
-            }
-
+           ResidentValidator valid = new ResidentValidator();
             //chuyen lenh sang string rồi dùng using gọi lại
             string connectionString = "Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True";
             string query = "INSERT INTO ResidentData (FullName, Gender, DateOfBirth, CMND, Address, Nationality, PhoneNumber, Email) " +
                            "VALUES (@FullName, @Gender, @DateOfBirth, @CMND, @Address, @Nationality, @PhoneNumber, @Email)";
-
+            
             //test connect database
             try
             {

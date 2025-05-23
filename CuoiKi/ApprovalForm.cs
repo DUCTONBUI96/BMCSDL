@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -154,9 +155,6 @@ namespace CuoiKi
         }
 
         DataTable residentTable;
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
-        string query;
-        SqlCommand cmd;
         private void ApprovalForm_Load(object sender, EventArgs e)
         {
             // Thiết lập placeholder ban đầu
@@ -168,55 +166,44 @@ namespace CuoiKi
             cboStatusFilter.Items.Add("Đã duyệt");
             cboStatusFilter.Items.Add("Từ chối");
             // Thiết lập mục mặc định
+            ResidentService residentService = new ResidentService();
+
             cboStatusFilter.SelectedIndex = 0; // "Tất cả trạng thái"
             if(cboStatusFilter.SelectedItem.ToString() == "Tất cả trạng thái")
             {
-                query = "SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications)"; 
+                residentTable = residentService.GetAllResident();
             }
             if (cboStatusFilter.SelectedItem.ToString() == "Chờ xét")
             {
-                query = "SELECT * FROM ResidentData WHERE ResidentID IN (SELECT ResidentID FROM PassportApplications WHERE Status = 'Chờ xét duyệt')";
+                residentTable = residentService.GetResidentByStatus("Chờ xét");
             }
-            // Kết nối đến cơ sở dữ liệu và lấy dữ liệu            
-            try
-            {
-                using (cmd = new SqlCommand(query, con))
-                {
-                    SqlDataAdapter d = new SqlDataAdapter(cmd);
-                    residentTable = new DataTable();
-                    d.Fill(residentTable);
-                    dgvApplications.DataSource = residentTable;
 
-                    // Tùy chỉnh tên cột hiển thị nếu cần
-                    if (dgvApplications.Columns.Contains("FullName"))
-                        dgvApplications.Columns["FullName"].HeaderText = "Họ và tên";
-                    if (dgvApplications.Columns.Contains("CMND"))
-                        dgvApplications.Columns["CMND"].HeaderText = "Số CCCD";
-                    if (dgvApplications.Columns.Contains("Gender"))
-                        dgvApplications.Columns["Gender"].HeaderText = "Giới tính";
-                    if (dgvApplications.Columns.Contains("DateOfBirth"))
-                        dgvApplications.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
-                    if (dgvApplications.Columns.Contains("Address"))
-                        dgvApplications.Columns["Address"].HeaderText = "Địa chỉ";
-                    if (dgvApplications.Columns.Contains("Nationality"))
-                        dgvApplications.Columns["Nationality"].HeaderText = "Quốc tịch";
-                    if (dgvApplications.Columns.Contains("PhoneNumber"))
-                        dgvApplications.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
-                    if (dgvApplications.Columns.Contains("Email"))
-                        dgvApplications.Columns["Email"].HeaderText = "Email";
+            residentTable = residentService.GetAllResident();
+            dgvApplications.DataSource = residentTable;
 
-                    // Cập nhật trạng thái
-                    lblStatus.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
-                }
+            // Tùy chỉnh tên cột hiển thị nếu cần
+            if (dgvApplications.Columns.Contains("FullName"))
+                dgvApplications.Columns["FullName"].HeaderText = "Họ và tên";
+            if (dgvApplications.Columns.Contains("CMND"))
+                dgvApplications.Columns["CMND"].HeaderText = "Số CCCD";
+            if (dgvApplications.Columns.Contains("Gender"))
+                dgvApplications.Columns["Gender"].HeaderText = "Giới tính";
+            if (dgvApplications.Columns.Contains("DateOfBirth"))
+                dgvApplications.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
+            if (dgvApplications.Columns.Contains("Address"))
+                dgvApplications.Columns["Address"].HeaderText = "Địa chỉ";
+            if (dgvApplications.Columns.Contains("Nationality"))
+                dgvApplications.Columns["Nationality"].HeaderText = "Quốc tịch";
+            if (dgvApplications.Columns.Contains("PhoneNumber"))
+                dgvApplications.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
+            if (dgvApplications.Columns.Contains("Email"))
+                dgvApplications.Columns["Email"].HeaderText = "Email";
 
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải danh sách cư dân: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblStatus.Text = "Lỗi khi tải dữ liệu.";
-            }
+            // Cập nhật trạng thái
+            lblStatus.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
+            txtSearchCCCD.TextChanged += txtSearchCCCD_TextChanged;
         }
+
 
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
@@ -228,37 +215,24 @@ namespace CuoiKi
 
         }
 
+        ApplicationService applicationService = new ApplicationService();
         private void btnApprove_Click(object sender, EventArgs e)
         {
-            con.Open();
-            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
-            string queryApprove = "UPDATE PassportApplications SET Status = N'Đã duyệt', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
-            using (cmd = new SqlCommand(queryApprove))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ReviewNotes", rtbNotes.Text);
-                cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
 
-                cmd.ExecuteNonQuery();//cần có để thực thi 
-                lblStatus.Text = "Đã duyệt hồ sơ";
-            }
+            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            int ID = int.Parse(x);
+            string note = rtbNotes.Text;
+            applicationService.UpdateStatus(ID, note, "Đã duyệt");
+            lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
         }
 
         private void btnReject_Click(object sender, EventArgs e)
         {
-            con.Open();
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
-            string queryApprove = "UPDATE PassportApplications SET Status = N'Từ chối', ReviewNotes = @ReviewNotes WHERE ResidentID = @ResidentID";
-            using (cmd = new SqlCommand(queryApprove))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ReviewNotes", rtbNotes.Text);
-                cmd.Parameters.AddWithValue("@ResidentID", int.Parse(x));
-
-                cmd.ExecuteNonQuery();//cần có để thực thi 
-                lblStatus.Text = "Đã từ chối hồ sơ";
-
-            }
+            int ID = int.Parse(x);
+            string note = rtbNotes.Text;
+            applicationService.UpdateStatus(ID, note, "Từ chối");
+            lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
         }
     }
 }
