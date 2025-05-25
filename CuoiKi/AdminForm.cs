@@ -21,42 +21,122 @@ namespace CuoiKi
         public AdminForm()
         {
             InitializeComponent();
-            CustomizeDesign();
+            //CustomizeDesign();
         }
 
-        private void CustomizeDesign()
-        {
-            // Tùy chỉnh giao diện TabControl
-            tabControl.Size = new Size(884, 426);
-            tabControl.Dock = DockStyle.Fill;
-            tabControl.Appearance = TabAppearance.FlatButtons;
-            tabControl.ItemSize = new Size(0, 30);
-            tabControl.SizeMode = TabSizeMode.Fixed;
-            tabControl.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+        //private void CustomizeDesign()
+        //{
+        //    // Tùy chỉnh giao diện TabControl
+        //    tabControl.Size = new Size(884, 426);
+        //    tabControl.Dock = DockStyle.Fill;
+        //    tabControl.Appearance = TabAppearance.FlatButtons;
+        //    tabControl.ItemSize = new Size(0, 30);
+        //    tabControl.SizeMode = TabSizeMode.Fixed;
+        //    tabControl.Font = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            // Tùy chỉnh màu sắc cho các tab
-            foreach (TabPage tab in tabControl.TabPages)
-            {
-                tab.BackColor = lightBgColor;
-            }
+        //    // Tùy chỉnh màu sắc cho các tab
+        //    foreach (TabPage tab in tabControl.TabPages)
+        //    {
+        //        tab.BackColor = lightBgColor;
+        //    }
 
-            // Tùy chỉnh form
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = true;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Quản trị hệ thống - Cấp hộ chiếu online";
-            this.Icon = SystemIcons.Application;
-        }
+        //    // Tùy chỉnh form
+        //    this.FormBorderStyle = FormBorderStyle.FixedSingle;
+        //    this.MaximizeBox = true;
+        //    this.StartPosition = FormStartPosition.CenterScreen;
+        //    this.Text = "Quản trị hệ thống - Cấp hộ chiếu online";
+        //    this.Icon = SystemIcons.Application;
+        //}
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            UC_quanli uc1 = new UC_quanli();
-            uc1.Dock = DockStyle.Fill;
-            tabPageQuanLi.Controls.Add(uc1);
+            //UC_quanli uc1 = new UC_quanli();
+            //uc1.Dock = DockStyle.Fill;
+            //tabPageQuanLi.Controls.Add(uc1);
 
-            UC_Phanquyen uc2 = new UC_Phanquyen();
-            uc2.Dock = DockStyle.Fill;
-            tabPagePhanquyen.Controls.Add(uc2);
+            //UC_Phanquyen uc2 = new UC_Phanquyen();
+            //uc2.Dock = DockStyle.Fill;
+            //tabPagePhanquyen.Controls.Add(uc2);
+            txtTimKiem.Focus();
+            txtSearch.Focus();
+            txtConfigKey.Text = "Nhập khóa cấu hình";
+            txtConfigKey.ForeColor = Color.Gray;
+            txtConfigValue.Focus();
+        }
+
+    
+
+       
+        private void txtTimKiem_Enter(object sender, EventArgs e)
+        {
+            if (txtTimKiem.Text == "Tìm kiếm người dùng")
+            {
+                txtTimKiem.Text = "";
+                txtTimKiem.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtTimKiem_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+            {
+                txtTimKiem.Text = "Tìm kiếm người dùng";
+                txtTimKiem.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtSearch_Enter(object sender, EventArgs e)
+        {
+            if (txtSearch.Text == "Tìm kiếm người dùng")
+            {
+                txtSearch.Text = "";
+                txtSearch.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtSearch_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                txtSearch.Text = "Tìm kiếm người dùng";
+                txtSearch.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtConfigKey_Enter(object sender, EventArgs e)
+        {
+            if (txtConfigKey.Text == "Nhập khóa cấu hình")
+            {
+                txtConfigKey.Text = "";
+                txtConfigKey.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtConfigKey_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtConfigKey.Text))
+            {
+                txtConfigKey.Text = "Nhập khóa cấu hình";
+                txtConfigKey.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtConfigValue_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtConfigValue.Text))
+            {
+                txtConfigValue.Text = "Nhập giá trị cấu hình";
+                txtConfigValue.ForeColor = Color.Gray;
+            }
+        }
+
+        private void txtConfigValue_Enter(object sender, EventArgs e)
+        {
+            if (txtConfigValue.Text == "Nhập giá trị cấu hình")
+            {
+                txtConfigValue.Text = "";
+                txtConfigValue.ForeColor = Color.Black;
+            }
         }
     }
 }
