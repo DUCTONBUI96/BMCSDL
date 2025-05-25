@@ -28,7 +28,7 @@ namespace Business_Layer
         }
 
         // Thêm dân cư 
-        public bool  InsertResident(ResidentDTO resident)
+        public bool InsertResident(ResidentDTO resident)
         {
             string query = "INSERT INTO ResidentData (FullName, Gender, DateOfBirth, CMND, Address, Nationality, PhoneNumber, Email) " +
                            "VALUES (@FullName, @Gender, @DateOfBirth, @CMND, @Address, @Nationality, @PhoneNumber, @Email)";

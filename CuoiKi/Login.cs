@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing.Drawing2D;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -88,11 +89,7 @@ namespace CuoiKi
         {
             txtPassword.PasswordChar = '*'; // Ẩn password mặc định
         }
-
-        // CSDL
-        public SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
-        public SqlCommand cmd;
-        public SqlDataReader rd;
+        
         private void btnClose_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -110,20 +107,34 @@ namespace CuoiKi
 
         private void btnDangnhap_Click(object sender, EventArgs e)
         {
-            cmd = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash", con);
-            cmd.Parameters.AddWithValue("@Username", txtUsername.Text);
-            cmd.Parameters.AddWithValue("@PasswordHash", txtPassword.Text);
-
-            con.Open();
-            rd = cmd.ExecuteReader();
-
-            if (rd.Read() == true)
+            UserService userService = new UserService();
+            int IdCheck = userService.LoginAndGetRole(txtUsername.Text,txtPassword.Text);
+            // Kiểm tra đăng nhập
+            if (IdCheck >0)
             {
-                //new ApplicationForm().Show();
-                //new Menu().Show();
-                new Menu().Show();
-                //new ApprovalForm().Show();
-                //new SearchStatusForm().Show();
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Mở form chính dựa trên RoleID
+                switch (IdCheck)
+                {
+                    case 1: // XT
+                        new VerificationForm().Show();
+                        break;
+                    case 2: // XD
+                        new ApprovalForm().Show();
+                        break;
+                    case 3: // LT
+                        new PassportIssueForm().Show();
+                        break;
+                    case 4: // GS
+                        new SecurityMonitorForm().Show();
+                        break;
+                    case 6: // Admin
+                        new AdminForm().Show();
+                        break;
+                    default:
+                        MessageBox.Show("Vai trò không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                }
                 this.Hide();
             }
             else
@@ -134,7 +145,6 @@ namespace CuoiKi
                 txtUsername.Focus();
             }
 
-            con.Close();
         }
 
         private void ckbShowpassWord_CheckedChanged(object sender, EventArgs e)
