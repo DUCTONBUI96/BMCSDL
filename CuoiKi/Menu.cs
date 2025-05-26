@@ -159,8 +159,7 @@ namespace CuoiKi
 
         private void đổiMậtKhẩuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new ChangePasswordForm().Show();
-            this.Hide();
+           
         }
 
         private void Menu_Load(object sender, EventArgs e)

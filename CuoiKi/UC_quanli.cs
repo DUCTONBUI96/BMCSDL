@@ -12,22 +12,22 @@ namespace CuoiKi
 {
     public partial class UC_quanli : UserControl
     {
-            public static UC_quanli _instance;
-            public static UC_quanli Instance
+        public static UC_quanli _instance;
+        public static UC_quanli Instance
+        {
+            get
             {
-                get
-                {
-                    if (_instance == null)
-                        _instance = new UC_quanli();
-                    return _instance;
-                }
+                if (_instance == null)
+                    _instance = new UC_quanli();
+                return _instance;
             }
+        }
 
-            public UC_quanli()
-            {
+        public UC_quanli()
+        {
             InitializeComponent();
             this.Controls.Remove(this.pictureBox2);
-            }
+        }
 
 
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace CuoiKi
 
         public void UC_quanli_Load(object sender, EventArgs e)
         {
-            
+
         }
         public DataTable load()
         {
@@ -58,8 +58,17 @@ namespace CuoiKi
 
         public void LoadChangPassword(int id)
         {
-            new ChangePasswordForm();
 
         }
+        public void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("bla");
+        }
+        public void ResetPassword(DataGridView row)
+        {
+            int id = Convert.ToInt32(row.CurrentRow.Cells["UserID"].Value);
+            new ChangePasswordForm(id).ShowDialog();
+        }
+
     }
 }

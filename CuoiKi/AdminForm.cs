@@ -55,6 +55,7 @@ namespace CuoiKi
         {
             uc1.Dock = DockStyle.Fill;
             dgvUser.DataSource = uc1.load();
+            dgvRole.DataSource = uc1.load();
 
             //UC_Phanquyen uc2 = new UC_Phanquyen();
             //uc2.Dock = DockStyle.Fill;
@@ -145,9 +146,9 @@ namespace CuoiKi
 
         }
 
-        private void btnResetPassword_Click(object sender, EventArgs e)
+        private void btnResetPass_Click(object sender, EventArgs e)
         {
-            
+            uc1.ResetPassword(dgvUser);
         }
     }
 }

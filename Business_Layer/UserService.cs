@@ -33,18 +33,44 @@ namespace Business_Layer
 
         public DataTable GetAllUser()
         {
-            string query = "SELECT * FROM Users";
+            string query = "SELECT UserID,Username,PasswordHash,RoleID,IsActive,CreatedAT FROM Users";
             return db.ExecuteQuery(query);
         }
 
-        public void InsertUser(string user,string password,int RoleID)
+        //Insert new user
+        public void InsertUser(string user, string password, int RoleID)
         {
             string query = "INSERT INTO Users (Username, PasswordHash, RoleID) VALUES (@Username, @PasswordHash, @RoleID)";
             var parameters = new Dictionary<string, object>
             {
-                { "@Username", user }, 
-                { "@PasswordHash", password }, 
-                { "@RoleID", RoleID } 
+                { "@Username", user },
+                { "@PasswordHash", password },
+                { "@RoleID", RoleID }
+            };
+            db.ExecuteNonQuery(query, parameters);
+        }
+
+        //Check password
+        public bool CheckPassword(int userId, string password)
+        {
+            string query = "SELECT COUNT(*) FROM Users WHERE UserID = @UserID AND PasswordHash = @Password";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@UserID", userId },
+                { "@Password", password }
+            };
+            var result = db.ExecuteScalar(query, parameters);
+            return result != null && Convert.ToInt32(result) > 0;
+        }
+
+        //reset pass user
+        public void ResetPassword(int userId, string newPass)
+        {
+            string query = "UPDATE Users SET PasswordHash = @NewPassword WHERE UserID = @UserID";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@NewPassword", newPass },
+                { "@UserID", userId }
             };
             db.ExecuteNonQuery(query, parameters);
         }

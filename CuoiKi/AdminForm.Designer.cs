@@ -108,6 +108,7 @@
             this.btnResetPass.Text = "Đặt lại mật khẩu";
             this.btnResetPass.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnResetPass.UseVisualStyleBackColor = false;
+            this.btnResetPass.Click += new System.EventHandler(this.btnResetPass_Click);
             // 
             // btnUnlock
             // 
@@ -183,11 +184,11 @@
             // dgvUser
             // 
             this.dgvUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUser.Location = new System.Drawing.Point(15, 75);
+            this.dgvUser.Location = new System.Drawing.Point(16, 75);
             this.dgvUser.Name = "dgvUser";
             this.dgvUser.RowHeadersWidth = 51;
             this.dgvUser.RowTemplate.Height = 24;
-            this.dgvUser.Size = new System.Drawing.Size(974, 414);
+            this.dgvUser.Size = new System.Drawing.Size(868, 414);
             this.dgvUser.TabIndex = 39;
             // 
             // tabPagePhanquyen
@@ -251,7 +252,7 @@
             this.dgvRole.Name = "dgvRole";
             this.dgvRole.RowHeadersWidth = 51;
             this.dgvRole.RowTemplate.Height = 24;
-            this.dgvRole.Size = new System.Drawing.Size(869, 150);
+            this.dgvRole.Size = new System.Drawing.Size(973, 425);
             this.dgvRole.TabIndex = 39;
             // 
             // tabCauhinh
