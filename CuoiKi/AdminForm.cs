@@ -143,12 +143,13 @@ namespace CuoiKi
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-
+            InformationUser infor = new InformationUser();
+            infor.Show();
         }
 
         private void btnResetPass_Click(object sender, EventArgs e)
         {
-            uc1.ResetPassword(dgvUser);
+          // uc1.ResetPassword(dgvUser);
         }
     }
 }
