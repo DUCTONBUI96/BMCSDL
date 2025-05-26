@@ -33,9 +33,22 @@ namespace CuoiKi
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             UserService userService = new UserService();
-            if (txtConfirmPassword.Text != txtNewPassword.Text && (txtConfirmPassword.Text != null && txtNewPassword.Text != null && txtOldPassword.Text !=null) )
+            if (string.IsNullOrWhiteSpace(txtOldPassword.Text) || string.IsNullOrWhiteSpace(txtNewPassword.Text) || string.IsNullOrWhiteSpace(txtConfirmPassword.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
+                return;
+            }
+            if (!userService.CheckPassword(_UserID, txtOldPassword.Text))
+            {
+                MessageBox.Show("Mật khẩu cũ không đúng. Vui lòng kiểm tra lại.");
+                txtOldPassword.Text = "";
+                return;
+            }
+            if (txtConfirmPassword.Text != txtNewPassword.Text  )
             {
                 MessageBox.Show("Mật khẩu mới và xác nhận mật khẩu không khớp. Vui lòng kiểm tra lại.");
+                txtNewPassword.Text = "";
+                txtConfirmPassword.Text = "";
                 return;
             }
             else 

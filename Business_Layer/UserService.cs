@@ -50,6 +50,19 @@ namespace Business_Layer
             db.ExecuteNonQuery(query, parameters);
         }
 
+        //Check password
+        public bool CheckPassword(int userId, string password)
+        {
+            string query = "SELECT COUNT(*) FROM Users WHERE UserID = @UserID AND PasswordHash = @Password";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@UserID", userId },
+                { "@Password", password }
+            };
+            var result = db.ExecuteScalar(query, parameters);
+            return result != null && Convert.ToInt32(result) > 0;
+        }
+
         //reset pass user
         public void ResetPassword(int userId, string newPass)
         {
