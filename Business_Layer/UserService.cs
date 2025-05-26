@@ -33,7 +33,7 @@ namespace Business_Layer
 
         public DataTable GetAllUser()
         {
-            string query = "SELECT * FROM Users";
+            string query = "SELECT UserID,Username,PasswordHash,RoleID,IsActive,CreatedAT FROM Users";
             return db.ExecuteQuery(query);
         }
 

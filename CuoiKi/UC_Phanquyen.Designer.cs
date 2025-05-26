@@ -56,7 +56,7 @@
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.RowHeadersWidth = 51;
             this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(869, 150);
+            this.dgvUsers.Size = new System.Drawing.Size(869, 257);
             this.dgvUsers.TabIndex = 32;
             // 
             // pictureBox2

@@ -33,8 +33,7 @@ namespace CuoiKi
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             UserService userService = new UserService();
-
-            if (txtConfirmPassword.Text != txtNewPassword.Text)
+            if (txtConfirmPassword.Text != txtNewPassword.Text && (txtConfirmPassword.Text != null && txtNewPassword.Text != null && txtOldPassword.Text !=null) )
             {
                 MessageBox.Show("Mật khẩu mới và xác nhận mật khẩu không khớp. Vui lòng kiểm tra lại.");
                 return;
