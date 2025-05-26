@@ -54,6 +54,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="NewFolder1\ResidentDTO.cs.cs" />
+    <Compile Include="NewFolder1\Session.cs" />
     <Compile Include="NewFolder1\UserDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

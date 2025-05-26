@@ -35,6 +35,8 @@ namespace CuoiKi
 
             // Set thoi gian 
             timer1.Start();
+            
+
         }
 
         private void CustomizeDesign()

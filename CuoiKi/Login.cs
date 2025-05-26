@@ -11,6 +11,7 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing.Drawing2D;
 using Business_Layer;
+using Data_Layer.NewFolder1;
 
 namespace CuoiKi
 {
@@ -29,6 +30,8 @@ namespace CuoiKi
             CustomizeDesign();
         }
 
+        FunctionService functionService = new FunctionService();
+        string otp = "Đây là mã OTP: ", check;
         private void CustomizeDesign()
         {
             // Tùy chỉnh giao diện form
@@ -109,32 +112,19 @@ namespace CuoiKi
         {
             UserService userService = new UserService();
             int IdCheck = userService.LoginAndGetRole(txtUsername.Text,txtPassword.Text);
+            if(txtOTP.Text != check)
+            {
+                MessageBox.Show("Mã OTP không hợp lệ. Vui lòng thử lại.", "Xác thực thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Dừng quá trình đăng nhập nếu mã OTP không hợp lệ
+            }
             // Kiểm tra đăng nhập
             if (IdCheck >0)
-            {
-                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {   
+                Session.Name = txtUsername.Text; // Lưu tên người dùng vào biến tĩnh tên Session
+                Session.RoleId = IdCheck; // Lưu RoleID vào biến tĩnh tên Session
+
                 // Mở form chính dựa trên RoleID
-                switch (IdCheck)
-                {
-                    case 1: // XT
-                        new VerificationForm().Show();
-                        break;
-                    case 2: // XD
-                        new ApprovalForm().Show();
-                        break;
-                    case 3: // LT
-                        new PassportIssueForm().Show();
-                        break;
-                    case 4: // GS
-                        new SecurityMonitorForm().Show();
-                        break;
-                    case 6: // Admin
-                        new AdminForm().Show();
-                        break;
-                    default:
-                        MessageBox.Show("Vai trò không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                }
+                new Menu().Show();
                 this.Hide();
             }
             else
@@ -172,6 +162,11 @@ namespace CuoiKi
 
         private void btnSendOTP_Click(object sender, EventArgs e)
         {
+            string emailTest = "ductonbui46@gmail.com";
+            ResidentService residentService = new ResidentService();
+            check = functionService.GererateOTP();
+            otp += check; // Tạo mã OTP
+            residentService.NotificationByEmail(emailTest, otp); // Gửi mã OTP đến email
             MessageBox.Show("Mã OTP đã được gửi đến email của bạn. Vui lòng kiểm tra hộp thư đến của bạn.", "Gửi mã OTP", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

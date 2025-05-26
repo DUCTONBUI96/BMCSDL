@@ -32,6 +32,8 @@ namespace Business_Layer
             return -1; // Đăng nhập thất bại hoặc không tìm thấy vai trò
         }
 
+
+        //Get all user
         public DataTable GetAllUser()
         {
             string query = "SELECT UserID,Username,PasswordHash,RoleID,IsActive,CreatedAT FROM Users";
@@ -102,11 +104,9 @@ namespace Business_Layer
 
             // Kết hợp salt + password
             var combined = salt.Concat(Encoding.UTF8.GetBytes(password)).ToArray();
-
-            // Băm SHA256
             using (var sha256 = SHA256.Create())
             {
-                return sha256.ComputeHash(combined); // byte[] => phù hợp với varbinary
+                return sha256.ComputeHash(combined); 
             }
         }
 

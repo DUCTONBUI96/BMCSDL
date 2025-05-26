@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Business_Layer;
+using Data_Layer.NewFolder1;
 namespace CuoiKi
 {
     public partial class Menu : Form
@@ -24,12 +25,14 @@ namespace CuoiKi
         private Color dangerColor = Color.FromArgb(220, 53, 69);       // Màu đỏ (nguy hiểm)
         private Color warningColor = Color.FromArgb(255, 193, 7);      // Màu vàng (cảnh báo)
         private Color selectedMenuColor = Color.FromArgb(230, 244, 255); // Màu menu được chọn
-
+ 
         public Menu()
         {
             InitializeComponent();
             CustomizeDesign();
         }
+
+        string NameUser = Session.Name; // Lấy tên người dùng từ Session
 
         private void CustomizeDesign()
         {
@@ -93,6 +96,7 @@ namespace CuoiKi
 
         private void CreateWelcomeContent()
         {
+
             // Tạo nội dung chào mừng
             Panel welcomePanel = new Panel();
             welcomePanel.Dock = DockStyle.Fill;
@@ -138,7 +142,7 @@ namespace CuoiKi
             infoContent.Text = "🔹 Phiên bản: 1.0.0\n" +
                               "🔹 Ngày phát hành: " + DateTime.Now.ToString("dd/MM/yyyy") + "\n" +
                               "🔹 Trạng thái: Hoạt động bình thường\n" +
-                              "🔹 Người dùng hiện tại: " + Environment.UserName;
+                              "🔹 Người dùng hiện tại: " + NameUser;
             infoContent.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             infoContent.ForeColor = textColor;
             infoContent.Location = new Point(15, 45);
@@ -238,8 +242,7 @@ namespace CuoiKi
 
                     case "danhSáchToolStripMenuItem":
                         // Mở form danh sách người dân (nếu có)
-                        MessageBox.Show("🚧 Chức năng đang được phát triển", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        new ResidentListForm().Show();
                         break;
 
                     case "thôngBáoToolStripMenuItem":
@@ -289,7 +292,7 @@ namespace CuoiKi
             if (result == DialogResult.Yes)
             {
                 new Login().Show();
-                this.Close();
+                this.Hide();
             }
         }
 
@@ -297,7 +300,7 @@ namespace CuoiKi
         {
             try
             {
-                //new ChangePasswordForm().Show();
+                new ChangePasswordForm(Session.RoleId).Show();
                 this.Hide();
             }
             catch (Exception ex)
@@ -373,7 +376,7 @@ namespace CuoiKi
         private void Menu_Load(object sender, EventArgs e)
         {
             // Hiển thị thông tin người dùng
-            toolStripStatusLabel1.Text = "👤 Người dùng: " + Environment.UserName;
+            toolStripStatusLabel1.Text = "👤 Người dùng: " + NameUser;
 
             // Tạo timer để cập nhật thời gian
             Timer timeTimer = new Timer();
@@ -385,6 +388,37 @@ namespace CuoiKi
 
             // Hiển thị thời gian ban đầu
             toolStripStatusLabel2.Text = "🕐 " + DateTime.Now.ToString("HH:mm:ss - dd/MM/yyyy");
+
+            // Ẩn tất cả các chức năng trước
+            xétDuyệtXDToolStripMenuItem1.Visible = false;
+            giámSátGSToolStripMenuItem1.Visible = false;
+            lưuTrữLTToolStripMenuItem1.Visible = false;
+            xácThựcToolStripMenuItem.Visible = false;
+            quảnTrịADMINToolStripMenuItem1.Visible = false;
+
+            switch (Session.RoleId)
+            {
+                case 1: // Xét duyệt
+                    xétDuyệtXDToolStripMenuItem1.Visible = true;
+                    break;
+                case 2: // Giám sát
+                    giámSátGSToolStripMenuItem1.Visible = true;
+                    break;
+                case 3: // Lưu trữ
+                    lưuTrữLTToolStripMenuItem1.Visible = true;
+                    break;
+                case 4: // Xác thực
+                    xácThựcToolStripMenuItem.Visible = true;
+                    break;
+                case 5: //Admin
+                    quảnTrịADMINToolStripMenuItem1.Visible = true;
+                    break;
+                default:
+                    MessageBox.Show("🚫 Bạn không có quyền truy cập vào chức năng này", "Lỗi quyền truy cập",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -409,5 +443,6 @@ namespace CuoiKi
             }
             base.OnFormClosing(e);
         }
+
     }
 }
