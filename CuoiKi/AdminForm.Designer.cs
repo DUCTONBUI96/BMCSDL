@@ -252,7 +252,7 @@
             this.dgvRole.Name = "dgvRole";
             this.dgvRole.RowHeadersWidth = 51;
             this.dgvRole.RowTemplate.Height = 24;
-            this.dgvRole.Size = new System.Drawing.Size(973, 425);
+            this.dgvRole.Size = new System.Drawing.Size(868, 425);
             this.dgvRole.TabIndex = 39;
             // 
             // tabCauhinh

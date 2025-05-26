@@ -55,24 +55,25 @@
             // lblWelcome
             // 
             this.lblWelcome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.lblWelcome.Location = new System.Drawing.Point(0, 0);
             this.lblWelcome.Margin = new System.Windows.Forms.Padding(0);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Padding = new System.Windows.Forms.Padding(15);
-            this.lblWelcome.Size = new System.Drawing.Size(800, 73);
+            this.lblWelcome.Size = new System.Drawing.Size(1200, 80);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Chào mừng đến Hệ thống Quản lý Cấp Hộ chiếu";
-            this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTime
             // 
-            this.lblTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTime.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
-            this.lblTime.Location = new System.Drawing.Point(302, 70);
+            this.lblTime.Location = new System.Drawing.Point(0, 0);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(292, 25);
+            this.lblTime.Size = new System.Drawing.Size(1200, 50);
             this.lblTime.TabIndex = 2;
             this.lblTime.Text = "Time";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -82,7 +83,7 @@
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.btnSearchStatus);
             this.flowLayoutPanel1.Controls.Add(this.btnSubmitForm);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 140);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(100, 180);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(388, 298);
             this.flowLayoutPanel1.TabIndex = 3;
@@ -168,7 +169,7 @@
             // 
             this.flowLayoutPanel2.Controls.Add(this.panel1);
             this.flowLayoutPanel2.Controls.Add(this.btnLogin);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(397, 140);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(600, 180);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(394, 298);
             this.flowLayoutPanel2.TabIndex = 4;
@@ -239,7 +240,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 700);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lblTime);
