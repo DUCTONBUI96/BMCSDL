@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Data_Layer;
 
 namespace Business_Layer
@@ -29,5 +31,22 @@ namespace Business_Layer
             return -1; // Đăng nhập thất bại hoặc không tìm thấy vai trò
         }
 
+        public DataTable GetAllUser()
+        {
+            string query = "SELECT * FROM Users";
+            return db.ExecuteQuery(query);
+        }
+
+        public void InsertUser(string user,string password,int RoleID)
+        {
+            string query = "INSERT INTO Users (Username, PasswordHash, RoleID) VALUES (@Username, @PasswordHash, @RoleID)";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@Username", user }, 
+                { "@PasswordHash", password }, 
+                { "@RoleID", RoleID } 
+            };
+            db.ExecuteNonQuery(query, parameters);
+        }
     }
 }

@@ -131,7 +131,7 @@
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.RowHeadersWidth = 51;
             this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(869, 150);
+            this.dgvUsers.Size = new System.Drawing.Size(869, 251);
             this.dgvUsers.TabIndex = 32;
             // 
             // UC_quanli
@@ -147,6 +147,7 @@
             this.Controls.Add(this.dgvUsers);
             this.Name = "UC_quanli";
             this.Size = new System.Drawing.Size(926, 497);
+            this.Load += new System.EventHandler(this.UC_quanli_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);

@@ -153,6 +153,7 @@
             this.btnCreate.Text = "Tạo mới";
             this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreate.UseVisualStyleBackColor = false;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // pictureBox1
             // 
@@ -186,7 +187,7 @@
             this.dgvUser.Name = "dgvUser";
             this.dgvUser.RowHeadersWidth = 51;
             this.dgvUser.RowTemplate.Height = 24;
-            this.dgvUser.Size = new System.Drawing.Size(869, 150);
+            this.dgvUser.Size = new System.Drawing.Size(974, 414);
             this.dgvUser.TabIndex = 39;
             // 
             // tabPagePhanquyen

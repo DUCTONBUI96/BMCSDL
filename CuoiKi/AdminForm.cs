@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -20,8 +21,10 @@ namespace CuoiKi
 
         public AdminForm()
         {
+            
             InitializeComponent();
             //CustomizeDesign();
+
         }
 
         //private void CustomizeDesign()
@@ -47,12 +50,11 @@ namespace CuoiKi
         //    this.Text = "Quản trị hệ thống - Cấp hộ chiếu online";
         //    this.Icon = SystemIcons.Application;
         //}
-
+        UC_quanli uc1 = new UC_quanli();
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            //UC_quanli uc1 = new UC_quanli();
-            //uc1.Dock = DockStyle.Fill;
-            //tabPageQuanLi.Controls.Add(uc1);
+            uc1.Dock = DockStyle.Fill;
+            dgvUser.DataSource = uc1.load();
 
             //UC_Phanquyen uc2 = new UC_Phanquyen();
             //uc2.Dock = DockStyle.Fill;
@@ -62,10 +64,9 @@ namespace CuoiKi
             txtConfigKey.Text = "Nhập khóa cấu hình";
             txtConfigKey.ForeColor = Color.Gray;
             txtConfigValue.Focus();
+
+
         }
-
-    
-
        
         private void txtTimKiem_Enter(object sender, EventArgs e)
         {
@@ -137,6 +138,16 @@ namespace CuoiKi
                 txtConfigValue.Text = "";
                 txtConfigValue.ForeColor = Color.Black;
             }
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
