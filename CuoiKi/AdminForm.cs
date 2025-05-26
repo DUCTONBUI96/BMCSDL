@@ -149,7 +149,19 @@ namespace CuoiKi
 
         private void btnResetPass_Click(object sender, EventArgs e)
         {
-          // uc1.ResetPassword(dgvUser);
+           uc1.ResetPassword(dgvUser);
+        }
+
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+            uc1.btnlock_Click(dgvUser, 0);
+            MessageBox.Show("Tài khoản đã bị khóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+  
+        private void btnUnlock_Click_1(object sender, EventArgs e)
+        {
+            uc1.btnlock_Click(dgvUser, 1);
+            MessageBox.Show("Tài khoản đã được mở khóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

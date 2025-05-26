@@ -77,7 +77,6 @@
             this.label6.Size = new System.Drawing.Size(54, 22);
             this.label6.TabIndex = 35;
             this.label6.Text = "Email";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label2
             // 
@@ -123,7 +122,6 @@
             this.cbbVaitro.Name = "cbbVaitro";
             this.cbbVaitro.Size = new System.Drawing.Size(236, 28);
             this.cbbVaitro.TabIndex = 46;
-            this.cbbVaitro.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // pictureBox1
             // 
@@ -179,6 +177,7 @@
             this.btnCreate.Text = "Tạo mới";
             this.btnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreate.UseVisualStyleBackColor = false;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // ckbViewPass2
             // 

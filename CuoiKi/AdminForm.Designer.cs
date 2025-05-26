@@ -124,6 +124,7 @@
             this.btnUnlock.Text = "Mở khóa";
             this.btnUnlock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUnlock.UseVisualStyleBackColor = false;
+            this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click_1);
             // 
             // btnLock
             // 
@@ -139,6 +140,7 @@
             this.btnLock.Text = "Khóa";
             this.btnLock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLock.UseVisualStyleBackColor = false;
+            this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
             // 
             // btnCreate
             // 

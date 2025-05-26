@@ -67,7 +67,6 @@ namespace Business_Layer
                     smtp.EnableSsl = true; // Bật SSL nếu cần
                     smtp.Send(mail);
                 }
-
                 return true;
             }
             catch (Exception ex)

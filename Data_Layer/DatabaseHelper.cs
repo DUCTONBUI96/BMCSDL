@@ -46,6 +46,37 @@ namespace Data_Layer
             }
         }
 
+        //Phương thức thực thi câu lệnh SQL không trả về dữ liệu (INSERT, UPDATE, DELETE) với tham số kiểu VarBinary
+        public int BinaryExecuteNonQuery(string query, Dictionary<string, object> parameters)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        if (param.Value is byte[])
+                        {
+                            // Gán kiểu rõ ràng là VarBinary
+                            cmd.Parameters.Add(param.Key, SqlDbType.VarBinary).Value = param.Value;
+                        }
+                        else if (param.Value == null)
+                        {
+                            cmd.Parameters.AddWithValue(param.Key, DBNull.Value);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue(param.Key, param.Value);
+                        }
+                    }
+                }
+                con.Open();
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+
         //Phương thức thực thi câu lệnh SQL trả về một giá trị đơn (SELECT)
         public object ExecuteScalar(string query, Dictionary<string, object> parameters)
         {

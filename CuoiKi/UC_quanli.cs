@@ -29,7 +29,7 @@ namespace CuoiKi
             this.Controls.Remove(this.pictureBox2);
         }
 
-
+        UserService userService = new UserService();
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSearchCCCD.Text))
@@ -46,20 +46,14 @@ namespace CuoiKi
         public DataTable load()
         {
             DataTable dt = new DataTable();
-            UserService userService = new UserService();
             dt = userService.GetAllUser();
             return dt;
         }
         public void InsertUser(string user, string password, int RoleID)
         {
-            UserService userService = new UserService();
             userService.InsertUser(user, password, RoleID);
         }
 
-        public void LoadChangPassword(int id)
-        {
-
-        }
         public void btnResetPassword_Click(object sender, EventArgs e)
         {
             MessageBox.Show("bla");
@@ -68,6 +62,12 @@ namespace CuoiKi
         {
             int id = Convert.ToInt32(row.CurrentRow.Cells["UserID"].Value);
             new ChangePasswordForm(id).ShowDialog();
+        }
+
+        public void btnlock_Click(DataGridView row, int check)
+        {
+            int id = Convert.ToInt32(row.CurrentRow.Cells["UserID"].Value);
+            userService.LockUser(id, check);
         }
 
     }
