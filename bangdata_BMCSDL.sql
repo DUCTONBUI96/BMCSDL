@@ -170,3 +170,8 @@ GO
 
 
 
+select * from Users;
+
+
+--- confirm pass    combo box chọn XT XD LT GS
+

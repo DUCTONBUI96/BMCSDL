@@ -15,8 +15,8 @@ namespace CuoiKi
         public InformationUser()
         {
             InitializeComponent();
-            txtPassword.UseSystemPasswordChar = true;
-            txtConfirmPass.UseSystemPasswordChar = true;
+            //txtPassword.UseSystemPasswordChar = true;
+            //txtConfirmPass.UseSystemPasswordChar = true;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -31,12 +31,29 @@ namespace CuoiKi
 
         private void ckbviewPass_CheckedChanged(object sender, EventArgs e)
         {
-            txtPassword.UseSystemPasswordChar = !ckbviewPass.Checked;
+            if (ckbviewPass.Checked)
+            {
+                txtPassword.PasswordChar = '\0';
+
+            }
+            else
+            {
+                txtPassword.PasswordChar = '*';
+            }
+         //   txtPassword.UseSystemPasswordChar = !ckbviewPass.Checked;
         }
 
         private void ckbViewPass2_CheckedChanged(object sender, EventArgs e)
         {
-            txtConfirmPass.UseSystemPasswordChar = !ckbViewPass2.Checked;
+            if (ckbViewPass2.Checked)
+            {
+                txtConfirmPass.PasswordChar = '\0'; 
+
+            }
+            else
+            {
+               txtConfirmPass.PasswordChar= '*';    
+            }
         }
     }
 }
