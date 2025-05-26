@@ -135,7 +135,6 @@
             this.txtNewPassword.Name = "txtNewPassword";
             this.txtNewPassword.Size = new System.Drawing.Size(280, 31);
             this.txtNewPassword.TabIndex = 5;
-           
             // 
             // label3
             // 
@@ -231,6 +230,7 @@
             this.btnChangePassword.Text = "Đổi mật khẩu";
             this.btnChangePassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnChangePassword.UseVisualStyleBackColor = false;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // checkedListBox1
             // 

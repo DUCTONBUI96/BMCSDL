@@ -37,14 +37,27 @@ namespace Business_Layer
             return db.ExecuteQuery(query);
         }
 
-        public void InsertUser(string user,string password,int RoleID)
+        //Insert new user
+        public void InsertUser(string user, string password, int RoleID)
         {
             string query = "INSERT INTO Users (Username, PasswordHash, RoleID) VALUES (@Username, @PasswordHash, @RoleID)";
             var parameters = new Dictionary<string, object>
             {
-                { "@Username", user }, 
-                { "@PasswordHash", password }, 
-                { "@RoleID", RoleID } 
+                { "@Username", user },
+                { "@PasswordHash", password },
+                { "@RoleID", RoleID }
+            };
+            db.ExecuteNonQuery(query, parameters);
+        }
+
+        //reset pass user
+        public void ResetPassword(int userId, string newPass)
+        {
+            string query = "UPDATE Users SET PasswordHash = @NewPassword WHERE UserID = @UserID";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@NewPassword", newPass },
+                { "@UserID", userId }
             };
             db.ExecuteNonQuery(query, parameters);
         }

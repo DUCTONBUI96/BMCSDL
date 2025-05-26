@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
     public partial class ChangePasswordForm : Form
     {
-        public ChangePasswordForm()
+        private int _UserID;
+        public ChangePasswordForm(int UserID)
         {
             InitializeComponent();
+            _UserID = UserID;
         }
 
        
@@ -23,11 +26,24 @@ namespace CuoiKi
         {
          //   txtOldPassword.UseSystemPasswordChar = true;
             txtOldPassword.PasswordChar = '*';
-
             txtNewPassword.PasswordChar = '*';
             txtConfirmPassword.PasswordChar = '*';
         }
 
-       
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            UserService userService = new UserService();
+
+            if (txtConfirmPassword.Text != txtNewPassword.Text)
+            {
+                MessageBox.Show("Mật khẩu mới và xác nhận mật khẩu không khớp. Vui lòng kiểm tra lại.");
+                return;
+            }
+            else 
+            {
+             userService.ResetPassword(_UserID, txtNewPassword.Text); 
+             MessageBox.Show("Đổi mật khẩu thành công!");
+            }
+        }
     }
 }

@@ -108,6 +108,7 @@
             this.btnResetPass.Text = "Đặt lại mật khẩu";
             this.btnResetPass.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnResetPass.UseVisualStyleBackColor = false;
+            this.btnResetPass.Click += new System.EventHandler(this.btnResetPass_Click);
             // 
             // btnUnlock
             // 

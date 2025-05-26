@@ -145,9 +145,9 @@ namespace CuoiKi
 
         }
 
-        private void btnResetPassword_Click(object sender, EventArgs e)
+        private void btnResetPass_Click(object sender, EventArgs e)
         {
-            
+            uc1.ResetPassword(dgvUser);
         }
     }
 }
