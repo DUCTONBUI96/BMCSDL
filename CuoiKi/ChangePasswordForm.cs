@@ -57,5 +57,11 @@ namespace CuoiKi
              MessageBox.Show("Đổi mật khẩu thành công!");
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            new Menu().Show();
+            this.Close();
+        }
     }
 }

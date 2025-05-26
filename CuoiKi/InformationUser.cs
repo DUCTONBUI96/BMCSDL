@@ -77,8 +77,8 @@ namespace CuoiKi
             }
             else
             {
-
                 userService.CreateUser(txtName.Text, txtPassword.Text,txtEmail.Text, role);
+                MessageBox.Show("Tạo người dùng thành công!");
             }
         }
     }
