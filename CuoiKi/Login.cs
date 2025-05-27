@@ -111,6 +111,7 @@ namespace CuoiKi
         private void btnDangnhap_Click(object sender, EventArgs e)
         {
             UserService userService = new UserService();
+            FunctionService functionService = new FunctionService();
             int IdCheck = userService.LoginAndGetRole(txtUsername.Text,txtPassword.Text);
             if(txtOTP.Text != check)
             {
@@ -122,6 +123,8 @@ namespace CuoiKi
             {   
                 Session.Name = txtUsername.Text; // Lưu tên người dùng vào biến tĩnh tên Session
                 Session.RoleId = IdCheck; // Lưu RoleID vào biến tĩnh tên Session
+               
+                functionService.SystemLog("Login", Session.RoleId.ToString(), "User"); // Ghi log đăng nhập
 
                 // Mở form chính dựa trên RoleID
                 new Menu().Show();

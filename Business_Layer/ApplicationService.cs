@@ -22,6 +22,8 @@ namespace Business_Layer
             };
             db.ExecuteNonQuery(query, parameters);
         }
+
+        // Cập nhật trạng thái của người dân không có ghi chú
         public void UpdateStatus(int residentID, string status)
         {
             string query = $"UPDATE PassportApplications SET Status = N'{status}' WHERE ResidentID = @ResidentID";

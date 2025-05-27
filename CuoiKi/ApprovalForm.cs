@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Business_Layer;
+using Data_Layer.NewFolder1;
 
 namespace CuoiKi
 {
@@ -216,13 +217,18 @@ namespace CuoiKi
         }
 
         ApplicationService applicationService = new ApplicationService();
+        FunctionService functionService = new FunctionService();
         private void btnApprove_Click(object sender, EventArgs e)
         {
 
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
             int ID = int.Parse(x);
             string note = rtbNotes.Text;
+
+            functionService.SystemLog("Approve", Session.RoleId.ToString(), "PassportApplication");//ghi vào nhật kí hệ thống
+
             applicationService.UpdateStatusAndNote(ID, note, "Đã duyệt");
+
             lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
         }
 
@@ -231,6 +237,10 @@ namespace CuoiKi
             string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
             int ID = int.Parse(x);
             string note = rtbNotes.Text;
+
+            functionService.SystemLog("Reject", Session.RoleId.ToString(), "PassportApplication");//ghi vào nhật kí hệ thống
+
+
             applicationService.UpdateStatusAndNote(ID, note, "Từ chối");
             lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
         }
