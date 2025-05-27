@@ -47,35 +47,33 @@ namespace Data_Layer
         }
 
         //Phương thức thực thi câu lệnh SQL không trả về dữ liệu (INSERT, UPDATE, DELETE) với tham số kiểu VarBinary
-        public int BinaryExecuteNonQuery(string query, Dictionary<string, object> parameters)
+        public object ExecuteStoredProcedure(string procedureName, Dictionary<string, object> parameters, string outputParamName = null)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, con))
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(procedureName, conn))
             {
-                if (parameters != null)
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                foreach (var param in parameters)
                 {
-                    foreach (var param in parameters)
+                    var p = cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                    if (outputParamName != null && param.Key == outputParamName)
                     {
-                        if (param.Value is byte[])
-                        {
-                            // Gán kiểu rõ ràng là VarBinary
-                            cmd.Parameters.Add(param.Key, SqlDbType.VarBinary).Value = param.Value;
-                        }
-                        else if (param.Value == null)
-                        {
-                            cmd.Parameters.AddWithValue(param.Key, DBNull.Value);
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue(param.Key, param.Value);
-                        }
+                        p.Direction = ParameterDirection.Output;
                     }
                 }
-                con.Open();
-                return cmd.ExecuteNonQuery();
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                if (outputParamName != null && cmd.Parameters.Contains(outputParamName))
+                {
+                    return cmd.Parameters[outputParamName].Value;
+                }
+
+                return null;
             }
         }
-
 
         //Phương thức thực thi câu lệnh SQL trả về một giá trị đơn (SELECT)
         public object ExecuteScalar(string query, Dictionary<string, object> parameters)
