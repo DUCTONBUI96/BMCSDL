@@ -124,7 +124,7 @@ namespace CuoiKi
                 residentDTO.Email= txtEmail.Text;
                 residentDTO.Address = rtbAddress.Text;
             }
-            if (residentService.InsertResident(residentDTO))
+            if (residentService.InsertEncryptedResident(residentDTO)== "Thêm form đăng ký thành công")
             {
                 MessageBox.Show("Đăng ký thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();

@@ -20,6 +20,13 @@ namespace Business_Layer
             return db.ExecuteQuery(query);
         }
 
+        // lấy ID theo ResidentName
+        public DataTable  GetResidentByID(string Resident)
+        {
+            string query = $"SELECT ResidentID FROM ResidentData WHERE ResidentID = '{Resident}'";
+            return db.ExecuteQuery(query);
+        }
+
         // lấy danh sách cư dân theo trạng thái
         public DataTable GetResidentByStatus(string Status)
         {
@@ -28,24 +35,31 @@ namespace Business_Layer
         }
 
         // Thêm dân cư 
-        public bool InsertResident(ResidentDTO resident)
+        public string InsertEncryptedResident(ResidentDTO resident)
         {
-            string query = "INSERT INTO ResidentData (FullName, Gender, DateOfBirth, CMND, Address, Nationality, PhoneNumber, Email) " +
-                           "VALUES (@FullName, @Gender, @DateOfBirth, @CMND, @Address, @Nationality, @PhoneNumber, @Email)";
 
             var parameters = new Dictionary<string, object>
-        {
-            { "@FullName", resident.FullName },
-            { "@Gender", resident.Gender },
-            { "@DateOfBirth", resident.DOB },
-            { "@CMND", resident.CCCD },
-            { "@Address", resident.Address },
-            { "@Nationality", resident.Nationality },
-            { "@PhoneNumber", resident.Phone },
-            { "@Email", resident.Email }
-        };
-            return db.ExecuteNonQuery(query, parameters) > 0;
+    {
+        { "@CMND", resident.CCCD },
+        { "@FullName", resident.FullName },
+        { "@Gender", resident.Gender },
+        { "@DateOfBirth", resident.DOB },
+        { "@Address", resident.Address },
+        { "@PhoneNumber", resident.Phone },
+        { "@Email", resident.Email },
+        { "@ErrorMessage", DBNull.Value },
+         {"@RegistrationID",DBNull.Value }
+    };
+
+            var outputParams = new List<string> { "@ErrorMessage","@RegistrationID" };
+
+            var outputValues = db.ExecuteStoredProcedure("SP_InsertPassportRegistration", parameters, outputParams);
+
+            var errorMessage = outputValues["@ErrorMessage"]?.ToString();
+
+            return errorMessage;
         }
+
 
         // gửi thông báo qua email
         public bool NotificationByEmail(string EmailResident, string message)
