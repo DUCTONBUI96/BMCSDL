@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -28,11 +29,7 @@ namespace CuoiKi
 
         DataTable approvedResidentTable;
         DataTable historyTable;
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=PassportManagement;Integrated Security=True");
-        string query;
-        SqlCommand cmd;
-        DataGridViewRow selectedRow;
-
+        ResidentService residentService = new ResidentService();
         public PassportIssueForm()
         {
             InitializeComponent();
@@ -220,195 +217,115 @@ namespace CuoiKi
         private void LoadApprovedApplications()
         {
             // Chỉ load những hồ sơ đã được duyệt
-            query = @"SELECT r.ResidentID, r.CMND, r.FullName, r.DateOfBirth, r.Address, pa.Status, pa.ApplicationDate 
-                     FROM ResidentData r 
-                     INNER JOIN PassportApplications pa ON r.ResidentID = pa.ResidentID 
-                     WHERE pa.Status = 'Đã duyệt'";
-
-            try
+            approvedResidentTable = residentService.GetAllResidentForEachUser(3, "SP_ListAllApplicationsForXD");
+            dgvApprovedApps.DataSource = approvedResidentTable;
+            // Tùy chỉnh tên cột hiển thị
+            if (dgvApprovedApps.Columns.Contains("ResidentID"))
             {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    approvedResidentTable = new DataTable();
-                    da.Fill(approvedResidentTable);
-                    dgvApprovedApps.DataSource = approvedResidentTable;
-                }
+                dgvApprovedApps.Columns["ResidentID"].Visible = false; // Ẩn cột ID
+            }
+            if (dgvApprovedApps.Columns.Contains("CMND"))
+                dgvApprovedApps.Columns["CMND"].HeaderText = "🆔 Số CCCD";
+            if (dgvApprovedApps.Columns.Contains("FullName"))
+                dgvApprovedApps.Columns["FullName"].HeaderText = "👤 Họ và tên";
+            if (dgvApprovedApps.Columns.Contains("DateOfBirth"))
+                dgvApprovedApps.Columns["DateOfBirth"].HeaderText = "📅 Ngày sinh";
+            if (dgvApprovedApps.Columns.Contains("Address"))
+                dgvApprovedApps.Columns["Address"].HeaderText = "🏠 Địa chỉ";
+            if (dgvApprovedApps.Columns.Contains("Status"))
+                dgvApprovedApps.Columns["Status"].HeaderText = "🔍 Trạng thái";
+            if (dgvApprovedApps.Columns.Contains("ApplicationDate"))
+                dgvApprovedApps.Columns["ApplicationDate"].HeaderText = "📋 Ngày nộp đơn";
 
-                // Tùy chỉnh tên cột hiển thị
-                if (dgvApprovedApps.Columns.Contains("ResidentID"))
-                {
-                    dgvApprovedApps.Columns["ResidentID"].Visible = false; // Ẩn cột ID
-                }
-                if (dgvApprovedApps.Columns.Contains("CMND"))
-                    dgvApprovedApps.Columns["CMND"].HeaderText = "🆔 Số CCCD";
-                if (dgvApprovedApps.Columns.Contains("FullName"))
-                    dgvApprovedApps.Columns["FullName"].HeaderText = "👤 Họ và tên";
-                if (dgvApprovedApps.Columns.Contains("DateOfBirth"))
-                    dgvApprovedApps.Columns["DateOfBirth"].HeaderText = "📅 Ngày sinh";
-                if (dgvApprovedApps.Columns.Contains("Address"))
-                    dgvApprovedApps.Columns["Address"].HeaderText = "🏠 Địa chỉ";
-                if (dgvApprovedApps.Columns.Contains("Status"))
-                    dgvApprovedApps.Columns["Status"].HeaderText = "🔍 Trạng thái";
-                if (dgvApprovedApps.Columns.Contains("ApplicationDate"))
-                    dgvApprovedApps.Columns["ApplicationDate"].HeaderText = "📋 Ngày nộp đơn";
-
-                lblLog.Text = $"✅ Đã tải {approvedResidentTable.Rows.Count} hồ sơ đã được duyệt";
-                lblLog.ForeColor = successColor;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("❌ Lỗi khi tải danh sách hồ sơ đã duyệt: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblLog.Text = "❌ Lỗi khi tải dữ liệu hồ sơ";
-                lblLog.ForeColor = dangerColor;
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
+            lblLog.Text = $"✅ Đã tải {approvedResidentTable.Rows.Count} hồ sơ đã được duyệt";
+            lblLog.ForeColor = successColor;
         }
-
+            
         private void LoadHistoryData()
         {
-            // Load lịch sử thay đổi trạng thái
-            query = @"SELECT pa.ResidentID, r.FullName, pa.Status, pa.ApplicationDate, pa.Notes,
-                            CASE 
-                                WHEN pp.PassportNumber IS NOT NULL THEN 'Đã cấp hộ chiếu'
-                                ELSE 'Chưa cấp hộ chiếu'
-                            END as PassportStatus,
-                            pp.IssueDate, pp.ExpiryDate
-                     FROM PassportApplications pa
-                     INNER JOIN ResidentData r ON pa.ResidentID = r.ResidentID
-                     LEFT JOIN PassportData pp ON pa.ResidentID = pp.ResidentID
-                     ORDER BY pa.ApplicationDate DESC";
+            
 
-            try
-            {
-                if (con.State == ConnectionState.Closed)
-                    con.Open();
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    historyTable = new DataTable();
-                    da.Fill(historyTable);
-                    dgvHistory.DataSource = historyTable;
-                }
-
-                // Tùy chỉnh tên cột hiển thị cho lịch sử
-                if (dgvHistory.Columns.Contains("ResidentID"))
-                    dgvHistory.Columns["ResidentID"].Visible = false;
-                if (dgvHistory.Columns.Contains("FullName"))
-                    dgvHistory.Columns["FullName"].HeaderText = "👤 Họ tên";
-                if (dgvHistory.Columns.Contains("Status"))
-                    dgvHistory.Columns["Status"].HeaderText = "📋 Trạng thái đơn";
-                if (dgvHistory.Columns.Contains("ApplicationDate"))
-                    dgvHistory.Columns["ApplicationDate"].HeaderText = "📅 Ngày nộp";
-                if (dgvHistory.Columns.Contains("PassportStatus"))
-                    dgvHistory.Columns["PassportStatus"].HeaderText = "🛂 Tình trạng HC";
-                if (dgvHistory.Columns.Contains("IssueDate"))
-                    dgvHistory.Columns["IssueDate"].HeaderText = "📅 Ngày cấp HC";
-                if (dgvHistory.Columns.Contains("ExpiryDate"))
-                    dgvHistory.Columns["ExpiryDate"].HeaderText = "⏰ Ngày hết hạn";
-                if (dgvHistory.Columns.Contains("Notes"))
-                    dgvHistory.Columns["Notes"].HeaderText = "📝 Ghi chú";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("❌ Lỗi khi tải lịch sử: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
+            // Tùy chỉnh tên cột hiển thị cho lịch sử
+            if (dgvHistory.Columns.Contains("ResidentID"))
+                dgvHistory.Columns["ResidentID"].Visible = false;
+            if (dgvHistory.Columns.Contains("FullName"))
+                dgvHistory.Columns["FullName"].HeaderText = "👤 Họ tên";
+            if (dgvHistory.Columns.Contains("Status"))
+                dgvHistory.Columns["Status"].HeaderText = "📋 Trạng thái đơn";
+            if (dgvHistory.Columns.Contains("ApplicationDate"))
+                dgvHistory.Columns["ApplicationDate"].HeaderText = "📅 Ngày nộp";
+            if (dgvHistory.Columns.Contains("PassportStatus"))
+                dgvHistory.Columns["PassportStatus"].HeaderText = "🛂 Tình trạng HC";
+            if (dgvHistory.Columns.Contains("IssueDate"))
+                dgvHistory.Columns["IssueDate"].HeaderText = "📅 Ngày cấp HC";
+            if (dgvHistory.Columns.Contains("ExpiryDate"))
+                dgvHistory.Columns["ExpiryDate"].HeaderText = "⏰ Ngày hết hạn";
+            if (dgvHistory.Columns.Contains("Notes"))
+                dgvHistory.Columns["Notes"].HeaderText = "📝 Ghi chú";
         }
+    
 
         private void dgvApprovedApps_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                try
-                {
-                    selectedRow = dgvApprovedApps.Rows[e.RowIndex];
-                    string residentId = selectedRow.Cells["ResidentID"].Value.ToString();
-                    string fullName = selectedRow.Cells["FullName"].Value.ToString();
-                    string status = selectedRow.Cells["Status"].Value.ToString();
+            //if (e.RowIndex >= 0)
+            //{
+            //    try
+            //    {
+            //        //selectedRow = dgvApprovedApps.Rows[e.RowIndex];
+            //        //string residentId = selectedRow.Cells["ResidentID"].Value.ToString();
+            //        //string fullName = selectedRow.Cells["FullName"].Value.ToString();
+            //        //string status = selectedRow.Cells["Status"].Value.ToString();
 
-                    // Hiển thị thông tin
-                    txtTrangThai.Text = status;
+            //        // Hiển thị thông tin
+            //        txtTrangThai.Text = status;
 
-                    // Auto-generate số hộ chiếu nhưng cho phép chỉnh sửa
-                    txtPassportNumber.Text = GeneratePassportNumber(residentId);
+            //        // Auto-generate số hộ chiếu nhưng cho phép chỉnh sửa
+            //        txtPassportNumber.Text = GeneratePassportNumber(residentId);
 
-                    // Cập nhật log
-                    lblLog.Text = $"📋 Đã chọn hồ sơ của {fullName} - Trạng thái: {status}";
-                    lblLog.ForeColor = primaryColor;
+            //        // Cập nhật log
+            //        lblLog.Text = $"📋 Đã chọn hồ sơ của {fullName} - Trạng thái: {status}";
+            //        lblLog.ForeColor = primaryColor;
 
-                    // Kiểm tra xem đã cấp hộ chiếu chưa
-                    CheckExistingPassport(residentId, fullName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("❌ Lỗi khi chọn hồ sơ: " + ex.Message, "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    lblLog.Text = "❌ Lỗi khi tải thông tin hồ sơ";
-                    lblLog.ForeColor = dangerColor;
-                }
-            }
+            //        // Kiểm tra xem đã cấp hộ chiếu chưa
+            //        CheckExistingPassport(residentId, fullName);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("❌ Lỗi khi chọn hồ sơ: " + ex.Message, "Lỗi",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        lblLog.Text = "❌ Lỗi khi tải thông tin hồ sơ";
+            //        lblLog.ForeColor = dangerColor;
+            //    }
+            //}
         }
 
         private void CheckExistingPassport(string residentId, string fullName)
         {
-            query = "SELECT PassportNumber, IssueDate, ExpiryDate FROM PassportData WHERE ResidentID = @ResidentID";
+            
 
-            try
-            {
-                if (con.State == ConnectionState.Closed)
-                    con.Open();
+                    //if (reader.Read())
+                    //{
+                    //    // Đã có hộ chiếu
+                    //    txtPassportNumber.Text = reader["PassportNumber"].ToString();
+                    //    dtpIssueDate.Value = Convert.ToDateTime(reader["IssueDate"]);
+                    //    dtpExpiryDate.Value = Convert.ToDateTime(reader["ExpiryDate"]);
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@ResidentID", residentId);
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    //    lblLog.Text = $"⚠️ {fullName} đã được cấp hộ chiếu số {reader["PassportNumber"]}";
+                    //    lblLog.ForeColor = warningColor;
 
-                    if (reader.Read())
-                    {
-                        // Đã có hộ chiếu
-                        txtPassportNumber.Text = reader["PassportNumber"].ToString();
-                        dtpIssueDate.Value = Convert.ToDateTime(reader["IssueDate"]);
-                        dtpExpiryDate.Value = Convert.ToDateTime(reader["ExpiryDate"]);
+                    //    btnIssue.Text = "🔄 Cập nhật hộ chiếu";
+                    //}
+                    //else
+                    //{
+                    //    // Chưa có hộ chiếu
+                    //    lblLog.Text = $"✅ {fullName} chưa được cấp hộ chiếu - Sẵn sàng cấp mới";
+                    //    lblLog.ForeColor = successColor;
 
-                        lblLog.Text = $"⚠️ {fullName} đã được cấp hộ chiếu số {reader["PassportNumber"]}";
-                        lblLog.ForeColor = warningColor;
-
-                        btnIssue.Text = "🔄 Cập nhật hộ chiếu";
-                    }
-                    else
-                    {
-                        // Chưa có hộ chiếu
-                        lblLog.Text = $"✅ {fullName} chưa được cấp hộ chiếu - Sẵn sàng cấp mới";
-                        lblLog.ForeColor = successColor;
-
-                        btnIssue.Text = "🛂 Cấp hộ chiếu";
-                    }
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("❌ Lỗi khi kiểm tra hộ chiếu: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
+                    //    btnIssue.Text = "🛂 Cấp hộ chiếu";
+                    //}
+                   
+                
+            
         }
 
         private string GeneratePassportNumber(string residentId)
@@ -427,62 +344,62 @@ namespace CuoiKi
                 return;
             }
 
-            try
-            {
-                string fullName = selectedRow.Cells["FullName"].Value.ToString();
-                string status = txtTrangThai.Text;
-                string passportNumber = txtPassportNumber.Text.Trim();
+            //try
+            //{
+            //    string fullName = selectedRow.Cells["FullName"].Value.ToString();
+            //    string status = txtTrangThai.Text;
+            //    string passportNumber = txtPassportNumber.Text.Trim();
 
-                // Kiểm tra các điều kiện
-                List<string> issues = new List<string>();
+            //    // Kiểm tra các điều kiện
+            //    List<string> issues = new List<string>();
 
-                if (status != "Đã duyệt")
-                {
-                    issues.Add($"- Trạng thái không hợp lệ: {status}");
-                }
+            //    if (status != "Đã duyệt")
+            //    {
+            //        issues.Add($"- Trạng thái không hợp lệ: {status}");
+            //    }
 
-                if (string.IsNullOrEmpty(passportNumber))
-                {
-                    issues.Add("- Chưa nhập số hộ chiếu");
-                }
-                else if (!passportNumber.StartsWith("VN") || passportNumber.Length < 8)
-                {
-                    issues.Add("- Số hộ chiếu không đúng định dạng (VN + ít nhất 6 số)");
-                }
+            //    if (string.IsNullOrEmpty(passportNumber))
+            //    {
+            //        issues.Add("- Chưa nhập số hộ chiếu");
+            //    }
+            //    else if (!passportNumber.StartsWith("VN") || passportNumber.Length < 8)
+            //    {
+            //        issues.Add("- Số hộ chiếu không đúng định dạng (VN + ít nhất 6 số)");
+            //    }
 
-                if (dtpExpiryDate.Value <= dtpIssueDate.Value)
-                {
-                    issues.Add("- Ngày hết hạn phải sau ngày cấp");
-                }
+            //    if (dtpExpiryDate.Value <= dtpIssueDate.Value)
+            //    {
+            //        issues.Add("- Ngày hết hạn phải sau ngày cấp");
+            //    }
 
-                if (issues.Count > 0)
-                {
-                    string message = $"❌ Phát hiện các vấn đề với hồ sơ của {fullName}:\n\n" + string.Join("\n", issues);
-                    MessageBox.Show(message, "Kiểm tra không thành công", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    lblLog.Text = $"❌ Kiểm tra thất bại - {fullName} có {issues.Count} vấn đề";
-                    lblLog.ForeColor = dangerColor;
-                }
-                else
-                {
-                    MessageBox.Show($"✅ Hồ sơ của {fullName} đã được xác thực thành công!\n\n" +
-                                  $"📋 Thông tin hộ chiếu:\n" +
-                                  $"🛂 Số hộ chiếu: {passportNumber}\n" +
-                                  $"📅 Ngày cấp: {dtpIssueDate.Value:dd/MM/yyyy}\n" +
-                                  $"⏰ Ngày hết hạn: {dtpExpiryDate.Value:dd/MM/yyyy}\n\n" +
-                                  $"Sẵn sàng cấp hộ chiếu!",
-                        "Xác thực thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    if (issues.Count > 0)
+            //    {
+            //        string message = $"❌ Phát hiện các vấn đề với hồ sơ của {fullName}:\n\n" + string.Join("\n", issues);
+            //        MessageBox.Show(message, "Kiểm tra không thành công", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        lblLog.Text = $"❌ Kiểm tra thất bại - {fullName} có {issues.Count} vấn đề";
+            //        lblLog.ForeColor = dangerColor;
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show($"✅ Hồ sơ của {fullName} đã được xác thực thành công!\n\n" +
+            //                      $"📋 Thông tin hộ chiếu:\n" +
+            //                      $"🛂 Số hộ chiếu: {passportNumber}\n" +
+            //                      $"📅 Ngày cấp: {dtpIssueDate.Value:dd/MM/yyyy}\n" +
+            //                      $"⏰ Ngày hết hạn: {dtpExpiryDate.Value:dd/MM/yyyy}\n\n" +
+            //                      $"Sẵn sàng cấp hộ chiếu!",
+            //            "Xác thực thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    lblLog.Text = $"✅ Xác thực thành công - {fullName} sẵn sàng cấp hộ chiếu {passportNumber}";
-                    lblLog.ForeColor = successColor;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"❌ Lỗi khi kiểm tra xác thực: {ex.Message}",
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblLog.Text = "❌ Lỗi khi kiểm tra xác thực";
-                lblLog.ForeColor = dangerColor;
-            }
+            //        lblLog.Text = $"✅ Xác thực thành công - {fullName} sẵn sàng cấp hộ chiếu {passportNumber}";
+            //        lblLog.ForeColor = successColor;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"❌ Lỗi khi kiểm tra xác thực: {ex.Message}",
+            //        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    lblLog.Text = "❌ Lỗi khi kiểm tra xác thực";
+            //    lblLog.ForeColor = dangerColor;
+            //}
         }
 
         private void btnIssue_Click(object sender, EventArgs e)
@@ -494,159 +411,81 @@ namespace CuoiKi
                 return;
             }
 
-            try
-            {
-                string residentId = selectedRow.Cells["ResidentID"].Value.ToString();
-                string fullName = selectedRow.Cells["FullName"].Value.ToString();
-                string passportNumber = txtPassportNumber.Text.Trim();
-                DateTime issueDate = dtpIssueDate.Value;
-                DateTime expiryDate = dtpExpiryDate.Value;
+            //try
+            //{
+            //    string residentId = selectedRow.Cells["ResidentID"].Value.ToString();
+            //    string fullName = selectedRow.Cells["FullName"].Value.ToString();
+            //    string passportNumber = txtPassportNumber.Text.Trim();
+            //    DateTime issueDate = dtpIssueDate.Value;
+            //    DateTime expiryDate = dtpExpiryDate.Value;
 
-                // Validate dữ liệu
-                if (string.IsNullOrEmpty(passportNumber))
-                {
-                    MessageBox.Show("⚠️ Vui lòng nhập số hộ chiếu", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+            //    // Validate dữ liệu
+            //    if (string.IsNullOrEmpty(passportNumber))
+            //    {
+            //        MessageBox.Show("⚠️ Vui lòng nhập số hộ chiếu", "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
 
-                if (expiryDate <= issueDate)
-                {
-                    MessageBox.Show("⚠️ Ngày hết hạn phải sau ngày cấp", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+            //    if (expiryDate <= issueDate)
+            //    {
+            //        MessageBox.Show("⚠️ Ngày hết hạn phải sau ngày cấp", "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
 
-                // Kiểm tra xem số hộ chiếu đã tồn tại chưa
-                if (IsPassportNumberExists(passportNumber, residentId))
-                {
-                    MessageBox.Show($"⚠️ Số hộ chiếu {passportNumber} đã tồn tại trong hệ thống", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+            //    // Kiểm tra xem số hộ chiếu đã tồn tại chưa
+            //    if (IsPassportNumberExists(passportNumber, residentId))
+            //    {
+            //        MessageBox.Show($"⚠️ Số hộ chiếu {passportNumber} đã tồn tại trong hệ thống", "Thông báo",
+            //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
 
-                // Lưu vào database
-                bool success = SavePassportToDatabase(residentId, passportNumber, issueDate, expiryDate);
+            //    // Lưu vào database
+            //    bool success = SavePassportToDatabase(residentId, passportNumber, issueDate, expiryDate);
 
-                if (success)
-                {
-                    MessageBox.Show($"✅ Đã cấp hộ chiếu thành công!\n\n" +
-                                  $"👤 Họ tên: {fullName}\n" +
-                                  $"🛂 Số hộ chiếu: {passportNumber}\n" +
-                                  $"📅 Ngày cấp: {issueDate:dd/MM/yyyy}\n" +
-                                  $"⏰ Ngày hết hạn: {expiryDate:dd/MM/yyyy}",
-                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    if (success)
+            //    {
+            //        MessageBox.Show($"✅ Đã cấp hộ chiếu thành công!\n\n" +
+            //                      $"👤 Họ tên: {fullName}\n" +
+            //                      $"🛂 Số hộ chiếu: {passportNumber}\n" +
+            //                      $"📅 Ngày cấp: {issueDate:dd/MM/yyyy}\n" +
+            //                      $"⏰ Ngày hết hạn: {expiryDate:dd/MM/yyyy}",
+            //            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    string logTime = DateTime.Now.ToString("HH:mm tt, dd/MM/yyyy");
-                    lblLog.Text = $"✅ Cấp hộ chiếu {passportNumber} cho {fullName} lúc {logTime}";
-                    lblLog.ForeColor = successColor;
+            //        string logTime = DateTime.Now.ToString("HH:mm tt, dd/MM/yyyy");
+            //        lblLog.Text = $"✅ Cấp hộ chiếu {passportNumber} cho {fullName} lúc {logTime}";
+            //        lblLog.ForeColor = successColor;
 
-                    // Refresh data
-                    LoadHistoryData();
-                    btnIssue.Text = "🔄 Cập nhật hộ chiếu";
-                }
-                else
-                {
-                    lblLog.Text = "❌ Lỗi khi cấp hộ chiếu";
-                    lblLog.ForeColor = dangerColor;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"❌ Lỗi khi cấp hộ chiếu: {ex.Message}",
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblLog.Text = "❌ Lỗi khi cấp hộ chiếu";
-                lblLog.ForeColor = dangerColor;
-            }
+            //        // Refresh data
+            //        LoadHistoryData();
+            //        btnIssue.Text = "🔄 Cập nhật hộ chiếu";
+            //    }
+            //    else
+            //    {
+            //        lblLog.Text = "❌ Lỗi khi cấp hộ chiếu";
+            //        lblLog.ForeColor = dangerColor;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"❌ Lỗi khi cấp hộ chiếu: {ex.Message}",
+            //        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    lblLog.Text = "❌ Lỗi khi cấp hộ chiếu";
+            //    lblLog.ForeColor = dangerColor;
+            //}
         }
 
-        private bool IsPassportNumberExists(string passportNumber, string currentResidentId)
-        {
-            query = "SELECT COUNT(*) FROM PassportData WHERE PassportNumber = @PassportNumber AND ResidentID != @ResidentID";
+        //private bool IsPassportNumberExists(string passportNumber, string currentResidentId)
+        //{
+            
+        //}
 
-            try
-            {
-                if (con.State == ConnectionState.Closed)
-                    con.Open();
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@PassportNumber", passportNumber);
-                    cmd.Parameters.AddWithValue("@ResidentID", currentResidentId);
-
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("❌ Lỗi khi kiểm tra số hộ chiếu: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return true; // Trả về true để an toàn
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
-        }
-
-        private bool SavePassportToDatabase(string residentId, string passportNumber, DateTime issueDate, DateTime expiryDate)
-        {
-            // Kiểm tra xem đã có hộ chiếu chưa để quyết định INSERT hay UPDATE
-            query = "SELECT COUNT(*) FROM PassportData WHERE ResidentID = @ResidentID";
-
-            try
-            {
-                if (con.State == ConnectionState.Closed)
-                    con.Open();
-
-                using (SqlCommand checkCmd = new SqlCommand(query, con))
-                {
-                    checkCmd.Parameters.AddWithValue("@ResidentID", residentId);
-                    int existingCount = (int)checkCmd.ExecuteScalar();
-
-                    if (existingCount > 0)
-                    {
-                        // UPDATE existing passport
-                        query = @"UPDATE PassportData 
-                                 SET PassportNumber = @PassportNumber, 
-                                     IssueDate = @IssueDate, 
-                                     ExpiryDate = @ExpiryDate,
-                                     UpdatedAt = GETDATE()
-                                 WHERE ResidentID = @ResidentID";
-                    }
-                    else
-                    {
-                        // INSERT new passport
-                        query = @"INSERT INTO PassportData (ResidentID, PassportNumber, IssueDate, ExpiryDate, CreatedAt) 
-                                 VALUES (@ResidentID, @PassportNumber, @IssueDate, @ExpiryDate, GETDATE())";
-                    }
-                }
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@ResidentID", residentId);
-                    cmd.Parameters.AddWithValue("@PassportNumber", passportNumber);
-                    cmd.Parameters.AddWithValue("@IssueDate", issueDate);
-                    cmd.Parameters.AddWithValue("@ExpiryDate", expiryDate);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("❌ Lỗi khi lưu hộ chiếu vào database: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
-        }
+        //private bool SavePassportToDatabase(string residentId, string passportNumber, DateTime issueDate, DateTime expiryDate)
+        //{
+            
+        //}
 
         private void btnBack_Click(object sender, EventArgs e)
         {

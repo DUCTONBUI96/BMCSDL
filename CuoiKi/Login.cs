@@ -113,25 +113,24 @@ namespace CuoiKi
             UserService userService = new UserService();
             FunctionService functionService = new FunctionService();
             int IdCheck = userService.LoginAndGetRole(txtUsername.Text,txtPassword.Text);
-            if(txtOTP.Text != check)
-            {
-                MessageBox.Show("Mã OTP không hợp lệ. Vui lòng thử lại.", "Xác thực thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; // Dừng quá trình đăng nhập nếu mã OTP không hợp lệ
-            }
+            //if(txtOTP.Text != check)
+            //{
+            //    MessageBox.Show("Mã OTP không hợp lệ. Vui lòng thử lại.", "Xác thực thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return; // Dừng quá trình đăng nhập nếu mã OTP không hợp lệ
+            //}
             // Kiểm tra đăng nhập
-            if (IdCheck >0)
+            if (IdCheck > 0)
             {   
                 Session.Name = txtUsername.Text; // Lưu tên người dùng vào biến tĩnh tên Session
                 Session.RoleId = IdCheck; // Lưu RoleID vào biến tĩnh tên Session
                
-                functionService.SystemLog("Login", Session.RoleId.ToString(), "User"); // Ghi log đăng nhập
-
                 // Mở form chính dựa trên RoleID
                 new Menu().Show();
                 this.Hide();
             }
             else
             {
+                MessageBox.Show(IdCheck.ToString());
                 MessageBox.Show("Tài khoản hoặc Mật khẩu không đúng, Vui lòng thử lại", "Đăng nhập thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUsername.Text = "";
                 txtPassword.Text = "";

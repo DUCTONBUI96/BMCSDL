@@ -17,18 +17,18 @@ namespace Business_Layer
         DatabaseHelper db = new DatabaseHelper();
 
         // lấy danh sách tất cả cư dân
-        public DataTable GetAllResident()
+        public DataTable GetAllResidentForEachUser(int id,String proc)
         {
             var parameters = new Dictionary<string, object>
             {
-            { "@UserID", 2 },
+            { "@UserID", id },
             { "@ErrorMessage", null } 
             };
 
             var outputParamNames = new List<string> { "@ErrorMessage" };
 
             var (dataTable, outputValues) = db.ExecuteStoredProcedureWithDataTable(
-                "SP_ListAllResidentData",
+                proc,
                 parameters,
                 outputParamNames
             );
@@ -51,6 +51,8 @@ namespace Business_Layer
             }
 
         }
+
+
 
         // lấy ID theo ResidentName
         public DataTable  GetResidentByID(string Resident)

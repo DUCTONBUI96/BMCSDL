@@ -203,7 +203,7 @@ namespace CuoiKi
         {
             try
             {
-                dt = residentService.GetAllResident();
+                dt = residentService.GetAllResidentForEachUser(3, "SP_ListAllApplicationsForXD");
                 dgvResidentsOrApps.DataSource = dt;
 
                 // Tùy chỉnh header columns và ẩn các cột không cần thiết

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,9 +43,16 @@ namespace Business_Layer
         }
 
         // Hàm audittrail
-        public void AUdit()
+        public DataTable AUdit()
         {
+            string query = "Select * from AuditTrails";
+            return db.ExecuteQuery(query);
+        }
 
+        public DataTable Log()
+        {
+            string query= "Select * from SystemLogs";
+            return db.ExecuteQuery(query);
         }
 
     }

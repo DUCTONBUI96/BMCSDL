@@ -172,14 +172,14 @@ namespace CuoiKi
             cboStatusFilter.SelectedIndex = 0; // "Tất cả trạng thái"
             if(cboStatusFilter.SelectedItem.ToString() == "Tất cả trạng thái")
             {
-                residentTable = residentService.GetAllResident();
+                residentTable = residentService.GetAllResidentForEachUser(1, "SP_ListAllResidentData");
             }
             if (cboStatusFilter.SelectedItem.ToString() == "Chờ xét")
             {
                 residentTable = residentService.GetResidentByStatus("Chờ xét");
             }
 
-            residentTable = residentService.GetAllResident();
+            residentTable = residentService.GetAllResidentForEachUser(1, "SP_ListAllResidentData");
             dgvApplications.DataSource = residentTable;
 
             // Tùy chỉnh tên cột hiển thị nếu cần

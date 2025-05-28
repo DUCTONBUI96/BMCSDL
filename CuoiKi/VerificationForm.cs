@@ -133,28 +133,12 @@ namespace CuoiKi
         {
             try
             {
-                residentTable = residentService.GetAllResident();
+                residentTable = residentService.GetAllResidentForEachUser(2, "SP_ListAllPassportRegistrations");
 
                 // Thêm cột trạng thái nếu chưa có
                 if (!residentTable.Columns.Contains("Status"))
                 {
                     residentTable.Columns.Add("Status", typeof(string));
-                }
-
-                // Cập nhật trạng thái cho từng hồ sơ
-                foreach (DataRow row in residentTable.Rows)
-                {
-                    int residentId = Convert.ToInt32(row["ResidentID"]);
-                    string status = applicationService.TakeStatus(residentId.ToString());
-
-                    if (string.IsNullOrEmpty(status) || status == "Chưa xác thực")
-                    {
-                        row["Status"] = "Chưa xác thực";
-                    }
-                    else
-                    {
-                        row["Status"] = status;
-                    }
                 }
 
                 dgvApplications.DataSource = residentTable;

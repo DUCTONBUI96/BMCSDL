@@ -145,7 +145,7 @@ namespace CuoiKi
         {
             try
             {
-                residentTable = residentService.GetAllResident();
+                residentTable = residentService.GetAllResidentForEachUser(2,"SP_ListAllResidentData");
                 dgvResidents.DataSource = residentTable;
 
                 // Ẩn cột SensitivityLevel nếu có

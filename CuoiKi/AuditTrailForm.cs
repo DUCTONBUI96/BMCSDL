@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business_Layer;
 
 namespace CuoiKi
 {
@@ -362,6 +363,10 @@ namespace CuoiKi
 
         private void LoadAuditData()
         {
+            FunctionService functionService = new FunctionService();
+            DataTable auditData = functionService.AUdit();
+            dgvAuditTrail.DataSource = auditData;
+
             // TODO: Implement load audit data logic
             UpdateStatus("🔄 Đang tải dữ liệu...");
 

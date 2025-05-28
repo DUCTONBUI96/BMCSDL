@@ -30,15 +30,7 @@ namespace Business_Layer
             var result = db.ExecuteStoredProcedure("SP_AuthenticateUser", parameters, outputParams);
 
             // Kiểm tra kết quả đầu ra
-            if (result.ContainsKey("@IsAuthenticated") && result["@IsAuthenticated"] is bool isAuthenticated && isAuthenticated)
-            {
-                if (result.ContainsKey("@RoleID") && result["@RoleID"] is int roleId)
-                {
-                    return roleId;
-                }
-            }
-            // Đăng nhập thất bại
-            return -1;
+           return result["@IsAuthenticated"] != null && Convert.ToBoolean(result["@IsAuthenticated"]) ? Convert.ToInt32(result["@RoleID"]) : 0;
         }
 
 
@@ -46,7 +38,7 @@ namespace Business_Layer
         //Get all user
         public DataTable GetAllUser()
         {
-            string query = "SELECT UserID,Username,PasswordHash,RoleID,IsActive,CreatedAT FROM Users";
+            string query = "SELECT UserID,Username,PasswordHash,RoleID FROM Users";
             return db.ExecuteQuery(query);
         }
 

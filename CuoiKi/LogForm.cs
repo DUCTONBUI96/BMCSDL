@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Business_Layer;
 namespace CuoiKi
 {
     public partial class LogForm : Form
@@ -375,6 +375,10 @@ namespace CuoiKi
 
         private void LoadLogData()
         {
+            FunctionService functionService = new FunctionService();
+            DataTable t= functionService.Log(); // Gọi hàm Log để tải dữ liệu
+            dgvLogs.DataSource = t;
+
             UpdateStatus("🔄 Đang tải dữ liệu nhật ký...");
 
             Timer timer = new Timer();
