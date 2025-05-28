@@ -169,17 +169,8 @@ namespace CuoiKi
             // Thiết lập mục mặc định
             ResidentService residentService = new ResidentService();
 
-            cboStatusFilter.SelectedIndex = 0; // "Tất cả trạng thái"
-            if(cboStatusFilter.SelectedItem.ToString() == "Tất cả trạng thái")
-            {
-                residentTable = residentService.GetAllResidentForEachUser(1, "SP_ListAllResidentData");
-            }
-            if (cboStatusFilter.SelectedItem.ToString() == "Chờ xét")
-            {
-                residentTable = residentService.GetResidentByStatus("Chờ xét");
-            }
 
-            residentTable = residentService.GetAllResidentForEachUser(1, "SP_ListAllResidentData");
+            residentTable = residentService.GetAllResidentForEachUser(3,"SP_ListAllApplicationsForXD");
             dgvApplications.DataSource = residentTable;
 
             // Tùy chỉnh tên cột hiển thị nếu cần

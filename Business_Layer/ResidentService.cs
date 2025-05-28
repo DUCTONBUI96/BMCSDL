@@ -94,6 +94,40 @@ namespace Business_Layer
             return errorMessage;
         }
 
+        //hàm update
+        public string Registration(int registrationId,  string Reason)
+        {
+            try
+            {
+                var parameters = new Dictionary<string, object>
+        {
+            { "@RegistrationID", registrationId },
+            { "@UserID", 2 },
+            {"@ApplicationID", DBNull.Value },
+            { "@ErrorMessage", null } // Output parameter
+        };
+
+                var outputParamNames = new List<string> { "@ErrorMessage" };
+
+                // Giả định: db.ExecuteNonQuery là hàm thực thi stored procedure không trả về dữ liệu
+                var outputValues = db.ExecuteStoredProcedure(
+                    "SP_TransferToReview",
+                    parameters,
+                    outputParamNames
+                );
+
+                string errorMessage = outputValues.ContainsKey("@ErrorMessage")
+                    ? outputValues["@ErrorMessage"]?.ToString()
+                    : null;
+
+                return errorMessage ?? $"{Reason} đơn thành công!";
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi nếu cần
+                return $"Lỗi hệ thống: {ex.Message}";
+            }
+        }
 
         // gửi thông báo qua email
         public bool NotificationByEmail(string EmailResident, string message)

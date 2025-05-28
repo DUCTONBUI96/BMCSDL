@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business_Layer;
+using Data_Layer.NewFolder1;
 
 namespace CuoiKi
 {
@@ -297,10 +298,10 @@ namespace CuoiKi
             string gender = selectedRow.Cells["Gender"].Value?.ToString() ?? "";
             string dob = selectedRow.Cells["DateOfBirth"].Value?.ToString() ?? "";
             string address = selectedRow.Cells["Address"].Value?.ToString() ?? "";
-            string nationality = selectedRow.Cells["Nationality"].Value?.ToString() ?? "";
+            string nationality ="Viet Nam";
             string phone = selectedRow.Cells["PhoneNumber"].Value?.ToString() ?? "";
             string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
-            string createdAt = selectedRow.Cells["CreatedAt"].Value?.ToString() ?? "";
+            //string createdAt = selectedRow.Cells["CreatedAt"].Value?.ToString() ?? "";
             string currentStatus = selectedRow.Cells["Status"].Value?.ToString() ?? "";
 
             // Tạo form chi tiết với các nút xác thực
@@ -372,7 +373,7 @@ namespace CuoiKi
                               $"🌍 Quốc tịch: {nationality}\n\n" +
                               $"📞 Số điện thoại: {phone}\n\n" +
                               $"📧 Email: {email}\n\n" +
-                              $"⏰ Ngày tạo: {createdAt}\n\n" +
+                              //$"⏰ Ngày tạo: {createdAt}\n\n" +
                               $"🔍 Trạng thái hiện tại: ";
 
             Label detailLabel = new Label
@@ -399,6 +400,7 @@ namespace CuoiKi
             detailForm.Controls.Add(contentPanel);
 
             // Buttons
+           
             Button btnApprove = new Button
             {
                 Text = "✅ Xác thực",
@@ -410,11 +412,39 @@ namespace CuoiKi
                 Location = new Point(150, 420),
                 Cursor = Cursors.Hand,
                 TextAlign = ContentAlignment.MiddleCenter
+
             };
+        
+        btnApprove.Click += (sender, e) =>
+            {
+               
+                try
+                {
+                // Lấy RegistrationID từ form (ví dụ: txtRegistrationID.Text)
+                int registrationId = int.Parse(residentId);
+
+
+                // Gọi stored procedure
+                string result = residentService.Registration(registrationId, "Xác thực hồ sơ");
+
+                // Hiển thị kết quả
+                MessageBox.Show(result, "Kết quả", MessageBoxButtons.OK,
+                                            result.Contains("thành công") ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    };
+            // Thêm button vào form
+            this.Controls.Add(btnApprove);
+
             btnApprove.FlatAppearance.BorderSize = 0;
 
             Button btnReject = new Button
             {
+
+                
                 Text = "❌ Từ chối",
                 BackColor = dangerColor,
                 ForeColor = Color.White,
@@ -424,7 +454,31 @@ namespace CuoiKi
                 Location = new Point(290, 420),
                 Cursor = Cursors.Hand,
                 TextAlign = ContentAlignment.MiddleCenter
+
+
             };
+
+            btnApprove.Click += (sender, e) =>
+            {
+
+                try
+                {
+                    // Lấy RegistrationID từ form (ví dụ: txtRegistrationID.Text)
+                    int registrationId = int.Parse(residentId);
+
+                    // Gọi stored procedure
+                    string result = residentService.Registration(registrationId, "Từ chốihồ sơ");
+
+                    // Hiển thị kết quả
+                    MessageBox.Show(result, "Kết quả", MessageBoxButtons.OK,
+                                                result.Contains("thành công") ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            // Thêm button vào form
             btnReject.FlatAppearance.BorderSize = 0;
 
             Button btnClose = new Button

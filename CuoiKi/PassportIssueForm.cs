@@ -217,7 +217,7 @@ namespace CuoiKi
         private void LoadApprovedApplications()
         {
             // Chỉ load những hồ sơ đã được duyệt
-            approvedResidentTable = residentService.GetAllResidentForEachUser(3, "SP_ListAllApplicationsForXD");
+            approvedResidentTable = residentService.GetAllResidentForEachUser(4, "SP_ListAllApprovedRecordsForLT");
             dgvApprovedApps.DataSource = approvedResidentTable;
             // Tùy chỉnh tên cột hiển thị
             if (dgvApprovedApps.Columns.Contains("ResidentID"))

@@ -30,7 +30,7 @@ namespace Business_Layer
             var result = db.ExecuteStoredProcedure("SP_AuthenticateUser", parameters, outputParams);
 
             // Kiểm tra kết quả đầu ra
-           return result["@IsAuthenticated"] != null && Convert.ToBoolean(result["@IsAuthenticated"]) ? Convert.ToInt32(result["@RoleID"]) : 0;
+            return result["@IsAuthenticated"] != null && Convert.ToBoolean(result["@IsAuthenticated"]) ? Convert.ToInt32(result["@RoleID"]) : 0;
         }
 
 
@@ -38,7 +38,10 @@ namespace Business_Layer
         //Get all user
         public DataTable GetAllUser()
         {
-            string query = "SELECT UserID,Username,PasswordHash,RoleID FROM Users";
+            string query = "SELECT" +
+                "  u.UserID," +
+                "  u.Username," +
+                "  r.RoleName  FROM  Users u JOIN Roles r ON u.RoleID = r.RoleID; ";
             return db.ExecuteQuery(query);
         }
 
@@ -92,10 +95,10 @@ namespace Business_Layer
             };
             db.ExecuteNonQuery(query, parameters);
         }
-       
+
 
         //lấy Role ID theo UserID
-        public string  GetRoleIdByUserId(string RoleName)
+        public string GetRoleIdByUserId(string RoleName)
         {
             string query = "SELECT RoleID FROM Roles WHERE RoleName = @RoleName";
             var parameters = new Dictionary<string, object>
@@ -109,9 +112,9 @@ namespace Business_Layer
         //Create new user
         public void CreateUser(string username, string password, string email, string roleName)
         {
-        string  roleId = GetRoleIdByUserId(roleName);
+            string roleId = GetRoleIdByUserId(roleName);
 
-        var parameters = new Dictionary<string, object>
+            var parameters = new Dictionary<string, object>
         {
         { "@Username", username },
         { "@Password", password },
@@ -119,7 +122,19 @@ namespace Business_Layer
         { "@RoleID", roleId }
         };
 
-        var outputs = db.ExecuteStoredProcedure("SP_PlusUser", parameters, new List<string> { "@UserID", "@ErrorMessage" });
+            var outputs = db.ExecuteStoredProcedure("SP_PlusUser", parameters, new List<string> { "@UserID", "@ErrorMessage" });
+        }
+
+        //Lấy thông tin liên hệ của người dùng theo UserID
+        public string GetUserContactInfo(int userId)
+        {
+            string query = "SELECT  FROM Users WHERE UserID = @UserID";
+            var parameters = new Dictionary<string, object>
+            {
+                { "@UserID", userId }
+            };
+            object result = db.ExecuteScalar(query, parameters);
+            return result != null ? result.ToString() : null;
         }
     }
 }

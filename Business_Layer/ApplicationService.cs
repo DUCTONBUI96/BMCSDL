@@ -34,15 +34,28 @@ namespace Business_Layer
             db.ExecuteNonQuery(query, parameters);
         }
 
+        public void UpdateStatusAndNote(int residentID, string reviewNote)
+        {
+            string query = $"UPDATE PassportApplications SET ReviewNotes = @ReviewNote WHERE ResidentID = @ResidentID";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "@ReviewNote", reviewNote },
+                { "@ResidentID", residentID }
+            };
+            db.ExecuteNonQuery(query, parameters);
+        }
+
         // Lấy trạng thái của người dân
         public string TakeStatus(string CCCD)
         {
-            string query = "SELECT Status FROM PassportApplications Where ResidentID IN (SELECT ResidentID FROM ResidentData WHERE CMND = @CMND )";
+            
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
-                { "@CMND", CCCD }
+                { "@CMND", CCCD },
+                { "@ErrorMessage", null }
             };
-            object result = db.ExecuteScalar(query, parameters);
+            var outputParamNames = new List<string> { "@ErrorMessage" };
+            object result = db.ExecuteStoredProcedure("SP_ViewResidentApplicationStatus", parameters, outputParamNames);
             return result != null ? result.ToString() : null;
         }
 
