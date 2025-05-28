@@ -460,7 +460,6 @@ namespace CuoiKi
 
             btnApprove.Click += (sender, e) =>
             {
-
                 try
                 {
                     // Lấy RegistrationID từ form (ví dụ: txtRegistrationID.Text)
