@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Data_Layer;
+using Data_Layer.NewFolder1;
 
 namespace Business_Layer
 {
@@ -16,8 +19,37 @@ namespace Business_Layer
         // lấy danh sách tất cả cư dân
         public DataTable GetAllResident()
         {
-            string query = "SELECT * FROM ResidentData";
-            return db.ExecuteQuery(query);
+            var parameters = new Dictionary<string, object>
+            {
+            { "@UserID", 2 },
+            { "@ErrorMessage", null } 
+            };
+
+            var outputParamNames = new List<string> { "@ErrorMessage" };
+
+            var (dataTable, outputValues) = db.ExecuteStoredProcedureWithDataTable(
+                "SP_ListAllResidentData",
+                parameters,
+                outputParamNames
+            );
+
+            // Truy cập kết quả trả về từ SELECT
+            string errorMessage = outputValues.ContainsKey("@ErrorMessage")
+                ? outputValues["@ErrorMessage"]?.ToString()
+                : null;
+
+            // Xử lý kết quả
+            if (!string.IsNullOrEmpty(errorMessage) && errorMessage.Contains("không có quyền"))
+            {
+                dataTable = null;
+                return dataTable;
+            }
+            else
+            {
+                
+                return  dataTable;
+            }
+
         }
 
         // lấy ID theo ResidentName

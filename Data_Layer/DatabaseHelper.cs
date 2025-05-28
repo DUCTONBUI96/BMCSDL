@@ -111,7 +111,99 @@ namespace Data_Layer
         }
 
 
+        // Phương thức thực thi câu lệnh SQL trả về dữ liệu dạng DataTable và các tham số đầu ra
+        public (DataTable, Dictionary<string, object>) ExecuteStoredProcedureWithDataTable(
+        string procedureName,
+        Dictionary<string, object> parameters,
+        List<string> outputParamNames)
+        {
+            var outputValues = new Dictionary<string, object>();
+            DataTable result = new DataTable();
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(procedureName, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Predefined output parameters
+                    var outputParamTypeMap = new Dictionary<string, (SqlDbType Type, int Size)>
+            {
+                { "@ErrorMessage", (SqlDbType.NVarChar, 255) },
+                { "@IsAuthenticated", (SqlDbType.Bit, 0) },
+                { "@UserID", (SqlDbType.Int, 0) },
+                { "@RoleID", (SqlDbType.Int, 0) }
+            };
+
+                    // Add input parameters
+                    if (parameters != null)
+                    {
+                        foreach (var param in parameters)
+                        {
+                            var p = cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+
+                            // Mark as output if specified and exists in output map
+                            if (outputParamNames?.Contains(param.Key) == true &&
+                                outputParamTypeMap.ContainsKey(param.Key))
+                            {
+                                var (type, size) = outputParamTypeMap[param.Key];
+                                p.SqlDbType = type;
+                                if (size > 0) p.Size = size;
+                                p.Direction = ParameterDirection.InputOutput;
+                            }
+                        }
+                    }
+
+                    // Add additional output parameters not in input
+                    if (outputParamNames != null)
+                    {
+                        foreach (var outParam in outputParamNames)
+                        {
+                            if (!cmd.Parameters.Contains(outParam) &&
+                                outputParamTypeMap.ContainsKey(outParam))
+                            {
+                                var (type, size) = outputParamTypeMap[outParam];
+                                var p = new SqlParameter(outParam, type);
+                                if (size > 0) p.Size = size;
+                                p.Direction = ParameterDirection.Output;
+                                cmd.Parameters.Add(p);
+                            }
+                        }
+                    }
+
+                    conn.Open();
+
+                    // Handle result set if any
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            result.Load(reader);
+                        }
+                    }
+
+                    // Collect output values
+                    if (outputParamNames != null)
+                    {
+                        foreach (var outParam in outputParamNames)
+                        {
+                            if (cmd.Parameters.Contains(outParam))
+                            {
+                                outputValues[outParam] = cmd.Parameters[outParam].Value;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle as needed
+                throw new ApplicationException($"Error executing stored procedure {procedureName}", ex);
+            }
+
+            return (result, outputValues);
+        }
 
 
         //Phương thức thực thi câu lệnh SQL trả về một giá trị đơn (SELECT)

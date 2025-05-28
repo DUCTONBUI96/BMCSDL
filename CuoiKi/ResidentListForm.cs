@@ -138,6 +138,7 @@ namespace CuoiKi
         private void ResidentListForm_Load(object sender, EventArgs e)
         {
             LoadData();
+
         }
 
         private void LoadData()

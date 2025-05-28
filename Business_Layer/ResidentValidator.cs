@@ -10,7 +10,7 @@ namespace Business_Layer
 {
     public class ResidentValidator
     {
-        public static string Validate(ResidentDTO resident)
+        public string Validate(ResidentDTO resident)
         {
             if (string.IsNullOrWhiteSpace(resident.FullName))
                 return "Vui lòng nhập họ và tên";
