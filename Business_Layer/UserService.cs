@@ -15,22 +15,32 @@ namespace Business_Layer
         DatabaseHelper db = new DatabaseHelper();
         public int LoginAndGetRole(string username, string password)
         {
-            string query = "SELECT RoleID FROM Users WHERE Username = @Username AND PasswordHash = @Password";
             var parameters = new Dictionary<string, object>
     {
         { "@Username", username },
-        { "@Password", password }
+        { "@Password", password },
+        { "@IsAuthenticated", DBNull.Value },
+        { "@RoleID", DBNull.Value },
+        { "@UserID", DBNull.Value },
+        { "@ContactInfo", DBNull.Value },
+        { "@ErrorMessage", DBNull.Value }
     };
 
-            var result = db.ExecuteScalar(query, parameters);
+            var outputParams = new List<string> { "@IsAuthenticated", "@RoleID", "@UserID", "@ContactInfo", "@ErrorMessage" };
+            var result = db.ExecuteStoredProcedure("SP_AuthenticateUser", parameters, outputParams);
 
-            if (result != null && int.TryParse(result.ToString(), out int roleId))
+            // Kiểm tra kết quả đầu ra
+            if (result.ContainsKey("@IsAuthenticated") && result["@IsAuthenticated"] is bool isAuthenticated && isAuthenticated)
             {
-                return roleId; // Trả về RoleID nếu đăng nhập thành công
+                if (result.ContainsKey("@RoleID") && result["@RoleID"] is int roleId)
+                {
+                    return roleId;
+                }
             }
-
-            return -1; // Đăng nhập thất bại hoặc không tìm thấy vai trò
+            // Đăng nhập thất bại
+            return -1;
         }
+
 
 
         //Get all user
@@ -90,54 +100,34 @@ namespace Business_Layer
             };
             db.ExecuteNonQuery(query, parameters);
         }
-
-
-        //băm mật khẩu với salt
-        public byte[] HashPassword(string password, out byte[] salt)
-        {
-            // Tạo salt
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                salt = new byte[16];
-                rng.GetBytes(salt);
-            }
-
-            // Kết hợp salt + password
-            var combined = salt.Concat(Encoding.UTF8.GetBytes(password)).ToArray();
-            using (var sha256 = SHA256.Create())
-            {
-                return sha256.ComputeHash(combined); 
-            }
-        }
+       
 
         //lấy Role ID theo UserID
-        public int GetRoleIdByUserId(string RoleName)
+        public string  GetRoleIdByUserId(string RoleName)
         {
             string query = "SELECT RoleID FROM Roles WHERE RoleName = @RoleName";
             var parameters = new Dictionary<string, object>
             {
                 { "@RoleName", RoleName }
             };
-            var result = db.ExecuteScalar(query, parameters);
-            return result != null ? Convert.ToInt32(result) : -1; 
+            object result = db.ExecuteScalar(query, parameters);
+            return result != null ? result.ToString() : null;
         }
 
         //Create new user
-        public void CreateUser(string username, string password, string email,string roleName)
+        public void CreateUser(string username, string password, string email, string roleName)
         {
-            byte[] salt;
-            byte[] emailHash = HashPassword(email, out salt);
-            int roleId = GetRoleIdByUserId(roleName);
-            string query = "INSERT INTO Users (Username, Salt,PasswordHash, RoleID, ContactInfo) VALUES (@Username, @Salt,@PasswordHash, @RoleID, @ContactInfo)";
-            var parameters = new Dictionary<string, object>
-            {
-                { "@Username", username },
-                { "@PasswordHash", password },
-                { "@RoleID", roleId },
-                {"@Salt", salt },
-                { "@ContactInfo", emailHash } 
-            };
-            db.ExecuteNonQuery(query, parameters);
+        string  roleId = GetRoleIdByUserId(roleName);
+
+        var parameters = new Dictionary<string, object>
+        {
+        { "@Username", username },
+        { "@Password", password },
+        { "@ContactInfo", email },
+        { "@RoleID", roleId }
+        };
+
+        var outputs = db.ExecuteStoredProcedure("SP_PlusUser", parameters, new List<string> { "@UserID", "@ErrorMessage" });
         }
     }
 }

@@ -47,33 +47,72 @@ namespace Data_Layer
         }
 
         //Phương thức thực thi câu lệnh SQL không trả về dữ liệu (INSERT, UPDATE, DELETE) với tham số kiểu VarBinary
-        public object ExecuteStoredProcedure(string procedureName, Dictionary<string, object> parameters, string outputParamName = null)
+        public Dictionary<string, object> ExecuteStoredProcedure(
+        string procedureName,
+        Dictionary<string, object> parameters,
+        List<string> outputParamNames)
         {
+            var outputValues = new Dictionary<string, object>();
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(procedureName, conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                foreach (var param in parameters)
+                // Map kiểu cho output parameters
+                var outputParamTypeMap = new Dictionary<string, SqlParameter>
+        {
+            { "@ErrorMessage", new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output } },
+            { "@IsAuthenticated", new SqlParameter("@IsAuthenticated", SqlDbType.Bit) { Direction = ParameterDirection.Output } },
+            { "@UserID", new SqlParameter("@UserID", SqlDbType.Int) { Direction = ParameterDirection.Output } },
+            { "@RoleID", new SqlParameter("@RoleID", SqlDbType.Int) { Direction = ParameterDirection.Output } }
+        };
+
+                // Thêm các input parameters
+                if (parameters != null)
                 {
-                    var p = cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-                    if (outputParamName != null && param.Key == outputParamName)
+                    foreach (var param in parameters)
                     {
-                        p.Direction = ParameterDirection.Output;
+                        var p = cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+
+                        // Nếu là output parameter, chỉnh lại kiểu và hướng
+                        if (outputParamNames != null && outputParamNames.Contains(param.Key) && outputParamTypeMap.ContainsKey(param.Key))
+                        {
+                            p.SqlDbType = outputParamTypeMap[param.Key].SqlDbType;
+                            p.Size = outputParamTypeMap[param.Key].Size;
+                            p.Direction = ParameterDirection.Output;
+                        }
+                    }
+                }
+
+                // Thêm output parameters nếu chưa có
+                if (outputParamNames != null)
+                {
+                    foreach (var outParam in outputParamNames)
+                    {
+                        if (!cmd.Parameters.Contains(outParam) && outputParamTypeMap.ContainsKey(outParam))
+                        {
+                            cmd.Parameters.Add(outputParamTypeMap[outParam]);
+                        }
                     }
                 }
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
 
-                if (outputParamName != null && cmd.Parameters.Contains(outputParamName))
+                // Lấy giá trị output
+                foreach (var outParam in outputParamNames)
                 {
-                    return cmd.Parameters[outputParamName].Value;
+                    outputValues[outParam] = cmd.Parameters[outParam].Value;
                 }
-
-                return null;
             }
+
+            return outputValues;
         }
+
+
+
+
 
         //Phương thức thực thi câu lệnh SQL trả về một giá trị đơn (SELECT)
         public object ExecuteScalar(string query, Dictionary<string, object> parameters)

@@ -55,16 +55,16 @@ namespace CuoiKi
             switch(cbbVaitro.Text)
             {
                 case "Xác thực (XT)":
-                    role = "Xác thực";
+                    role = "XT";
                     break;
                 case "Lưu trữ (LT)":
-                    role = "Lưu trữ";
+                    role = "LT";
                     break;
                 case "Xét duyệt (XD)":
-                    role = "Xét duyệt";
+                    role = "XD";
                     break;
                 case "Giám sát (GS)":
-                    role = "Giám sát";
+                    role = "GS";
                     break;
                 default:
                     MessageBox.Show("Vui lòng chọn vai trò hợp lệ!");
@@ -80,6 +80,11 @@ namespace CuoiKi
                 userService.CreateUser(txtName.Text, txtPassword.Text,txtEmail.Text, role);
                 MessageBox.Show("Tạo người dùng thành công!");
             }
+        }
+
+        private void InformationUser_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
