@@ -65,7 +65,9 @@ namespace Data_Layer
             { "@ErrorMessage", new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output } },
             { "@IsAuthenticated", new SqlParameter("@IsAuthenticated", SqlDbType.Bit) { Direction = ParameterDirection.Output } },
             { "@UserID", new SqlParameter("@UserID", SqlDbType.Int) { Direction = ParameterDirection.Output } },
-            { "@RoleID", new SqlParameter("@RoleID", SqlDbType.Int) { Direction = ParameterDirection.Output } }
+            { "@RoleID", new SqlParameter("@RoleID", SqlDbType.Int) { Direction = ParameterDirection.Output } },
+            { "@Status", new SqlParameter("@Status", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output } },
+            { "@Message", new SqlParameter("@Message", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output } }
         };
 
                 // Thêm các input parameters

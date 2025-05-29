@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Data_Layer;
 
 namespace Business_Layer
@@ -139,16 +140,22 @@ namespace Business_Layer
         // Lấy trạng thái của người dân
         public string TakeStatus(string CCCD)
         {
+            var parameters = new Dictionary<string, object>
+    {
+        { "@CMND", CCCD },
+        { "@Status", DBNull.Value },
+        { "@Message", DBNull.Value }
+    };
+
+            var outputParamNames = new List<string> { "@Message", "@Status" };
+
+            var result = db.ExecuteStoredProcedure("SP_GetPassportStatusByCMND", parameters, outputParamNames);
+            string finalStatus = result.TryGetValue("@Status", out var status).ToString();
             
-            Dictionary<string, object> parameters = new Dictionary<string, object>
-            {
-                { "@CMND", CCCD },
-                { "@ErrorMessage", null }
-            };
-            var outputParamNames = new List<string> { "@ErrorMessage" };
-            object result = db.ExecuteStoredProcedure("SP_ViewResidentApplicationStatus", parameters, outputParamNames);
-            return result != null ? result.ToString() : null;
+            return status.ToString();
         }
+
+
 
     }
 }

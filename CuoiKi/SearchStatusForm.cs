@@ -59,7 +59,7 @@ namespace CuoiKi
             try
             {
                 ApplicationService applicationService = new ApplicationService();
-                string status = applicationService.TakeStatus(txtCCCD.Text.Trim());
+                string status = applicationService.TakeStatus(txtCCCD.Text);
 
                 if (status == null)
                 {
