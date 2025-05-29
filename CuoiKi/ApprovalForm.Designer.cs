@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ApprovalForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvApplications = new System.Windows.Forms.DataGridView();
             this.rtbNotes = new System.Windows.Forms.RichTextBox();
             this.btnApprove = new System.Windows.Forms.Button();
@@ -49,68 +51,88 @@
             // 
             // dgvApplications
             // 
-            this.dgvApplications.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvApplications.AllowUserToAddRows = false;
+            this.dgvApplications.AllowUserToDeleteRows = false;
+            this.dgvApplications.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvApplications.BackgroundColor = System.Drawing.Color.White;
             this.dgvApplications.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvApplications.Location = new System.Drawing.Point(12, 120);
+            this.dgvApplications.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvApplications.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvApplications.ColumnHeadersHeight = 40;
+            this.dgvApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(241)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvApplications.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvApplications.EnableHeadersVisualStyles = false;
+            this.dgvApplications.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.dgvApplications.Location = new System.Drawing.Point(20, 120);
+            this.dgvApplications.MultiSelect = false;
             this.dgvApplications.Name = "dgvApplications";
+            this.dgvApplications.ReadOnly = true;
+            this.dgvApplications.RowHeadersVisible = false;
             this.dgvApplications.RowHeadersWidth = 51;
-            this.dgvApplications.RowTemplate.Height = 24;
-            this.dgvApplications.Size = new System.Drawing.Size(773, 199);
+            this.dgvApplications.RowTemplate.Height = 30;
+            this.dgvApplications.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvApplications.Size = new System.Drawing.Size(960, 320);
             this.dgvApplications.TabIndex = 0;
             // 
             // rtbNotes
             // 
-            this.rtbNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbNotes.BackColor = System.Drawing.Color.White;
             this.rtbNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbNotes.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbNotes.Location = new System.Drawing.Point(12, 344);
+            this.rtbNotes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbNotes.ForeColor = System.Drawing.Color.Gray;
+            this.rtbNotes.Location = new System.Drawing.Point(20, 480);
             this.rtbNotes.Name = "rtbNotes";
-            this.rtbNotes.Size = new System.Drawing.Size(773, 114);
+            this.rtbNotes.Size = new System.Drawing.Size(450, 60);
             this.rtbNotes.TabIndex = 1;
-            this.rtbNotes.Text = "Ghi chú lý do xét duyệt hoặc từ chối.\n";
-            this.rtbNotes.WordWrap = false;
+            this.rtbNotes.Text = "💬 Nhập lý do phê duyệt hoặc từ chối hồ sơ...";
+            this.rtbNotes.WordWrap = true;
             this.rtbNotes.TextChanged += new System.EventHandler(this.rtbNotes_TextChanged);
             // 
             // btnApprove
             // 
-            this.btnApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnApprove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.btnApprove.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.btnApprove.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnApprove.FlatAppearance.BorderSize = 0;
             this.btnApprove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnApprove.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApprove.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnApprove.ForeColor = System.Drawing.Color.White;
-            this.btnApprove.Image = ((System.Drawing.Image)(resources.GetObject("btnApprove.Image")));
-            this.btnApprove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnApprove.Location = new System.Drawing.Point(12, 464);
+            this.btnApprove.Location = new System.Drawing.Point(490, 480);
             this.btnApprove.Name = "btnApprove";
-            this.btnApprove.Size = new System.Drawing.Size(137, 39);
+            this.btnApprove.Size = new System.Drawing.Size(140, 35);
             this.btnApprove.TabIndex = 2;
-            this.btnApprove.Text = "Phê duyệt";
-            this.btnApprove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnApprove.Text = "✅ Phê duyệt";
+            this.btnApprove.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnApprove.UseVisualStyleBackColor = false;
             this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
             // 
             // btnReject
             // 
-            this.btnReject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReject.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            this.btnReject.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.btnReject.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReject.FlatAppearance.BorderSize = 0;
             this.btnReject.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReject.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReject.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReject.ForeColor = System.Drawing.Color.White;
-            this.btnReject.Image = ((System.Drawing.Image)(resources.GetObject("btnReject.Image")));
-            this.btnReject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReject.Location = new System.Drawing.Point(218, 464);
+            this.btnReject.Location = new System.Drawing.Point(650, 480);
             this.btnReject.Name = "btnReject";
-            this.btnReject.Size = new System.Drawing.Size(124, 39);
+            this.btnReject.Size = new System.Drawing.Size(140, 35);
             this.btnReject.TabIndex = 3;
-            this.btnReject.Text = "Từ chối";
-            this.btnReject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnReject.Text = "❌ Từ chối";
+            this.btnReject.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnReject.UseVisualStyleBackColor = false;
             this.btnReject.Click += new System.EventHandler(this.btnReject_Click);
             // 
@@ -118,49 +140,53 @@
             // 
             this.cboStatusFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboStatusFilter.BackColor = System.Drawing.Color.White;
+            this.cboStatusFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboStatusFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboStatusFilter.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboStatusFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboStatusFilter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.cboStatusFilter.FormattingEnabled = true;
-            this.cboStatusFilter.Location = new System.Drawing.Point(615, 11);
+            this.cboStatusFilter.Location = new System.Drawing.Point(450, 12);
             this.cboStatusFilter.Name = "cboStatusFilter";
-            this.cboStatusFilter.Size = new System.Drawing.Size(170, 33);
+            this.cboStatusFilter.Size = new System.Drawing.Size(150, 28);
             this.cboStatusFilter.TabIndex = 16;
+            this.cboStatusFilter.Visible = false;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(14, 11);
+            this.pictureBox2.Location = new System.Drawing.Point(8, 5);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(33, 29);
+            this.pictureBox2.Size = new System.Drawing.Size(20, 20);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 18;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
             // 
             // txtSearchCCCD
             // 
             this.txtSearchCCCD.BackColor = System.Drawing.Color.White;
-            this.txtSearchCCCD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearchCCCD.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchCCCD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSearchCCCD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchCCCD.ForeColor = System.Drawing.Color.Gray;
-            this.txtSearchCCCD.Location = new System.Drawing.Point(46, 11);
-            this.txtSearchCCCD.Multiline = true;
+            this.txtSearchCCCD.Location = new System.Drawing.Point(30, 7);
             this.txtSearchCCCD.Name = "txtSearchCCCD";
-            this.txtSearchCCCD.Size = new System.Drawing.Size(170, 29);
+            this.txtSearchCCCD.Size = new System.Drawing.Size(180, 20);
             this.txtSearchCCCD.TabIndex = 17;
-            this.txtSearchCCCD.Text = "Tìm kiếm CCCD";
+            this.txtSearchCCCD.Text = "🔍 Tìm kiếm theo CCCD...";
+            this.txtSearchCCCD.Visible = false;
             this.txtSearchCCCD.TextChanged += new System.EventHandler(this.txtSearchCCCD_TextChanged);
             // 
             // lblStatus
             // 
-            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(12, 523);
+            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblStatus.Location = new System.Drawing.Point(20, 560);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(302, 25);
+            this.lblStatus.Size = new System.Drawing.Size(140, 20);
             this.lblStatus.TabIndex = 19;
-            this.lblStatus.Text = "Hiển thị trạng thái hiện tại của hồ sơ.";
+            this.lblStatus.Text = "📊 Sẵn sàng xử lý hồ sơ";
             // 
             // panelHeader
             // 
@@ -169,60 +195,66 @@
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(797, 60);
+            this.panelHeader.Size = new System.Drawing.Size(1000, 60);
             this.panelHeader.TabIndex = 20;
             // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
-            this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.White;
-            this.labelTitle.Location = new System.Drawing.Point(12, 14);
+            this.labelTitle.Location = new System.Drawing.Point(20, 15);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(181, 31);
+            this.labelTitle.Size = new System.Drawing.Size(350, 32);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "Xét duyệt hồ sơ";
+            this.labelTitle.Text = "📋 XÉT DUYỆT HỒ SƠ CẤP HỘ CHIẾU";
             // 
             // panelSearch
             // 
             this.panelSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(241)))), ((int)(((byte)(255)))));
             this.panelSearch.Controls.Add(this.labelFilter);
-            this.panelSearch.Controls.Add(this.pictureBox2);
-            this.panelSearch.Controls.Add(this.txtSearchCCCD);
             this.panelSearch.Controls.Add(this.cboStatusFilter);
             this.panelSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSearch.Location = new System.Drawing.Point(0, 60);
             this.panelSearch.Name = "panelSearch";
-            this.panelSearch.Size = new System.Drawing.Size(797, 50);
+            this.panelSearch.Size = new System.Drawing.Size(1000, 50);
             this.panelSearch.TabIndex = 21;
+            this.panelSearch.Visible = false;
             // 
             // labelFilter
             // 
             this.labelFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelFilter.AutoSize = true;
-            this.labelFilter.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFilter.Location = new System.Drawing.Point(532, 15);
+            this.labelFilter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFilter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.labelFilter.Location = new System.Drawing.Point(300, 15);
             this.labelFilter.Name = "labelFilter";
-            this.labelFilter.Size = new System.Drawing.Size(80, 23);
+            this.labelFilter.Size = new System.Drawing.Size(144, 20);
             this.labelFilter.TabIndex = 19;
-            this.labelFilter.Text = "Lọc theo:";
+            this.labelFilter.Text = "🔍 Lọc theo trạng thái:";
             // 
             // ApprovalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(797, 554);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.panelSearch);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.txtSearchCCCD);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.rtbNotes);
             this.Controls.Add(this.btnReject);
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.dgvApplications);
-            this.MinimumSize = new System.Drawing.Size(815, 600);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "ApprovalForm";
-            this.Text = "Xét duyệt hồ sơ";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Xét duyệt hồ sơ cấp hộ chiếu";
             this.Load += new System.EventHandler(this.ApprovalForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -232,7 +264,6 @@
             this.panelSearch.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

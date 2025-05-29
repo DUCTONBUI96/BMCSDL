@@ -175,6 +175,7 @@
             this.thôngBáoToolStripMenuItem.Padding = new System.Windows.Forms.Padding(15, 8, 15, 8);
             this.thôngBáoToolStripMenuItem.Size = new System.Drawing.Size(163, 45);
             this.thôngBáoToolStripMenuItem.Text = "📢 Thông báo";
+            this.thôngBáoToolStripMenuItem.Click += new System.EventHandler(this.thôngBáoToolStripMenuItem_Click);
             // 
             // nhậtKýToolStripMenuItem
             // 
@@ -184,6 +185,7 @@
             this.nhậtKýToolStripMenuItem.Padding = new System.Windows.Forms.Padding(15, 8, 15, 8);
             this.nhậtKýToolStripMenuItem.Size = new System.Drawing.Size(136, 45);
             this.nhậtKýToolStripMenuItem.Text = "📊 Nhật ký";
+            this.nhậtKýToolStripMenuItem.Click += new System.EventHandler(this.nhậtKýToolStripMenuItem_Click);
             // 
             // quảnTrịAdminToolStripMenuItem
             // 

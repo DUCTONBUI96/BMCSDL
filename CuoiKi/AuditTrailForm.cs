@@ -296,7 +296,7 @@ namespace CuoiKi
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 Size = new Size(120, 38),
                 Location = new Point(950, buttonY),
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
             };
             btnBack.FlatAppearance.BorderSize = 0;
 
@@ -307,7 +307,7 @@ namespace CuoiKi
             AddButtonHoverEffect(btnBack, Color.FromArgb(108, 117, 125));
 
             // Thêm event handlers
-            btnBack.Click += (s, e) => this.Close();
+            btnBack.Click += (s, e) => { new Menu().Show(); this.Hide(); };
             btnRefresh.Click += (s, e) => LoadAuditData();
             btnSearch.Click += (s, e) => FilterAuditData();
             btnExportNew.Click += (s, e) => ExportToExcel();

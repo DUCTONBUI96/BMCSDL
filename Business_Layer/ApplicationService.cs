@@ -151,7 +151,10 @@ namespace Business_Layer
 
             var result = db.ExecuteStoredProcedure("SP_GetPassportStatusByCMND", parameters, outputParamNames);
             string finalStatus = result.TryGetValue("@Status", out var status).ToString();
-            
+            if(status == null || status == DBNull.Value)
+            {
+                return null;
+            }
             return status.ToString();
         }
 

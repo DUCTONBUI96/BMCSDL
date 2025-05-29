@@ -119,7 +119,16 @@ namespace CuoiKi
             //    return; // Dừng quá trình đăng nhập nếu mã OTP không hợp lệ
             //}
             // Kiểm tra đăng nhập
-            if (IdCheck > 0)
+
+            if(IdCheck == 1)
+            {
+                Session.Name = txtUsername.Text; // Lưu tên người dùng vào biến tĩnh tên Session
+                Session.RoleId = IdCheck;
+                new AdminForm().Show();
+                this.Hide();
+                return;
+            }
+            if (IdCheck > 1)
             {   
                 Session.Name = txtUsername.Text; // Lưu tên người dùng vào biến tĩnh tên Session
                 Session.RoleId = IdCheck; // Lưu RoleID vào biến tĩnh tên Session

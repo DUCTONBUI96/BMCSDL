@@ -321,7 +321,7 @@ namespace CuoiKi
             AddButtonHoverEffect(btnBack, Color.FromArgb(108, 117, 125));
 
             // Thêm event handlers
-            btnBack.Click += (s, e) => this.Close();
+            btnBack.Click += (s, e) => { new Menu().Show(); this.Close(); };
             btnRefresh.Click += (s, e) => LoadLogData();
             btnFilterNew.Click += (s, e) => FilterLogData();
             btnExportNew.Click += (s, e) => ExportToExcel();

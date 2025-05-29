@@ -457,7 +457,7 @@ namespace CuoiKi
                 else
                 {
                     // Thất bại
-                    MessageBox.Show($"Lỗi: {errorMessage}");
+                    MessageBox.Show($" {errorMessage}");
                 }
 
 
@@ -480,7 +480,7 @@ namespace CuoiKi
                     else
                     {
                         // Thất bại
-                        MessageBox.Show($"Lỗi: {errorMessage}");
+                        MessageBox.Show(" {errorMessage}");
                     }
 
                     detailForm.Close();

@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnIssue = new System.Windows.Forms.Button();
             this.txtPassportNumber = new System.Windows.Forms.TextBox();
             this.dtpIssueDate = new System.Windows.Forms.DateTimePicker();
             this.dtpExpiryDate = new System.Windows.Forms.DateTimePicker();
@@ -48,6 +47,7 @@
             this.panelInfo = new System.Windows.Forms.Panel();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.btnBack = new System.Windows.Forms.Button();
+            this.btnIssue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApprovedApps)).BeginInit();
             this.panelHeader.SuspendLayout();
             this.panelInfo.SuspendLayout();
@@ -126,21 +126,6 @@
             this.label3.Size = new System.Drawing.Size(155, 25);
             this.label3.TabIndex = 3;
             this.label3.Text = "⏰ Ngày hết hạn:";
-            // 
-            // btnIssue
-            // 
-            this.btnIssue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.btnIssue.FlatAppearance.BorderSize = 0;
-            this.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIssue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIssue.ForeColor = System.Drawing.Color.White;
-            this.btnIssue.Location = new System.Drawing.Point(30, 610);
-            this.btnIssue.Name = "btnIssue";
-            this.btnIssue.Size = new System.Drawing.Size(180, 45);
-            this.btnIssue.TabIndex = 4;
-            this.btnIssue.Text = "🛂 Cấp hộ chiếu";
-            this.btnIssue.UseVisualStyleBackColor = false;
-            this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
             // 
             // txtPassportNumber
             // 
@@ -295,6 +280,21 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // btnIssue
+            // 
+            this.btnIssue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnIssue.FlatAppearance.BorderSize = 0;
+            this.btnIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIssue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIssue.ForeColor = System.Drawing.Color.White;
+            this.btnIssue.Location = new System.Drawing.Point(30, 610);
+            this.btnIssue.Name = "btnIssue";
+            this.btnIssue.Size = new System.Drawing.Size(180, 45);
+            this.btnIssue.TabIndex = 4;
+            this.btnIssue.Text = "🛂 Lưu Trữ";
+            this.btnIssue.UseVisualStyleBackColor = false;
+            this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
+            // 
             // PassportIssueForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -334,7 +334,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnIssue;
         private System.Windows.Forms.TextBox txtPassportNumber;
         private System.Windows.Forms.DateTimePicker dtpIssueDate;
         private System.Windows.Forms.DateTimePicker dtpExpiryDate;
@@ -348,5 +347,6 @@
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Panel panelStatus;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnIssue;
     }
 }

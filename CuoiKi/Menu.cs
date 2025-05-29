@@ -25,7 +25,7 @@ namespace CuoiKi
         private Color dangerColor = Color.FromArgb(220, 53, 69);       // Màu đỏ (nguy hiểm)
         private Color warningColor = Color.FromArgb(255, 193, 7);      // Màu vàng (cảnh báo)
         private Color selectedMenuColor = Color.FromArgb(230, 244, 255); // Màu menu được chọn
- 
+
         public Menu()
         {
             InitializeComponent();
@@ -62,11 +62,13 @@ namespace CuoiKi
                     menuItem.Padding = new Padding(15, 8, 15, 8);
 
                     // Thêm hover effects
-                    menuItem.MouseEnter += (s, e) => {
+                    menuItem.MouseEnter += (s, e) =>
+                    {
                         menuItem.BackColor = primaryDarkColor;
                         menuItem.ForeColor = textLightColor;
                     };
-                    menuItem.MouseLeave += (s, e) => {
+                    menuItem.MouseLeave += (s, e) =>
+                    {
                         if (!menuItem.Selected)
                         {
                             menuItem.BackColor = primaryColor;
@@ -252,9 +254,12 @@ namespace CuoiKi
                         break;
 
                     case "nhậtKýToolStripMenuItem":
-                        // Mở form nhật ký (nếu có)
-                        MessageBox.Show("🚧 Chức năng đang được phát triển", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if(Session.RoleId != 5) // Chỉ cho phép Admin xem nhật ký
+                        {
+                            // Mở form nhật ký (nếu có)
+                            MessageBox.Show("🚧 Chức năng đang được phát triển", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         break;
                 }
             }
@@ -341,18 +346,15 @@ namespace CuoiKi
 
         private void giámSátGSToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new LogForm().Show();
+            new AuditTrailForm().Show();
             this.Hide();
-            MessageBox.Show("🚧 Chức năng Giám sát đang được phát triển", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void quảnTrịADMINToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new AdminForm().Show();
             this.Hide();
-            MessageBox.Show("🚧 Chức năng Quản trị đang được phát triển", "Thông báo",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void hướngDẫnSửDụngPhầnMềmToolStripMenuItem_Click(object sender, EventArgs e)
@@ -385,7 +387,8 @@ namespace CuoiKi
             // Tạo timer để cập nhật thời gian
             Timer timeTimer = new Timer();
             timeTimer.Interval = 1000; // 1 giây
-            timeTimer.Tick += (s, args) => {
+            timeTimer.Tick += (s, args) =>
+            {
                 toolStripStatusLabel2.Text = "🕐 " + DateTime.Now.ToString("HH:mm:ss - dd/MM/yyyy");
             };
             timeTimer.Start();
@@ -450,5 +453,32 @@ namespace CuoiKi
             base.OnFormClosing(e);
         }
 
+        private void thôngBáoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Session.RoleId == 4)
+            {
+                new NotificationForm().Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("🚫 Bạn không có quyền truy cập vào chức năng này", "Lỗi quyền truy cập",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void nhậtKýToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Session.RoleId == 5)
+            {
+                new LogForm().Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("🚫 Bạn không có quyền truy cập vào chức năng này", "Lỗi quyền truy cập",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

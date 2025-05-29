@@ -126,7 +126,7 @@ namespace CuoiKi
                 residentDTO.Address = rtbAddress.Text;
             }
             //valid.Validate(residentDTO);
-            if (residentService.InsertEncryptedResident(residentDTO)== "Thêm form đăng ký thành công")
+            if (residentService.InsertEncryptedResident(residentDTO) == "Thêm form đăng ký thành công")
             {
                 MessageBox.Show("Đăng ký thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
