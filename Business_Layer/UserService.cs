@@ -119,6 +119,7 @@ namespace Business_Layer
         { "@Username", username },
         { "@Password", password },
         { "@ContactInfo", email },
+        {"@CurrentUserID",1 },
         { "@RoleID", roleId }
         };
 

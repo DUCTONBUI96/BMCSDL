@@ -341,12 +341,16 @@ namespace CuoiKi
 
         private void giámSátGSToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            new LogForm().Show();
+            this.Hide();
             MessageBox.Show("🚧 Chức năng Giám sát đang được phát triển", "Thông báo",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void quảnTrịADMINToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            new AdminForm().Show();
+            this.Hide();
             MessageBox.Show("🚧 Chức năng Quản trị đang được phát triển", "Thông báo",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -395,23 +399,25 @@ namespace CuoiKi
             lưuTrữLTToolStripMenuItem1.Visible = false;
             xácThựcToolStripMenuItem.Visible = false;
             quảnTrịADMINToolStripMenuItem1.Visible = false;
+            danhSáchToolStripMenuItem.Visible = false;
 
             switch (Session.RoleId)
             {
                 case 1: // Xét duyệt
-                    xétDuyệtXDToolStripMenuItem1.Visible = true;
+                    quảnTrịADMINToolStripMenuItem1.Visible = true;
                     break;
                 case 2: // Giám sát
-                    giámSátGSToolStripMenuItem1.Visible = true;
-                    break;
-                case 3: // Lưu trữ
-                    lưuTrữLTToolStripMenuItem1.Visible = true;
-                    break;
-                case 4: // Xác thực
+                    danhSáchToolStripMenuItem.Visible = true;
                     xácThựcToolStripMenuItem.Visible = true;
                     break;
+                case 3: // Lưu trữ
+                    xétDuyệtXDToolStripMenuItem1.Visible = true;
+                    break;
+                case 4: // Xác thực
+                    lưuTrữLTToolStripMenuItem1.Visible = true;
+                    break;
                 case 5: //Admin
-                    quảnTrịADMINToolStripMenuItem1.Visible = true;
+                    giámSátGSToolStripMenuItem1.Visible = true;
                     break;
                 default:
                     MessageBox.Show("🚫 Bạn không có quyền truy cập vào chức năng này", "Lỗi quyền truy cập",

@@ -18,14 +18,17 @@ namespace CuoiKi
 {
     public partial class ApprovalForm : Form
     {
-        // Định nghĩa màu sắc chung cho ứng dụng - Màu xanh dương
+        // Định nghĩa màu sắc chung cho ứng dụng - Đồng bộ với VerificationForm
         private Color primaryColor = Color.FromArgb(0, 122, 204);      // Màu xanh dương chính
         private Color primaryDarkColor = Color.FromArgb(0, 102, 204);  // Màu xanh dương đậm
         private Color primaryLightColor = Color.FromArgb(229, 241, 255); // Màu xanh dương nhạt
         private Color accentColor = Color.FromArgb(0, 153, 255);       // Màu nhấn
         private Color textColor = Color.FromArgb(51, 51, 51);          // Màu chữ
         private Color textLightColor = Color.White;                    // Màu chữ sáng
-        private Color dangerColor = Color.FromArgb(220, 53, 69);       // Màu đỏ cho nút từ chối
+        private Color lightBgColor = Color.FromArgb(248, 249, 250);    // Màu nền nhạt
+        private Color successColor = Color.FromArgb(40, 167, 69);      // Màu xanh lá (thành công)
+        private Color dangerColor = Color.FromArgb(220, 53, 69);       // Màu đỏ (nguy hiểm)
+        private Color warningColor = Color.FromArgb(255, 193, 7);      // Màu vàng (cảnh báo)
 
         public ApprovalForm()
         {
@@ -40,78 +43,204 @@ namespace CuoiKi
 
         private void CustomizeDesign()
         {
-            // Tùy chỉnh form
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = true;
-            this.MinimumSize = new Size(800, 600); // Đặt kích thước tối thiểu cho form
+            // Tùy chỉnh form với kích thước vừa phải
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Xét duyệt hồ sơ";
-            this.Icon = SystemIcons.Application;
+            this.Text = "Xét duyệt hồ sơ cấp hộ chiếu";
             this.BackColor = Color.White;
+            this.MinimumSize = new Size(1000, 600);
+            this.Size = new Size(1000, 600);
 
-            // Tùy chỉnh panel header
+            // Tùy chỉnh panel header với kích thước nhỏ hơn
             panelHeader.BackColor = primaryColor;
+            panelHeader.Height = 60;
+            labelTitle.Text = "📋 XÉT DUYỆT HỒ SƠ CẤP HỘ CHIẾU";
             labelTitle.ForeColor = textLightColor;
-            labelTitle.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
+            labelTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            labelTitle.Location = new Point(20, 15);
 
-            // Tùy chỉnh panel search
-            panelSearch.BackColor = primaryLightColor;
-            labelFilter.ForeColor = textColor;
-            labelFilter.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular);
+            // Tùy chỉnh DataGridView với kích thước compact
+            CustomizeDataGridView();
 
-            // Tùy chỉnh DataGridView
-            dgvApplications.BorderStyle = BorderStyle.None;
-            dgvApplications.AlternatingRowsDefaultCellStyle.BackColor = primaryLightColor;
-            dgvApplications.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvApplications.DefaultCellStyle.SelectionBackColor = primaryColor;
-            dgvApplications.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvApplications.BackgroundColor = Color.White;
-            dgvApplications.EnableHeadersVisualStyles = false;
-            dgvApplications.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dgvApplications.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
-            dgvApplications.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvApplications.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            dgvApplications.RowHeadersVisible = false; // Ẩn row headers để giao diện gọn hơn
-            dgvApplications.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Tự động điều chỉnh kích thước cột
-
-            // Tùy chỉnh RichTextBox
-            rtbNotes.BorderStyle = BorderStyle.FixedSingle;
-            rtbNotes.BackColor = Color.White;
-            rtbNotes.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular);
-            rtbNotes.ForeColor = Color.Gray;
-            rtbNotes.Text = "Nhập ghi chú... ";
+            // Tùy chỉnh RichTextBox với label
+            CustomizeNotesSection();
 
             // Tùy chỉnh ComboBox
-            cboStatusFilter.FlatStyle = FlatStyle.Flat;
-            cboStatusFilter.BackColor = Color.White;
-            cboStatusFilter.ForeColor = textColor;
-            cboStatusFilter.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular);
+            CustomizeComboBox();
 
-            // Tùy chỉnh TextBox
-            txtSearchCCCD.BorderStyle = BorderStyle.FixedSingle;
-            txtSearchCCCD.BackColor = Color.White;
-            txtSearchCCCD.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular);
-            txtSearchCCCD.ForeColor = Color.Gray;
-            txtSearchCCCD.Text = "Tìm kiếm CCCD";
+            // Tùy chỉnh TextBox search
+            CustomizeSearchBox();
 
-            // Tùy chỉnh Button
-            btnApprove.FlatStyle = FlatStyle.Flat;
+            // Tùy chỉnh Buttons với kích thước nhỏ hơn
+            CustomizeButtons();
+
+            // Tùy chỉnh Status Panel
+            CustomizeStatusPanel();
+
+            // Thêm hover effects
+            AddButtonHoverEffects();
+        }
+
+        private void CustomizeDataGridView()
+        {
+            // Style compact cho DataGridView
+            dgvApplications.BorderStyle = BorderStyle.None;
+            dgvApplications.BackgroundColor = Color.White;
+            dgvApplications.GridColor = Color.FromArgb(230, 230, 230);
+            dgvApplications.RowHeadersVisible = false;
+            dgvApplications.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvApplications.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvApplications.AllowUserToAddRows = false;
+            dgvApplications.AllowUserToDeleteRows = false;
+            dgvApplications.ReadOnly = true;
+            dgvApplications.EnableHeadersVisualStyles = false;
+            dgvApplications.AlternatingRowsDefaultCellStyle.BackColor = primaryLightColor;
+            dgvApplications.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvApplications.MultiSelect = false;
+
+            // Header style compact
+            dgvApplications.ColumnHeadersDefaultCellStyle.BackColor = primaryColor;
+            dgvApplications.ColumnHeadersDefaultCellStyle.ForeColor = textLightColor;
+            dgvApplications.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            dgvApplications.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgvApplications.ColumnHeadersHeight = 40;
+            dgvApplications.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            // Cell style compact
+            dgvApplications.DefaultCellStyle.Font = new Font("Segoe UI", 8.5F, FontStyle.Regular);
+            dgvApplications.DefaultCellStyle.ForeColor = textColor;
+            dgvApplications.DefaultCellStyle.SelectionBackColor = primaryLightColor;
+            dgvApplications.DefaultCellStyle.SelectionForeColor = primaryColor;
+            dgvApplications.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgvApplications.RowTemplate.Height = 30;
+
+            // Vị trí và kích thước compact
+            dgvApplications.Location = new Point(20, 120);
+            dgvApplications.Size = new Size(960, 320);
+        }
+
+        private void CustomizeNotesSection()
+        {
+            // Thêm label cho notes section
+            Label notesLabel = new Label
+            {
+                Text = "📝 Ghi chú xét duyệt:",
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(52, 58, 64),
+                Location = new Point(20, 450),
+                AutoSize = true
+            };
+            this.Controls.Add(notesLabel);
+            notesLabel.BringToFront();
+
+            // Điều chỉnh vị trí RichTextBox compact
+            rtbNotes.Location = new Point(20, 480);
+            rtbNotes.Size = new Size(450, 60);
+            rtbNotes.BorderStyle = BorderStyle.FixedSingle;
+            rtbNotes.BackColor = Color.White;
+            rtbNotes.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            rtbNotes.ForeColor = Color.Gray;
+            rtbNotes.Text = "💬 Nhập lý do phê duyệt hoặc từ chối hồ sơ...";
+        }
+
+        private void CustomizeComboBox()
+        {
+            // Ẩn combobox và search box
+            cboStatusFilter.Visible = false;
+            pictureBox2.Visible = false;
+            txtSearchCCCD.Visible = false;
+            panelSearch.Visible = false;
+        }
+
+        private void CustomizeSearchBox()
+        {
+            // Không cần search box trong layout này
+        }
+
+        private void CustomizeButtons()
+        {
+            // Button style compact
             btnApprove.BackColor = primaryColor;
-            btnApprove.ForeColor = Color.White;
-            btnApprove.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            btnApprove.FlatAppearance.BorderColor = primaryDarkColor;
+            btnApprove.FlatAppearance.BorderSize = 0;
+            btnApprove.ForeColor = textLightColor;
+            btnApprove.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             btnApprove.Cursor = Cursors.Hand;
+            btnApprove.TextAlign = ContentAlignment.MiddleCenter;
+            btnApprove.Text = "✅ Phê duyệt";
+            btnApprove.Size = new Size(140, 35);
+            btnApprove.Location = new Point(490, 480);
 
-            btnReject.FlatStyle = FlatStyle.Flat;
             btnReject.BackColor = dangerColor;
-            btnReject.ForeColor = Color.White;
-            btnReject.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            btnReject.FlatAppearance.BorderColor = Color.FromArgb(200, 35, 51);
+            btnReject.FlatAppearance.BorderSize = 0;
+            btnReject.ForeColor = textLightColor;
+            btnReject.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             btnReject.Cursor = Cursors.Hand;
+            btnReject.TextAlign = ContentAlignment.MiddleCenter;
+            btnReject.Text = "❌ Từ chối";
+            btnReject.Size = new Size(140, 35);
+            btnReject.Location = new Point(650, 480);
 
-            // Tùy chỉnh Label
-            lblStatus.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular);
-            lblStatus.ForeColor = textColor;
+            // Thêm button Refresh và Back compact
+            System.Windows.Forms.Button btnRefresh = new System.Windows.Forms.Button
+            {
+                Text = "🔄 Làm mới",
+                BackColor = successColor,
+                ForeColor = textLightColor,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Size = new Size(120, 35),
+                Location = new Point(810, 480),
+                Cursor = Cursors.Hand,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.Click += (s, e) => RefreshData();
+            this.Controls.Add(btnRefresh);
+
+            System.Windows.Forms.Button btnBack = new System.Windows.Forms.Button
+            {
+                Text = "🔙 Quay lại",
+                BackColor = Color.FromArgb(108, 117, 125),
+                ForeColor = textLightColor,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Size = new Size(120, 35),
+                Location = new Point(810, 525),
+                Cursor = Cursors.Hand,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.Click += (s, e) => {
+                new Menu().Show();
+                this.Hide();
+            };
+            this.Controls.Add(btnBack);
+        }
+
+        private void CustomizeStatusPanel()
+        {
+            // Status label compact
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            lblStatus.ForeColor = Color.FromArgb(108, 117, 125);
+            lblStatus.Location = new Point(20, 560);
+            lblStatus.Text = "📊 Sẵn sàng xử lý hồ sơ";
+        }
+
+        private void AddButtonHoverEffects()
+        {
+            // Hover effects
+            btnApprove.MouseEnter += (s, e) => btnApprove.BackColor = Color.FromArgb(0, 86, 179);
+            btnApprove.MouseLeave += (s, e) => btnApprove.BackColor = primaryColor;
+
+            btnReject.MouseEnter += (s, e) => btnReject.BackColor = Color.FromArgb(200, 35, 51);
+            btnReject.MouseLeave += (s, e) => btnReject.BackColor = dangerColor;
+        }
+
+        private void RefreshData()
+        {
+            ApprovalForm_Load(this, EventArgs.Empty);
+            lblStatus.Text = "🔄 Đã làm mới dữ liệu";
         }
 
         private void RemovePlaceholder(object sender, EventArgs e)
@@ -127,7 +256,7 @@ namespace CuoiKi
         {
             if (string.IsNullOrWhiteSpace(rtbNotes.Text))
             {
-                rtbNotes.Text = "Nhập ghi chú... ";
+                rtbNotes.Text = "💬 Nhập lý do phê duyệt hoặc từ chối hồ sơ...";
                 rtbNotes.ForeColor = Color.Gray;
             }
         }
@@ -139,7 +268,7 @@ namespace CuoiKi
 
         private void txtSearchCCCD_Enter(object sender, EventArgs e)
         {
-            if (txtSearchCCCD.Text == "Tìm kiếm CCCD")
+            if (txtSearchCCCD.Text == "🔍 Tìm kiếm theo CCCD...")
             {
                 txtSearchCCCD.Text = "";
                 txtSearchCCCD.ForeColor = textColor;
@@ -150,7 +279,7 @@ namespace CuoiKi
         {
             if (string.IsNullOrWhiteSpace(txtSearchCCCD.Text))
             {
-                txtSearchCCCD.Text = "Tìm kiếm CCCD";
+                txtSearchCCCD.Text = "🔍 Tìm kiếm theo CCCD...";
                 txtSearchCCCD.ForeColor = Color.Gray;
             }
         }
@@ -158,82 +287,182 @@ namespace CuoiKi
         DataTable residentTable;
         private void ApprovalForm_Load(object sender, EventArgs e)
         {
-            // Thiết lập placeholder ban đầu
-            txtSearchCCCD.Text = "Tìm kiếm CCCD";
-            txtSearchCCCD.ForeColor = Color.Gray;
+            // Thêm label danh sách
+            Label listLabel = new Label
+            {
+                Text = "📋 Danh sách hồ sơ chờ xét duyệt",
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(52, 58, 64),
+                Location = new Point(20, 90),
+                AutoSize = true
+            };
+            this.Controls.Add(listLabel);
 
-            cboStatusFilter.Items.Add("Tất cả trạng thái");
-            cboStatusFilter.Items.Add("Chờ xét");
-            cboStatusFilter.Items.Add("Đã duyệt");
-            cboStatusFilter.Items.Add("Từ chối");
-            // Thiết lập mục mặc định
+            // Load dữ liệu - GIỮ NGUYÊN LOGIC GỐC
             ResidentService residentService = new ResidentService();
-
-
-            residentTable = residentService.GetAllResidentForEachUser(3,"SP_ListAllApplicationsForXD");
+            residentTable = residentService.GetAllResidentForEachUser(3, "SP_ListAllApplicationsForXD");
             dgvApplications.DataSource = residentTable;
 
-            // Tùy chỉnh tên cột hiển thị nếu cần
-            if (dgvApplications.Columns.Contains("FullName"))
-                dgvApplications.Columns["FullName"].HeaderText = "Họ và tên";
-            if (dgvApplications.Columns.Contains("CMND"))
-                dgvApplications.Columns["CMND"].HeaderText = "Số CCCD";
-            if (dgvApplications.Columns.Contains("Gender"))
-                dgvApplications.Columns["Gender"].HeaderText = "Giới tính";
-            if (dgvApplications.Columns.Contains("DateOfBirth"))
-                dgvApplications.Columns["DateOfBirth"].HeaderText = "Ngày sinh";
-            if (dgvApplications.Columns.Contains("Address"))
-                dgvApplications.Columns["Address"].HeaderText = "Địa chỉ";
-            if (dgvApplications.Columns.Contains("Nationality"))
-                dgvApplications.Columns["Nationality"].HeaderText = "Quốc tịch";
-            if (dgvApplications.Columns.Contains("PhoneNumber"))
-                dgvApplications.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
-            if (dgvApplications.Columns.Contains("Email"))
-                dgvApplications.Columns["Email"].HeaderText = "Email";
+            // Tùy chỉnh tên cột hiển thị với icons
+            CustomizeColumnHeaders();
 
-            // Cập nhật trạng thái
-            lblStatus.Text = $"Đã tải {residentTable.Rows.Count} hồ sơ.";
-            txtSearchCCCD.TextChanged += txtSearchCCCD_TextChanged;
+            // Tùy chỉnh độ rộng cột compact
+            SetColumnWidths();
+
+            // Cập nhật trạng thái với thống kê
+            UpdateStatusWithStats();
         }
 
+        private void CustomizeColumnHeaders()
+        {
+            var columnMappings = new Dictionary<string, string>
+            {
+                {"FullName", "👤 Họ tên"},
+                {"CMND", "🆔 CCCD"},
+                {"Gender", "⚥ GT"},
+                {"DateOfBirth", "📅 Ngày sinh"},
+                {"Address", "🏠 Địa chỉ"},
+                {"Nationality", "🌍 QT"},
+                {"PhoneNumber", "📞 SĐT"},
+                {"Email", "📧 Email"},
+                {"CreatedAt", "⏰ Ngày tạo"},
+                {"Status", "🔍 Trạng thái"}
+            };
+
+            foreach (var mapping in columnMappings)
+            {
+                if (dgvApplications.Columns.Contains(mapping.Key))
+                {
+                    dgvApplications.Columns[mapping.Key].HeaderText = mapping.Value;
+                }
+            }
+
+            // Ẩn cột ResidentID
+            if (dgvApplications.Columns.Contains("ResidentID"))
+            {
+                dgvApplications.Columns["ResidentID"].Visible = false;
+            }
+        }
+
+        private void SetColumnWidths()
+        {
+            // Đặt AutoSizeColumnsMode về None để có thể tùy chỉnh độ rộng
+            dgvApplications.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Tùy chỉnh độ rộng từng cột compact
+            var columnWidths = new Dictionary<string, int>
+            {
+                {"FullName", 120},
+                {"CMND", 90},
+                {"Gender", 50},
+                {"DateOfBirth", 90},
+                {"Address", 150},
+                {"Nationality", 60},
+                {"PhoneNumber", 100},
+                {"Email", 130},
+                {"CreatedAt", 100},
+                {"Status", 90}
+            };
+
+            foreach (var columnWidth in columnWidths)
+            {
+                if (dgvApplications.Columns.Contains(columnWidth.Key))
+                {
+                    dgvApplications.Columns[columnWidth.Key].Width = columnWidth.Value;
+                }
+            }
+        }
+
+        private void UpdateStatusWithStats()
+        {
+            // Thống kê
+            int totalRecords = residentTable.Rows.Count;
+            int approvedCount = 0;
+            int rejectedCount = 0;
+            int pendingCount = totalRecords;
+
+            // Đếm theo trạng thái nếu có cột Status
+            if (residentTable.Columns.Contains("Status"))
+            {
+                approvedCount = residentTable.AsEnumerable().Count(row =>
+                    row.Field<string>("Status")?.Contains("Đã duyệt") == true);
+                rejectedCount = residentTable.AsEnumerable().Count(row =>
+                    row.Field<string>("Status")?.Contains("Từ chối") == true);
+                pendingCount = totalRecords - approvedCount - rejectedCount;
+            }
+
+            lblStatus.Text = $"📊 Tổng: {totalRecords} | ✅ Duyệt: {approvedCount} | ❌ Từ chối: {rejectedCount} | ⏳ Chờ: {pendingCount}";
+            lblStatus.ForeColor = successColor;
+        }
 
         private void txtSearchCCCD_TextChanged(object sender, EventArgs e)
         {
-            if (residentTable == null) return;
-            string filterCCCD = txtSearchCCCD.Text.Trim(); // Xóa khoảng trắng đầu/cuối chuỗi
-            DataView dv = new DataView(residentTable);
-            dv.RowFilter = $"CMND LIKE '%{filterCCCD}%'"; //tìm kiếm theo CCCD
-            dgvApplications.DataSource = dv;
-
+            // Giữ nguyên logic search nếu cần
         }
 
+        // GIỮ NGUYÊN LOGIC GỐC
         ApplicationService applicationService = new ApplicationService();
         FunctionService functionService = new FunctionService();
+
         private void btnApprove_Click(object sender, EventArgs e)
         {
+            if (dgvApplications.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("⚠️ Vui lòng chọn hồ sơ cần phê duyệt!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            // GIỮ NGUYÊN LOGIC GỐC
+            string x = dgvApplications.CurrentRow.Cells["ApplicationID"].Value?.ToString();
             int ID = int.Parse(x);
             string note = rtbNotes.Text;
+            string fullName = dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString();
 
-            functionService.SystemLog("Approve", Session.RoleId.ToString(), "PassportApplication");//ghi vào nhật kí hệ thống
+            DialogResult result = MessageBox.Show($"✅ Xác nhận phê duyệt hồ sơ của:\n{fullName}?",
+                "Xác nhận phê duyệt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            applicationService.UpdateStatusAndNote(ID, note, "Đã duyệt");
+            if (result == DialogResult.Yes && applicationService.Update(ID, "SP_UpdateApplicationStatusForXD", "Đã phê duyệt"))
+            {
 
-            lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
+                
+                MessageBox.Show($"✅ Đã phê duyệt thành công hồ sơ của {fullName}!",
+                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                RefreshData();
+            }
+            
         }
 
         private void btnReject_Click(object sender, EventArgs e)
         {
-            string x = dgvApplications.CurrentRow.Cells["ResidentID"].Value?.ToString();
+            if (dgvApplications.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("⚠️ Vui lòng chọn hồ sơ cần từ chối!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // GIỮ NGUYÊN LOGIC GỐC
+            string x = dgvApplications.CurrentRow.Cells["ApplicationID"].Value?.ToString();
             int ID = int.Parse(x);
             string note = rtbNotes.Text;
+            string fullName = dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString();
 
-            functionService.SystemLog("Reject", Session.RoleId.ToString(), "PassportApplication");//ghi vào nhật kí hệ thống
+            DialogResult result = MessageBox.Show($"❌ Xác nhận từ chối hồ sơ của:\n{fullName}?",
+                "Xác nhận từ chối", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes && applicationService.Update(ID, "SP_UpdateApplicationStatusForXD", "Từ chối"))
+            {
+                functionService.SystemLog("Reject", Session.RoleId.ToString(), "PassportApplication");
 
 
-            applicationService.UpdateStatusAndNote(ID, note, "Từ chối");
-            lblStatus.Text = $"Đã duyệt hồ sơ của {dgvApplications.CurrentRow.Cells["FullName"].Value?.ToString()}";
+                MessageBox.Show($"❌ Đã từ chối hồ sơ của {fullName}!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                RefreshData();
+            }
+            
         }
     }
 }

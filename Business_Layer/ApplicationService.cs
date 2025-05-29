@@ -23,15 +23,106 @@ namespace Business_Layer
             db.ExecuteNonQuery(query, parameters);
         }
 
-        // Cập nhật trạng thái của người dân không có ghi chú
-        public void UpdateStatus(int residentID, string status)
+        public bool Update(int id, string Proce, string status)
         {
-            string query = $"UPDATE PassportApplications SET Status = N'{status}' WHERE ResidentID = @ResidentID";
             Dictionary<string, object> parameters = new Dictionary<string, object>
+    {
+        { "@ApplicationID", id },
+        { "@UserID", 3 }, 
+        { "@Status", status }, 
+        { "@ReviewNotes", "Hồ sơ hợp lệ" },
+        { "@PassportID",string.Empty },
+        { "@ErrorMessage", string.Empty } 
+    };
+
+            var outputParamNames = new List<string> { "@ErrorMessage","@PassportID" };
+            // Giả sử ExecuteStoredProcedure trả về Dictionary<string, object>
+            var result = db.ExecuteStoredProcedure(Proce, parameters, outputParamNames);
+
+            // Kiểm tra kết quả và trả về
+            if (result != null && result.ContainsKey("@ErrorMessage"))
             {
-                { "@ResidentID", residentID }
-            };
-            db.ExecuteNonQuery(query, parameters);
+                string errorMsg = result["@ErrorMessage"].ToString();
+                return string.IsNullOrEmpty(errorMsg) || errorMsg.Contains("thành công");
+            }
+
+            return false; // Trường hợp không đọc được kết quả
+        }
+
+        // Cập nhật trạng thái của người dân không có ghi chú
+        public bool UpdateStatus(int id, string status, out string errorMessage, out int? applicationId)
+        {
+            errorMessage = null;
+            applicationId = null;
+            try
+            {
+                var parameters = new Dictionary<string, object>
+        {
+            { "@RegistrationID", id },
+            { "@UserID", 2 },
+            { "@ApplicationID", null },
+            { "@ErrorMessage", null }
+        };
+
+                var outputValues = db.ExecuteStoredProcedure(
+                    status,
+                    parameters,
+                    new List<string> { "@ErrorMessage", "@ApplicationID" }
+                );
+
+                // Xử lý ErrorMessage
+                errorMessage = outputValues["@ErrorMessage"]?.ToString();
+
+                // Xử lý ApplicationID (kiểm tra NULL/DBNull trước)
+                if (outputValues["@ApplicationID"] != null && outputValues["@ApplicationID"] != DBNull.Value)
+                {
+                    applicationId = Convert.ToInt32(outputValues["@ApplicationID"]);
+                }
+
+                return string.IsNullOrEmpty(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Lỗi khi cập nhật trạng thái: {ex.Message}";
+                return false;
+            }
+        }
+
+        public bool UpdateStatusReject(int id, string status, out string errorMessage, out int? applicationId)
+        {
+            errorMessage = null;
+            applicationId = null;
+            try
+            {
+                var parameters = new Dictionary<string, object>
+        {
+            { "@RegistrationID", id },
+            { "@UserID", 2 },
+            { "@ErrorMessage", null }
+        };
+
+                var outputValues = db.ExecuteStoredProcedure(
+                    status,
+                    parameters,
+                    new List<string> { "@ErrorMessage" }
+                );
+
+                // Xử lý ErrorMessage
+                errorMessage = outputValues["@ErrorMessage"]?.ToString();
+
+                // Xử lý ApplicationID (kiểm tra NULL/DBNull trước)
+                if (outputValues["@ApplicationID"] != null && outputValues["@ApplicationID"] != DBNull.Value)
+                {
+                    applicationId = Convert.ToInt32(outputValues["@ApplicationID"]);
+                }
+
+                return string.IsNullOrEmpty(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Lỗi khi cập nhật trạng thái: {ex.Message}";
+                return false;
+            }
         }
 
         public void UpdateStatusAndNote(int residentID, string reviewNote)

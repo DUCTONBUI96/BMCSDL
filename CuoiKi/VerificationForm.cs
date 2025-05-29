@@ -286,19 +286,19 @@ namespace CuoiKi
 
             ShowDetailDialog();
         }
-
         private void ShowDetailDialog()
         {
-            DataGridViewRow selectedRow = dgvApplications.SelectedRows[0];
 
+            DataGridViewRow selectedRow = dgvApplications.SelectedRows[0];
             // Lấy thông tin từ row được chọn
+            string RegistrationID = selectedRow.Cells["RegistrationID"].Value?.ToString() ?? "";
             string residentId = selectedRow.Cells["ResidentID"].Value?.ToString() ?? "";
             string fullName = selectedRow.Cells["FullName"].Value?.ToString() ?? "";
             string cccd = selectedRow.Cells["CMND"].Value?.ToString() ?? "";
             string gender = selectedRow.Cells["Gender"].Value?.ToString() ?? "";
             string dob = selectedRow.Cells["DateOfBirth"].Value?.ToString() ?? "";
             string address = selectedRow.Cells["Address"].Value?.ToString() ?? "";
-            string nationality ="Viet Nam";
+            string nationality = "Viet Nam";
             string phone = selectedRow.Cells["PhoneNumber"].Value?.ToString() ?? "";
             string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
             //string createdAt = selectedRow.Cells["CreatedAt"].Value?.ToString() ?? "";
@@ -399,8 +399,7 @@ namespace CuoiKi
             contentPanel.Controls.Add(statusLabel);
             detailForm.Controls.Add(contentPanel);
 
-            // Buttons
-           
+            // Khai báo Button btnApprove
             Button btnApprove = new Button
             {
                 Text = "✅ Xác thực",
@@ -412,39 +411,12 @@ namespace CuoiKi
                 Location = new Point(150, 420),
                 Cursor = Cursors.Hand,
                 TextAlign = ContentAlignment.MiddleCenter
-
             };
-        
-        btnApprove.Click += (sender, e) =>
-            {
-               
-                try
-                {
-                // Lấy RegistrationID từ form (ví dụ: txtRegistrationID.Text)
-                int registrationId = int.Parse(residentId);
-
-
-                // Gọi stored procedure
-                string result = residentService.Registration(registrationId, "Xác thực hồ sơ");
-
-                // Hiển thị kết quả
-                MessageBox.Show(result, "Kết quả", MessageBoxButtons.OK,
-                                            result.Contains("thành công") ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    };
-            // Thêm button vào form
-            this.Controls.Add(btnApprove);
-
             btnApprove.FlatAppearance.BorderSize = 0;
 
+            // Khai báo Button btnReject
             Button btnReject = new Button
             {
-
-                
                 Text = "❌ Từ chối",
                 BackColor = dangerColor,
                 ForeColor = Color.White,
@@ -454,32 +426,10 @@ namespace CuoiKi
                 Location = new Point(290, 420),
                 Cursor = Cursors.Hand,
                 TextAlign = ContentAlignment.MiddleCenter
-
-
             };
-
-            btnApprove.Click += (sender, e) =>
-            {
-                try
-                {
-                    // Lấy RegistrationID từ form (ví dụ: txtRegistrationID.Text)
-                    int registrationId = int.Parse(residentId);
-
-                    // Gọi stored procedure
-                    string result = residentService.Registration(registrationId, "Từ chốihồ sơ");
-
-                    // Hiển thị kết quả
-                    MessageBox.Show(result, "Kết quả", MessageBoxButtons.OK,
-                                                result.Contains("thành công") ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            };
-            // Thêm button vào form
             btnReject.FlatAppearance.BorderSize = 0;
 
+            // Khai báo Button btnClose
             Button btnClose = new Button
             {
                 Text = "🔙 Đóng",
@@ -494,47 +444,64 @@ namespace CuoiKi
             };
             btnClose.FlatAppearance.BorderSize = 0;
 
-            // Event handlers
-            btnApprove.Click += (s, e) => {
+            btnApprove.Click += (s, e) =>
+            {
+
+
+                int registrationId = int.Parse(RegistrationID);
+                if (applicationService.UpdateStatus(registrationId, "SP_TransferToReview", out var errorMessage, out var applicationId))
+                {
+                    // Thành công
+                    MessageBox.Show($"Cập nhật thành công. ApplicationID: {applicationId}");
+                }
+                else
+                {
+                    // Thất bại
+                    MessageBox.Show($"Lỗi: {errorMessage}");
+                }
+
+
+                detailForm.Close();
+                LoadData();
+            };
+                
+            
+
+            btnReject.Click += (s, e) =>
+            {
                 try
                 {
-                    int id = int.Parse(residentId);
-                    applicationService.UpdateStatus(id, "Đã xác thực");
-                    MessageBox.Show($"✅ Đã xác thực thành công hồ sơ của {fullName}!",
-                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int registrationId = int.Parse(residentId);
+                    if (applicationService.UpdateStatusReject(registrationId, "SP_RejectPassportRegistration", out var errorMessage, out var applicationId))
+                    {
+                        // Thành công
+                        MessageBox.Show($"Cập nhật thành công. ApplicationID: {applicationId}");
+                    }
+                    else
+                    {
+                        // Thất bại
+                        MessageBox.Show($"Lỗi: {errorMessage}");
+                    }
+
                     detailForm.Close();
-                    LoadData(); // Refresh data
+                    LoadData();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"❌ Lỗi khi xác thực: {ex.Message}",
-                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             };
 
-            btnReject.Click += (s, e) => {
-                try
-                {
-                    int id = int.Parse(residentId);
-                    applicationService.UpdateStatus(id, "Từ chối");
-                    MessageBox.Show($"❌ Đã từ chối hồ sơ của {fullName}!",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    detailForm.Close();
-                    LoadData(); // Refresh data
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"❌ Lỗi khi từ chối: {ex.Message}",
-                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            };
 
+            // Sự kiện Click cho btnClose
             btnClose.Click += (s, e) => detailForm.Close();
 
+            // Thêm các button vào form
             detailForm.Controls.AddRange(new Control[] { btnApprove, btnReject, btnClose });
+
+            // Hiển thị form
             detailForm.ShowDialog();
         }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadData();

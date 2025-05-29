@@ -107,7 +107,7 @@ namespace Business_Layer
             { "@ErrorMessage", null } // Output parameter
         };
 
-                var outputParamNames = new List<string> { "@ErrorMessage" };
+                var outputParamNames = new List<string> { "@ErrorMessage", "@ApplicationID" };
 
                 // Giả định: db.ExecuteNonQuery là hàm thực thi stored procedure không trả về dữ liệu
                 var outputValues = db.ExecuteStoredProcedure(

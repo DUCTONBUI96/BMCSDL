@@ -80,34 +80,6 @@ namespace CuoiKi
             dgvApprovedApps.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgvApprovedApps.RowTemplate.Height = 35;
 
-            // Tùy chỉnh DataGridView cho lịch sử
-            dgvHistory.BorderStyle = BorderStyle.None;
-            dgvHistory.BackgroundColor = Color.White;
-            dgvHistory.GridColor = Color.FromArgb(230, 230, 230);
-            dgvHistory.RowHeadersVisible = false;
-            dgvHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvHistory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvHistory.AllowUserToAddRows = false;
-            dgvHistory.AllowUserToDeleteRows = false;
-            dgvHistory.ReadOnly = true;
-            dgvHistory.EnableHeadersVisualStyles = false;
-            dgvHistory.AlternatingRowsDefaultCellStyle.BackColor = primaryLightColor;
-            dgvHistory.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-
-            // Tùy chỉnh header style cho dgvHistory
-            dgvHistory.ColumnHeadersDefaultCellStyle.BackColor = successColor;
-            dgvHistory.ColumnHeadersDefaultCellStyle.ForeColor = textLightColor;
-            dgvHistory.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvHistory.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            dgvHistory.ColumnHeadersHeight = 50;
-
-            // Tùy chỉnh cell style cho dgvHistory
-            dgvHistory.DefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular);
-            dgvHistory.DefaultCellStyle.ForeColor = textColor;
-            dgvHistory.DefaultCellStyle.SelectionBackColor = primaryLightColor;
-            dgvHistory.DefaultCellStyle.SelectionForeColor = successColor;
-            dgvHistory.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            dgvHistory.RowTemplate.Height = 35;
 
             // Tùy chỉnh TextBox
             txtPassportNumber.BorderStyle = BorderStyle.FixedSingle;
@@ -161,8 +133,6 @@ namespace CuoiKi
             labelApprovedList.Font = new Font("Segoe UI", 12, FontStyle.Bold);
             labelApprovedList.ForeColor = Color.FromArgb(52, 58, 64);
 
-            labelHistory.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            labelHistory.ForeColor = Color.FromArgb(52, 58, 64);
 
             lblLog.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             lblLog.ForeColor = successColor;
@@ -188,6 +158,8 @@ namespace CuoiKi
 
         private void PassportIssueForm_Load(object sender, EventArgs e)
         {
+
+
             // Thiết lập TextBox
             txtPassportNumber.ReadOnly = false; // Cho phép nhập số hộ chiếu
             txtTrangThai.ReadOnly = true;
@@ -205,7 +177,6 @@ namespace CuoiKi
 
             // Load dữ liệu
             LoadApprovedApplications();
-            LoadHistoryData();
 
             // Đăng ký events
             dgvApprovedApps.CellClick += dgvApprovedApps_CellContentClick;
@@ -241,29 +212,6 @@ namespace CuoiKi
             lblLog.ForeColor = successColor;
         }
             
-        private void LoadHistoryData()
-        {
-            
-
-            // Tùy chỉnh tên cột hiển thị cho lịch sử
-            if (dgvHistory.Columns.Contains("ResidentID"))
-                dgvHistory.Columns["ResidentID"].Visible = false;
-            if (dgvHistory.Columns.Contains("FullName"))
-                dgvHistory.Columns["FullName"].HeaderText = "👤 Họ tên";
-            if (dgvHistory.Columns.Contains("Status"))
-                dgvHistory.Columns["Status"].HeaderText = "📋 Trạng thái đơn";
-            if (dgvHistory.Columns.Contains("ApplicationDate"))
-                dgvHistory.Columns["ApplicationDate"].HeaderText = "📅 Ngày nộp";
-            if (dgvHistory.Columns.Contains("PassportStatus"))
-                dgvHistory.Columns["PassportStatus"].HeaderText = "🛂 Tình trạng HC";
-            if (dgvHistory.Columns.Contains("IssueDate"))
-                dgvHistory.Columns["IssueDate"].HeaderText = "📅 Ngày cấp HC";
-            if (dgvHistory.Columns.Contains("ExpiryDate"))
-                dgvHistory.Columns["ExpiryDate"].HeaderText = "⏰ Ngày hết hạn";
-            if (dgvHistory.Columns.Contains("Notes"))
-                dgvHistory.Columns["Notes"].HeaderText = "📝 Ghi chú";
-        }
-    
 
         private void dgvApprovedApps_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -489,7 +437,7 @@ namespace CuoiKi
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            new Menu().Show();
+            new Login().Show();
             this.Hide();
         }
 

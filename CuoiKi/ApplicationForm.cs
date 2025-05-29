@@ -111,7 +111,7 @@ namespace CuoiKi
         private void btnSubmit_Click(object sender, EventArgs e)
         {
 
-           ResidentValidator valid = new ResidentValidator();
+           //ResidentValidator valid = new ResidentValidator();
            ResidentService residentService = new ResidentService();
            
            ResidentDTO residentDTO = new ResidentDTO();
@@ -125,7 +125,7 @@ namespace CuoiKi
                 residentDTO.Email= txtEmail.Text;
                 residentDTO.Address = rtbAddress.Text;
             }
-            valid.Validate(residentDTO);
+            //valid.Validate(residentDTO);
             if (residentService.InsertEncryptedResident(residentDTO)== "Thêm form đăng ký thành công")
             {
                 MessageBox.Show("Đăng ký thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

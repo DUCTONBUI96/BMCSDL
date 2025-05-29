@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvApprovedApps = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,7 +38,6 @@
             this.txtPassportNumber = new System.Windows.Forms.TextBox();
             this.dtpIssueDate = new System.Windows.Forms.DateTimePicker();
             this.dtpExpiryDate = new System.Windows.Forms.DateTimePicker();
-            this.dgvHistory = new System.Windows.Forms.DataGridView();
             this.txtTrangThai = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnVerify = new System.Windows.Forms.Button();
@@ -48,12 +45,10 @@
             this.panelHeader = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelApprovedList = new System.Windows.Forms.Label();
-            this.labelHistory = new System.Windows.Forms.Label();
             this.panelInfo = new System.Windows.Forms.Panel();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApprovedApps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.panelHeader.SuspendLayout();
             this.panelInfo.SuspendLayout();
             this.panelStatus.SuspendLayout();
@@ -67,24 +62,24 @@
             this.dgvApprovedApps.BackgroundColor = System.Drawing.Color.White;
             this.dgvApprovedApps.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvApprovedApps.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvApprovedApps.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvApprovedApps.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvApprovedApps.ColumnHeadersHeight = 50;
             this.dgvApprovedApps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(241)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvApprovedApps.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(241)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvApprovedApps.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvApprovedApps.EnableHeadersVisualStyles = false;
             this.dgvApprovedApps.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.dgvApprovedApps.Location = new System.Drawing.Point(30, 140);
@@ -95,7 +90,7 @@
             this.dgvApprovedApps.RowHeadersWidth = 51;
             this.dgvApprovedApps.RowTemplate.Height = 35;
             this.dgvApprovedApps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvApprovedApps.Size = new System.Drawing.Size(650, 300);
+            this.dgvApprovedApps.Size = new System.Drawing.Size(1329, 300);
             this.dgvApprovedApps.TabIndex = 0;
             this.dgvApprovedApps.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvApprovedApps_CellContentClick);
             // 
@@ -181,45 +176,6 @@
             this.dtpExpiryDate.TabIndex = 7;
             this.dtpExpiryDate.Value = new System.DateTime(2029, 12, 25, 23, 59, 59, 999);
             // 
-            // dgvHistory
-            // 
-            this.dgvHistory.AllowUserToAddRows = false;
-            this.dgvHistory.AllowUserToDeleteRows = false;
-            this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvHistory.BackgroundColor = System.Drawing.Color.White;
-            this.dgvHistory.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvHistory.ColumnHeadersHeight = 50;
-            this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(241)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvHistory.EnableHeadersVisualStyles = false;
-            this.dgvHistory.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.dgvHistory.Location = new System.Drawing.Point(720, 140);
-            this.dgvHistory.MultiSelect = false;
-            this.dgvHistory.Name = "dgvHistory";
-            this.dgvHistory.ReadOnly = true;
-            this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.RowHeadersWidth = 51;
-            this.dgvHistory.RowTemplate.Height = 35;
-            this.dgvHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHistory.Size = new System.Drawing.Size(650, 300);
-            this.dgvHistory.TabIndex = 8;
-            // 
             // txtTrangThai
             // 
             this.txtTrangThai.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -297,17 +253,6 @@
             this.labelApprovedList.TabIndex = 16;
             this.labelApprovedList.Text = "📋 Danh sách hồ sơ đã duyệt";
             // 
-            // labelHistory
-            // 
-            this.labelHistory.AutoSize = true;
-            this.labelHistory.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(58)))), ((int)(((byte)(64)))));
-            this.labelHistory.Location = new System.Drawing.Point(720, 100);
-            this.labelHistory.Name = "labelHistory";
-            this.labelHistory.Size = new System.Drawing.Size(297, 28);
-            this.labelHistory.TabIndex = 17;
-            this.labelHistory.Text = "📊 Lịch sử thay đổi trạng thái";
-            // 
             // panelInfo
             // 
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
@@ -359,11 +304,9 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.panelStatus);
             this.Controls.Add(this.panelInfo);
-            this.Controls.Add(this.labelHistory);
             this.Controls.Add(this.labelApprovedList);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.btnVerify);
-            this.Controls.Add(this.dgvHistory);
             this.Controls.Add(this.btnIssue);
             this.Controls.Add(this.dgvApprovedApps);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -374,7 +317,6 @@
             this.Text = "Cấp hộ chiếu";
             this.Load += new System.EventHandler(this.PassportIssueForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvApprovedApps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.panelInfo.ResumeLayout(false);
@@ -396,7 +338,6 @@
         private System.Windows.Forms.TextBox txtPassportNumber;
         private System.Windows.Forms.DateTimePicker dtpIssueDate;
         private System.Windows.Forms.DateTimePicker dtpExpiryDate;
-        private System.Windows.Forms.DataGridView dgvHistory;
         private System.Windows.Forms.TextBox txtTrangThai;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnVerify;
@@ -404,7 +345,6 @@
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelApprovedList;
-        private System.Windows.Forms.Label labelHistory;
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Panel panelStatus;
         private System.Windows.Forms.Button btnBack;
